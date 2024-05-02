@@ -1,5 +1,5 @@
 
-![Logo do projeto](https://ms.senac.br/site/img/logo.png)
+![Logo do projeto](https://imgur.com/a/Ox0b6Fo)
 
 # Curso Desenvolvimento de Sistemas - SENAC/MS
 
