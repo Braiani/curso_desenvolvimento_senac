@@ -8,9 +8,9 @@ num = int(input("Digite um número mágico: "))
 
 print(
    f"""
-                            +------------------------------------+
-                            | O sucessor do número mágico é: {sucessor(num)}   |
-                            | O antecessor do número mágico é: {antecessor(num)} |
-                            +------------------------------------+
+            +------------------------------------+
+            | O sucessor do número mágico é: {sucessor(num)}   |
+            | O antecessor do número mágico é: {antecessor(num)} |
+            +------------------------------------+
     """
     )
