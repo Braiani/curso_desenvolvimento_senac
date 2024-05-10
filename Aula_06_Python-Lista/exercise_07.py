@@ -6,3 +6,44 @@ Enunciado do exercício:
       Ao encerrar o programa também deve ser informados os códigos e valores do cliente mais alto, do mais baixo,
       do mais gordo e do mais magro, além da média das alturas e dos pesos dos clientes
 """)
+
+academia = []
+maior = {'cod_altura': '', 'cod_peso': ''}
+maior_peso = 0
+maior_altura = 0
+soma_peso = 0
+soma_altura = 0
+
+while True:
+    codigo = input("Digite o seu código (0 para sair): ")
+
+    if codigo == "0":
+      break
+    
+    altura = float(input("Digite sua altura: "))
+    peso = float(input("Digite seu peso: "))
+    soma_altura += altura
+    soma_peso += peso
+
+    if altura > maior_altura:
+      maior_altura = altura
+      maior['cod_altura'] = codigo
+
+    if peso > maior_peso:
+      maior_peso = peso
+      maior['cod_peso'] = codigo
+    
+    academia.append({
+        'codigo': codigo,
+        'altura': altura,
+        'peso': peso
+    })
+
+print(f"""
+  +=================+===============+
+  |    Maior Altura   || {maior['cod_altura']} - {maior_altura}
+  |     Maior Peso    || {maior['cod_peso']} - {maior_peso}
+  | Média das Alturas || {soma_altura / len(academia)}
+  |  Média de Pesos   || {soma_peso / len(academia)}
+  +=================+===============+
+""")

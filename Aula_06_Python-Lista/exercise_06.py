@@ -24,23 +24,35 @@ while True:
   troco = 0
   i = 0
 
+  print("Bem vindo a Lojas Tabajara")
+
   while True:
     valor = float(input(f"Digite o valor do produto {i + 1}: "))
-    i += 1
     if valor == 0:
       break
 
+    i += 1
     produtos.append(valor)
-  
-  j = 0
-  while j < len(produtos):
-    total += produtos[j]
-    j += 1
+    total += valor
   
   print(f"O total dos produtos é R$ {total:.2f}")
 
-  while recebido <= total:
-    recebido = float(input("Digite o valor recebido do cliente: "))
-    if recebido < total:
-      print("Está faltando granaaaa!!!!")
+  while recebido < total:
+    recebido += float(input("Digite o valor recebido do cliente: "))
+    print(f"Valor total recebido R$ {recebido:.2f}")
+    if recebido >= total:
+      break
   
+  if recebido > total:
+    troco = recebido - total
+  
+  j = 0
+  print("\nLojas Tabajara")
+  while j < len(produtos):
+    print(f"Produto {j + 1}: R$ {produtos[j]:.2f}")
+    j += 1
+  print(f"Total: R$ {total:.2f}")
+  print(f"Recebido: R$ {recebido:.2f}")
+  print(f"Troco: R$ {troco:.2f}")
+
+  print("----------------------------------------------------------", end="\n\n\n")
