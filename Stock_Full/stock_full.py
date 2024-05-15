@@ -4,7 +4,7 @@ def cadastrar_produto(banco):
     try:
         codigo = input("Digite o código do produto: ")
 
-        if pesquisar_produto_por_codigo(banco, codigo):
+        if pesquisar_produto_por_codigo(banco, codigo, False):
             raise Exception('Código existe!')
         
         produto = input("Digite o nome do produto: ")
@@ -19,16 +19,20 @@ def cadastrar_produto(banco):
         if input("Digite 0 para continuar... ") == "0":
             cadastrar_produto(banco)
 
-def pesquisar_produto_por_codigo(banco, codigo):
-    retorno = False
-    produtos = open(banco, 'r')
+def pesquisar_produto_por_codigo(banco, codigo, error=True):
+    try:
+        retorno = False
+        produtos = open(banco, 'r')
 
-    for produto in produtos.readlines():
-        if produto.strip().split(',')[0] == codigo:
-            retorno = True
+        for produto in produtos.readlines():
+            if produto.strip().split(',')[0] == codigo:
+                retorno = True
 
-    produtos.close()
-    return retorno
+        produtos.close()
+        return retorno
+    except FileNotFoundError:
+        if error:
+            printAndSleep("Banco de dados não localizado!")
 
 def cadastrar_produto_banco(codigo, produto, quantidade, banco):
     estoque = open(banco, 'a')
@@ -52,6 +56,20 @@ def listar_produtos_banco(banco):
     except FileNotFoundError:
         printAndSleep("Banco de dados não localizado!")
 
+
+def entrada_estoque(banco):
+    codigo = input("Digite o código do produto: ")
+    if pesquisar_produto_por_codigo(banco, codigo):
+        quantidade = float(input("Digite a quantidade que está entrando no estoque: "))
+        entrada_estoque_banco(codigo, quantidade, banco)
+    else:
+        printAndSleep("Produto não encontrado! Cadastrar produto (S/N)?", 1)
+        if input().capitalize() == "S":
+            cadastrar_produto(banco)
+
+def entrada_estoque_banco(codigo, quantidade, banco):
+    pass # Implementar
+
 def clear():
     print("\033c", end="")
 
@@ -60,7 +78,7 @@ def printAndSleep(txt, tempo=2):
     time.sleep(tempo)
 
 
-banco_dados = 'Stock_Full\estoque_db.txt'
+banco_dados = 'estoque_db.txt'
 
 while True:
 
@@ -92,7 +110,7 @@ while True:
     operacao = input("Digite o código da operação que deseja realizar: ").capitalize()
 
     if operacao == "E":
-        printAndSleep("Entrada")
+        entrada_estoque(banco_dados)
     elif operacao == "C":
         printAndSleep("Caregando.....", 1)
         cadastrar_produto(banco_dados)
