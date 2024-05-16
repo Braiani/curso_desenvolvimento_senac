@@ -1,0 +1,20 @@
+123,Smart TV,20.0
+234,Fone de Ouvido Bluetooth,15.0
+345,Smartwatch,10.0
+456,Console de Video Game,18.0
+567,Tablet,22.0
+678,Câmera DSLR,30.0
+789,Mouse sem fio,8.0
+890,Teclado mecânico,12.0
+901,Carregador portátil,20.0
+210,Monitor 4K,35.0
+321,Impressora a laser,28.0
+432,Celular,45.0
+543,Caixa de som Bluetooth,17.0
+654,Webcam,9.0
+765,Roteador Wi-Fi,14.0
+876,Power Bank,21.0
+987,Drone,40.0
+098,Fone de ouvido com fio,7.0
+109,Notebook,55.0
+210,Adaptador HDMI,5.0
