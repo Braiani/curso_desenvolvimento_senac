@@ -174,16 +174,77 @@ while True:
                     if forma_pagamento == "C":
                         print("Escolha qual o tipo do cartão: D - Débito; C - Crédito ou V - Voucher")
                         forma_cartao = input("Digite qual tipo de cartão: ").capitalize()
+                        if forma_cartao != "D" and forma_cartao != "C" and forma_cartao != "V":
+                            print("Tipo de cartão inválido!")
+                            continue
                     
                     if forma_pagamento == "C" or forma_pagamento == "P":
                         saldo = float(input("Digite o saldo atual: "))
                         if saldo >= total:
                             print("Compra aprovada!")
+                            print("Gerando NF... ")
+                            i = 0
+                            while i < 10**7.5:
+                                i += 1
+                            print("Nota gerada!")
+                            total = 0
+                            print("+----------------------------------------------------------------+")
+                            for item in carrinho:
+                                for produto in produtos:
+                                    if item in produto:
+                                        print(f"- ({produto[2]}) {produto[3]} - Valor do produto: R$ {produto[5]:.2f}")
+                                        print(f" -- Impostos - Municipal: R$ {produto[5] * 0.05:.2f}, Estadual: R$ {produto[5] * 0.08:.2f}, Federal: R$ {produto[5] * 0.12:.2f}")
+                                        print()
+                                        total += produto[5]
+                            print(f"Valor total da compra - R$ {total:.2f}")
+                            print(f"Valor recebido - R$ {saldo:.2f}")
+                            if saldo > total:
+                                print(f"Seu saldo atual é de R$ {saldo - total:.2f}")
+                            print("+----------------------------------------------------------------+")
+                            print(f"Valor total de imposto Municipal - R$ {total * 0.05:.2f}")
+                            print(f"Valor total de imposto Estadual - R$ {total * 0.08:.2f}")
+                            print(f"Valor total de imposto Federal - R$ {total * 0.12:.2f}")
+                            print("+----------------------------------------------------------------+")
                             print()
                             carrinho = []
                             break
                         else:
                             print("Compra recusada! Tente outr forma de pagamento!")
+                    elif forma_pagamento == "D":
+                        dinheiro_recebido = float(input("Digite o valor recebido: "))
+                        if dinheiro_recebido >= total:
+                            print(f"Compra aprovada!")
+                            if dinheiro_recebido > total:
+                                print(f"Seu troco é de R$ {dinheiro_recebido - total:.2f}")
+                                print("Gerando NF... ")
+                            i = 0
+                            while i < 10**7.5:
+                                i += 1
+                            print("Nota gerada!")
+                            total = 0
+                            print("+----------------------------------------------------------------+")
+                            for item in carrinho:
+                                for produto in produtos:
+                                    if item in produto:
+                                        print(f"- ({produto[2]}) {produto[3]} - Valor do produto: R$ {produto[5]:.2f}")
+                                        print(f" -- Impostos - Municipal: R$ {produto[5] * 0.05:.2f}, Estadual: R$ {produto[5] * 0.08:.2f}, Federal: R$ {produto[5] * 0.12:.2f}")
+                                        print()
+                                        total += produto[5]
+                            print(f"Valor total da compra - R$ {total:.2f}")
+                            print(f"Valor recebido - R$ {dinheiro_recebido:.2f}")
+                            if dinheiro_recebido > total:
+                                print(f"Seu troco é de R$ {dinheiro_recebido - total:.2f}")
+                            print("+----------------------------------------------------------------+")
+                            print(f"Valor total de imposto Municipal - R$ {total * 0.05:.2f}")
+                            print(f"Valor total de imposto Estadual - R$ {total * 0.08:.2f}")
+                            print(f"Valor total de imposto Federal - R$ {total * 0.12:.2f}")
+                            print("+----------------------------------------------------------------+")
+                            print()
+                            carrinho = []
+                            break
+                        else:
+                            print("Compra recusada! Tente outra forma de pagamento!")
+                            continue
             else:
                 print("Carrinho Vazio!")
 
