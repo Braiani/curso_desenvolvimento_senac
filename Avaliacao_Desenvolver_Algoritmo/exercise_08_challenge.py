@@ -108,6 +108,12 @@ while True:
                     continue
         
         elif opcao_usuario == 'a':
+            print("+------------------------------------------------------------------------------+")
+            for produto in produtos:
+                print(f"Categoria: {produto[0]}")
+                print(f" -- Subcategoria: {produto[1]}")
+                print(f" ---- Produto: ({produto[2]}) {produto[3]} - {produto[4]} - R$ {produto[5]:.2f}")
+                print("+------------------------------------------------------------------------------+")
             while True:
                 codigo = input("Digite o código do produto que deseja alterar o valor: ")
                 existe = False
@@ -284,17 +290,50 @@ while True:
         elif opcao_usuario == "c":
             while True:
                 print("+------------------------------------------------------------------------------+")
-                for produto in produtos:
-                    print(f"Categoria: {produto[0]}")
-                    print(f" -- Subcategoria: {produto[1]}")
-                    print(f" ---- Produto: ({produto[2]}) {produto[3]} - {produto[4]} - R$ {produto[5]:.2f}")
-                    print("+------------------------------------------------------------------------------+")
+                categorias_apresentadas = []
+                for categoria in produtos:
+                    if categoria[0] in categorias_apresentadas:
+                        continue
+                    print(f"{len(categorias_apresentadas) + 1} - Categoria: {categoria[0]}")
+                    categorias_apresentadas.append(categoria[0])
+                
+                categoria_selecionada = int(input("Digite o número da categoria: "))
+                if categoria_selecionada < 1 or categoria_selecionada > len(categorias_apresentadas):
+                    print("Categoria inválida!")
+                    continue
 
+                print()
+                print("+------------------------------------------------------------------------------+")
+                subcategorias_apresentadas = []
+                for subcategoria in produtos:
+                    if  subcategoria[1] in subcategorias_apresentadas:
+                        continue
+                    if categorias_apresentadas[categoria_selecionada - 1] not in subcategoria:
+                        continue
+                    print(f"{len(subcategorias_apresentadas) + 1} -- Subcategoria: {subcategoria[1]}")
+                    subcategorias_apresentadas.append(subcategoria[1])
+                
+                subcategoria_selecionada = int(input("Digite o número da subcategoria: "))
+                if subcategoria_selecionada < 1 or subcategoria_selecionada > len(subcategorias_apresentadas):
+                    print("Subcategoria inválida!")
+                    continue
+                
+                print()
+                print("+------------------------------------------------------------------------------+")
+                produtos_apresentados = []
+                for produto in produtos:
+                    if produto[2] in produtos_apresentados:
+                        continue
+                    if subcategorias_apresentadas[subcategoria_selecionada - 1] not in produto:
+                        continue
+                    print(f" ---- Produto: ({produto[2]}) {produto[3]} - {produto[4]} - R$ {produto[5]:.2f}")
+                    produtos_apresentados.append(produto[2])
+                
                 produto_selecionado = input("Digite o código do produto: ")
 
                 existe = False
                 for produto in produtos:
-                    if produto[2] == produto_selecionado:
+                    if produto[2] == produto_selecionado and produto_selecionado in produtos_apresentados:
                         existe = True
                 
                 if not existe:
