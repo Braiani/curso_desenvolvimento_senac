@@ -24,6 +24,18 @@ produtos = [
     ['Alimentos','Frios','1009', 'Presunto', 'Fatiado de presunto', 8.9]
 ]
 
+
+swapped = True
+while swapped:
+    swapped = False
+    for i in range(len(produtos) - 1):
+        temp = []
+        if produtos[i][0][0] > produtos[i + 1][0][0]:
+            temp = produtos[i]
+            produtos[i] = produtos[i + 1]
+            produtos[i + 1] = temp
+            swapped = True
+
 carrinho = ['1006','1009','1001']
 
 usuario_logado = []
@@ -101,6 +113,17 @@ while True:
                 valor = float(input("Digite o valor do produto: "))
 
                 produtos.append([categoria, subcategoria, codigo, nome, descricao, valor])
+
+                swapped = True
+                while swapped:
+                    swapped = False
+                    for i in range(len(produtos) - 1):
+                        temp = []
+                        if produtos[i][0][0] > produtos[i + 1][0][0]:
+                            temp = produtos[i]
+                            produtos[i] = produtos[i + 1]
+                            produtos[i + 1] = temp
+                            swapped = True
 
                 if input("Digite 0 para cadastrar outro produto... ") != "0":
                         break
