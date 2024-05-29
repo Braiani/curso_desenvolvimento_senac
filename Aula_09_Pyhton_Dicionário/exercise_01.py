@@ -8,13 +8,10 @@ texto = input("Digite o texto: ").split(" ")
 
 palavras = {}
 for palavra in texto:
-    if palavra not in palavras:
-        palavras[palavra] = 1
-    else:
-        palavras[palavra] += 1
+    palavras[palavra] = texto.count(palavra)
 
 
-print(palavras)
+# print(palavras)
 
-for i in palavras:
-    print(f"'{i}' apareceu {palavras[i]} vezes.")
+for palavra, valor in palavras.items():
+    print(f"'{palavra}' apareceu {valor} vezes.")
