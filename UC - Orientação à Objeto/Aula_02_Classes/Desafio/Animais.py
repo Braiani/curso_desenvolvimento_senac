@@ -543,9 +543,12 @@ while True:
 
         print("-------- Informações do animal escolhido --------")
         i = 1
-        for animal in animais:
+        for key,animal in animais.items():
             if i == animal_escolhido:
-                animais[animal].exibir_informacoes()
+                print(f"-- -- -- Exibindo informações do animal {key} -- -- -- ")
+                print()
+                animal.exibir_informacoes()
+                print("\n\n")
                 break
             else:
                 i += 1
@@ -554,8 +557,8 @@ while True:
     | | Qualquer tecla para Continuar
     |2| Sair
           """)
-    escolha = int(input())
+    escolha = input()
 
-    if(escolha == 2):
+    if(escolha == "2"):
         print("Bye-bye!")
         break
