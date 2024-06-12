@@ -33,11 +33,3 @@ class Carro(Habilitacao):
     def qual_meu_carro(self):
         print(f"Marca: {self.marca}")
         print(f"Cor: {self.cor}")
-
-
-
-    
-
-carro = Habilitacao(21,4,5,1500)
-
-print(carro.tipo_habilitacao())
