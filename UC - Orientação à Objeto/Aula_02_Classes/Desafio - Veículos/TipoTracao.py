@@ -4,7 +4,7 @@ class TipoTracao:
         self.forca_propulsora = forca_propulsora
     
     def tipo_tracao(self):
-        if self.forca_propulsora == "Cobustão":
+        if self.forca_propulsora == "Combustão":
             return "Automotor"
         elif self.forca_propulsora == "Energia Elétrica":
             return "Elétrico"

@@ -10,3 +10,6 @@ class Veiculo:
         print(self.modelo)
         print(self.ano)
         print(self.cor)
+
+    def atende_requisitos(self, requisitos):
+        pass

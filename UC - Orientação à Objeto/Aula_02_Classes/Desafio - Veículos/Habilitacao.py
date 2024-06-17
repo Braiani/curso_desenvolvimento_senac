@@ -1,14 +1,9 @@
 class Habilitacao:
-    def __init__(self, idade, quantidade_rodas, quantidade_ocupantes, peso_veiculo):
-        self.idade = idade
+    def __init__(self, quantidade_rodas, quantidade_ocupantes, peso_veiculo):
         self.quantidade_rodas = quantidade_rodas
         self.quantidade_ocupantes = quantidade_ocupantes
         self.peso_veiculo = peso_veiculo
         
-
-    def pode_ter_habilitacao(self):
-        return self.idade >= 18
-    
     def tipo_habilitacao(self):
         if self.quantidade_rodas < 4:
             return "A"
@@ -24,12 +19,3 @@ class Habilitacao:
         
         return "Categoria não identificada"
     
-class Carro(Habilitacao):
-    def __init__(self, cor, marca, idade, quantidade_rodas, quantidade_ocupantes, peso_veiculo):
-        super().__init__(idade, quantidade_rodas, quantidade_ocupantes, peso_veiculo)
-        self.cor = cor
-        self.marca = marca
-
-    def qual_meu_carro(self):
-        print(f"Marca: {self.marca}")
-        print(f"Cor: {self.cor}")
