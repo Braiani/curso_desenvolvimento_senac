@@ -3,24 +3,24 @@ from Categoria import Categoria
 from Veiculo import Veiculo
 from Habilitacao import Habilitacao
 
-class Eletrico(TipoTracao, Categoria, Veiculo, Habilitacao):
+class PropulsaoHumana(TipoTracao, Categoria, Veiculo, Habilitacao):
 
-    def __init__(self, autonomia, potencia, 
-                 nome_categoria, 
+    def __init__(self, aro, autonomia,
+                 nome_categoria,
                  quantidade_rodas, quantidade_ocupantes, peso_veiculo,
                  marca, modelo, ano, cor, preco):
-        TipoTracao.__init__(self, "Elétrico", "Energia Elétrica")
+        TipoTracao.__init__(self, "Propulsao Humana", "Humana")
         Categoria.__init__(self, nome_categoria)
         Veiculo.__init__(self, marca, modelo, ano, cor)
         Habilitacao.__init__(self, quantidade_rodas, quantidade_ocupantes, peso_veiculo)
+        self.aro = aro
         self.autonomia = autonomia
-        self.potencia = potencia
         self.preco = preco
-    
+
     def exibir_informacoes(self):
         texto_pai = super().exibir_informacoes()
-        return f"{texto_pai}{self.descricao_tracao()}\nNome categoria: {self.nome_categoria}, combustivel: {self.autonomia}, potencia: {self.potencia}"
-
+        return f"{texto_pai}{self.descricao_tracao()}\nNome categoria: {self.nome_categoria}, autonomia: {self.autonomia}, aro: {self.aro}"
+        
     def exibir_marca(self):
         return self.marca
     
@@ -38,27 +38,27 @@ class Eletrico(TipoTracao, Categoria, Veiculo, Habilitacao):
             return self.atende_requisito_estilo_vida(resposta)
     
     def atende_requisito_ocupacao(self, ocupacao):
-        if ocupacao == 1 and (self.preco < 25000 and (self.nome_categoria == 'Particular' or self.nome_categoria == 'Aluguel')):
+        if ocupacao == 1 and self.preco < 25000:
             return True
-        elif ocupacao == 2 and (self.preco < 30000 and (self.nome_categoria == 'Particular' or self.nome_categoria == 'Aluguel')):
+        elif ocupacao == 2 and self.preco < 30000:
             return True
         elif ocupacao == 3 and self.preco < 50000000:
             return True
-        elif ocupacao == 4 and (self.preco < 150000 or self.nome_categoria == 'Transporte Público'):
+        elif ocupacao == 4 and self.preco < 150000:
             return True
-        elif ocupacao == 5 and (self.preco < 2000000  and (self.nome_categoria != 'Transporte Público' or self.nome_categoria != 'Carga Pesada')):
+        elif ocupacao == 5 and self.preco < 2000000:
             return True
         else:
             return False
     
     def atende_requisito_autonomia(self, autonomia):
-        if autonomia == 1 and (self.autonomia >= 300):
+        if autonomia == 1 and (self.autonomia >= 1500):
             return True
-        elif autonomia == 2 and (self.autonomia >= 200):
+        elif autonomia == 2 and (self.autonomia >= 1000):
             return True
-        elif autonomia == 3 and (self.autonomia >= 100):
+        elif autonomia == 3 and (self.autonomia >= 800):
             return True
-        elif autonomia == 4 and (self.autonomia < 100):
+        elif autonomia == 4 and (self.autonomia < 800):
             return True
         else:
             return False
@@ -74,14 +74,13 @@ class Eletrico(TipoTracao, Categoria, Veiculo, Habilitacao):
             return False
         
     def atende_requisito_estilo_vida(self, estilo_vida):
-        if estilo_vida == 1 and (self.ano >= 2022):
+        if estilo_vida == 1 and (self.peso_veiculo < 22):
             return True
-        elif estilo_vida == 2 and (self.nome_categoria == "Aluguel"):
+        elif estilo_vida == 2 and (self.quantidade_ocupantes == 2):
             return True
-        elif estilo_vida == 3 and (self.potencia >= 100 and (self.cor == "Branca" or self.cor == "Preto")):
+        elif estilo_vida == 3 and (self.cor == "Branca" or self.cor == "Preto"):
             return True
-        elif estilo_vida == 4 and (self.quantidade_ocupantes >= 3):
+        elif estilo_vida == 4 and (self.aro <= 24):
             return True
         else:
             return False
-        

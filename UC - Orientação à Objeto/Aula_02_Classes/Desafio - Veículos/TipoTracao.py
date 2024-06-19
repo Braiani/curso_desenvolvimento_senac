@@ -17,5 +17,5 @@ class TipoTracao:
         else:
             return "Desconhecido"
         
-    def descricao(self):
+    def descricao_tracao(self):
         return f"Tipo de tração: {self.nome}, Força propulsora: {self.forca_propulsora}"

@@ -6,10 +6,7 @@ class Veiculo:
         self.cor = cor
 
     def exibir_informacoes(self):
-        print(self.marca)
-        print(self.modelo)
-        print(self.ano)
-        print(self.cor)
-
-    def atende_requisitos(self, requisitos):
+        return f"Marca: {self.marca}, modelo: {self.modelo}, ano: {self.ano}, cor: {self.cor}\n"
+        
+    def atende_requisito(self, requisito, resposta):
         pass

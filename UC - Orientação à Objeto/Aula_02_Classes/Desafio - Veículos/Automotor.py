@@ -18,21 +18,69 @@ class Automotor(TipoTracao, Categoria, Veiculo, Habilitacao):
         self.preco = preco
 
     def exibir_informacoes(self):
-        super().exibir_informacoes()
-        print(self.tipo_tracao())
-        print(self.nome_categoria)
-        print(self.combustivel)
-        print(self.potencia)
-
+        texto_pai = super().exibir_informacoes()
+        return f"{texto_pai}{self.descricao_tracao()}\nNome categoria: {self.nome_categoria}, combustivel: {self.combustivel}, potencia: {self.potencia}"
+        
     def exibir_marca(self):
         return self.marca
     
     def exibir_modelo(self):
         return self.modelo
     
-    def atende_requisitos(self, requisitos):
-        atende = False
-        if requisitos[0] == 1 and self.preco < 25000:
-            atende = True
-
-        return atende
+    def atende_requisito(self, requisito, resposta):
+        if requisito == 'ocupacao':
+            return self.atende_requisito_ocupacao(resposta)
+        elif requisito == 'autonomia':
+            return self.atende_requisito_autonomia(resposta)
+        elif requisito == 'combustivel':
+            return self.atende_requisito_combustivel(resposta)
+        elif requisito == 'estilo_vida':
+            return self.atende_requisito_estilo_vida(resposta)
+    
+    def atende_requisito_ocupacao(self, ocupacao):
+        if ocupacao == 1 and (self.preco < 25000 and (self.nome_categoria == 'Particular' or self.nome_categoria == 'Aluguel')):
+            return True
+        elif ocupacao == 2 and (self.preco < 30000 and (self.nome_categoria == 'Particular' or self.nome_categoria == 'Aluguel')):
+            return True
+        elif ocupacao == 3 and self.preco < 50000000:
+            return True
+        elif ocupacao == 4 and (self.preco < 150000 or self.nome_categoria == 'Transporte Público'):
+            return True
+        elif ocupacao == 5 and (self.preco < 2000000  and (self.nome_categoria != 'Transporte Público' or self.nome_categoria != 'Carga Pesada')):
+            return True
+        else:
+            return False
+    
+    def atende_requisito_autonomia(self, autonomia):
+        if autonomia == 1 and (self.potencia >= 300):
+            return True
+        elif autonomia == 2 and (self.potencia >= 200):
+            return True
+        elif autonomia == 3 and (self.potencia >= 100):
+            return True
+        elif autonomia == 4 and (self.potencia < 100):
+            return True
+        else:
+            return False
+        
+    def atende_requisito_combustivel(self, combustivel):
+        if combustivel == 1 and (self.tipo_tracao() == "Propulsão Humana"):
+            return True
+        elif combustivel == 2 and (self.tipo_tracao() == "Elétrico"):
+            return True
+        elif combustivel == 3 and (self.tipo_tracao() == "Automotor"):
+            return True
+        else:
+            return False
+        
+    def atende_requisito_estilo_vida(self, estilo_vida):
+        if estilo_vida == 1 and (self.ano >= 2022):
+            return True
+        elif estilo_vida == 2 and (self.nome_categoria == "Aluguel"):
+            return True
+        elif estilo_vida == 3 and (self.potencia >= 100 and (self.cor == "Branca" or self.cor == "Preto")):
+            return True
+        elif estilo_vida == 4 and (self.quantidade_ocupantes >= 3):
+            return True
+        else:
+            return False

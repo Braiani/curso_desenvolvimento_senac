@@ -1,27 +1,52 @@
 from Eletrico import Eletrico
 from Automotor import Automotor
+from PropulsaoHumana import PropulsaoHumana
 
-carros_disponiveis = {
+perguntas = ['ocupacao','autonomia','combustivel','estilo_vida']
+
+def exibe_carros_atendidos(carros_atendidos):
+    print("--------//----------//----------------//-------------------//-----------")
+    for carro in carros_atendidos:
+        print(carro.exibir_informacoes())
+        print("--------//----------//----------------//-------------------//-----------")
+
+def atualiza_carros_disponiveis_baseado_resposta(pergunta, resposta, carros_disponiveis):
+    novo_carros_disponiveis = []
+    for carro in carros_disponiveis:
+        if carro.atende_requisito(pergunta, resposta):
+            novo_carros_disponiveis.append(carro)
+    return novo_carros_disponiveis
+    
+
+carros_disponiveis = [
     Eletrico(1500, 520, "Particular", 4, 10, 2000, "Tesla", "Model X", 2024, "Azul", 200000),
-    Automotor("Gasolina", 200, "Aluguel", 4, 2, 1500, "Ferrari", "F250", 2023, "Vermelha", 1500000),
+    Automotor("Gasolina", 200, "Aluguel", 4, 2, 1500, "Ferrari", "F250", 2020, "Vermelha", 1500000),
     Automotor("Diesel", 180, "Particular", 4, 5, 1800, "Ford", "Ranger", 2022, "Branca", 180000),
     Eletrico(1300, 480, "Particular", 4, 5, 1800, "Nissan", "Leaf", 2023, "Verde", 180000),
     Automotor("Gasolina", 250, "Aluguel", 4, 4, 1600, "Porsche", "Cayman", 2024, "Preto", 160000),
     Eletrico(1600, 550, "Particular", 4, 5, 1900, "Audi", "e-tron", 2022, "Prata", 190000),
-    Automotor("Etanol", 190, "Oficial", 4, 5, 1700, "Chevrolet", "Camaro", 2023, "Amarelo", 170000),
+    PropulsaoHumana(26, 1200, "Bicicleta", 2, 1, 15, "Caloi", "Elite", 2023, "Vermelha", 1000),
+    PropulsaoHumana(29, 1230, "Bicicleta", 2, 1, 14, "Specialized", "Rockhopper", 2022, "Preta", 1500),
+    PropulsaoHumana(20, 450, "Patinete", 2, 1, 8, "Xiaomi", "Mi Electric Scooter", 2024, "Branco", 1200),
+    PropulsaoHumana(24, 720, "Triciclo", 3, 2, 25, "Huffy", "Green Machine", 2021, "Verde", 800),
+    PropulsaoHumana(26, 1220, "Bicicleta", 2, 1, 12, "Trek", "Marlin", 2023, "Azul", 1800),
+    PropulsaoHumana(27, 2020, "Bicicleta", 2, 1, 11, "Scott", "Aspect", 2022, "Laranja", 1600),
+    PropulsaoHumana(20, 1620, "Patinete", 2, 1, 7, "Segway", "Ninebot ES2", 2023, "Cinza", 1100),
+    PropulsaoHumana(22, 1020, "Bicicleta", 2, 1, 10, "Giant", "TCR Advanced", 2022, "Preto", 2000),
+    PropulsaoHumana(24, 1200, "Triciclo", 3, 2, 30, "Schwinn", "Meridian", 2021, "Vermelho", 1000),
+    PropulsaoHumana(26, 1920, "Bicicleta", 2, 1, 13, "Cannondale", "Trail", 2024, "Amarela", 1700),
     Eletrico(1400, 500, "Aluguel", 4, 4, 1700, "BMW", "i3", 2024, "Cinza", 170000),
-    Automotor("Gasolina", 300, "Particular", 4, 5, 1800, "Lamborghini", "Huracan", 2023, "Laranja", 180000),
+    Automotor("Álcool", 300, "Particular", 4, 5, 1800, "Lamborghini", "Huracan", 2023, "Laranja", 180000),
     Eletrico(1700, 600, "Particular", 4, 5, 2000, "Mercedes-Benz", "EQC", 2022, "Roxo", 200000),
     Automotor("Diesel", 220, "Aluguel", 4, 4, 1600, "Toyota", "Hilux", 2024, "Prata", 160000),
-    Eletrico(1500, 550, "Oficial", 4, 5, 1800, "Volvo", "XC40 Recharge", 2023, "Azul", 180000),
     Automotor("Gasolina", 280, "Particular", 4, 5, 1700, "Maserati", "Ghibli", 2022, "Vermelho", 170000),
     Eletrico(1400, 480, "Aluguel", 4, 4, 1600, "Hyundai", "Kona Electric", 2024, "Branco", 160000),
     Automotor("Gasolina", 150, "Particular", 2, 1, 200, "Honda", "CBR1000RR", 2023, "Vermelha", 20000),
     Automotor("Gasolina", 100, "Particular", 2, 1, 180, "Harley-Davidson", "Sportster Iron 883", 2022, "Preto", 18000),
-    Automotor("Gasolina", 80, "Particular", 2, 1, 160, "Yamaha", "MT-07", 2024, "Azul", 16000),
+    Automotor("Álcool", 80, "Particular", 2, 1, 160, "Yamaha", "MT-07", 2024, "Azul", 16000),
     Automotor("Gasolina", 180, "Particular", 2, 1, 220, "BMW", "R1250GS Adventure", 2023, "Prata", 22000),
     Automotor("Gasolina", 120, "Particular", 2, 1, 200, "Kawasaki", "Vulcan S", 2022, "Verde", 20000),
-    Automotor("Etanol", 200, "Particular", 4, 5, 1800, "Jaguar", "F-Type", 2023, "Amarelo", 180000),
+    Automotor("Etanol", 200, "Particular", 4, 5, 1800, "Jaguar", "F-Type", 2020, "Amarelo", 180000),
     Eletrico(1600, 600, "Particular", 4, 5, 1900, "Kia", "EV6", 2022, "Verde", 190000),
     Automotor("Gasolina", 320, "Aluguel", 4, 4, 1700, "McLaren", "570S", 2024, "Preto", 170000),
     Automotor("Diesel", 300, "Transporte Público", 6, 40, 12000, "Mercedes-Benz", "O500 RSD", 2023, "Branco", 1200000),
@@ -29,7 +54,7 @@ carros_disponiveis = {
     Automotor("Diesel", 280, "Transporte Público", 6, 35, 11000, "Scania", "K360", 2024, "Vermelho", 1100000),
     Automotor("Diesel", 320, "Transporte Público", 6, 45, 13000, "MAN", "Lion's Coach", 2023, "Amarelo", 1300000),
     Automotor("Diesel", 270, "Transporte Público", 6, 38, 11500, "Iveco", "Crossway", 2022, "Prata", 1150000),
-    Eletrico(1800, 650, "Particular", 4, 5, 2000, "Polestar", "2", 2023, "Cinza", 200000),
+    Eletrico(1800, 650, "Particular", 4, 5, 2000, "Polestar", "2", 2020, "Cinza", 200000),
     Automotor("Gasolina", 350, "Particular", 4, 5, 1800, "Bugatti", "Chiron", 2022, "Azul", 1800000),
     Eletrico(1700, 620, "Aluguel", 4, 4, 1600, "Rivian", "R1T", 2024, "Laranja", 160000),
     Automotor("Gasolina", 400, "Particular", 4, 5, 1900, "Pagani", "Huayra", 2023, "Prata", 1900000),
@@ -38,8 +63,51 @@ carros_disponiveis = {
     Automotor("Diesel", 380, "Carga Pesada", 8, 2, 14500, "Mercedes-Benz", "Actros", 2024, "Azul", 1450000),
     Automotor("Diesel", 420, "Carga Pesada", 8, 2, 15500, "MAN", "TGX", 2023, "Verde", 1550000),
     Automotor("Diesel", 360, "Carga Pesada", 8, 2, 13500, "DAF", "XF", 2022, "Amarelo", 1350000),
-}
-
+    Automotor("Gasolina", 250, "Particular", 4, 5, 1500, "Chevrolet", "Onix", 2023, "Prata", 80000),
+    Automotor("Diesel", 180, "Transporte Público", 4, 20, 2500, "Mercedes-Benz", "Sprinter", 2022, "Branca", 180000),
+    Automotor("Etanol", 200, "Particular", 4, 5, 1600, "Toyota", "Corolla", 2024, "Azul", 100000),
+    PropulsaoHumana(26, 1200, "Bicicleta", 2, 2, 150, "Caloi", "Elite 30", 2023, "Preto", 2000),
+    PropulsaoHumana(29, 800, "Triciclo", 2, 1, 120, "Specialized", "S-Works", 2022, "Vermelho", 8000),
+    PropulsaoHumana(24, 1500, "Patinete", 3, 2, 180, "Trek", "Fuel EX", 2024, "Verde", 10000),
+    Eletrico(600, 300, "Particular", 4, 5, 1800, "Tesla", "Model 3", 2023, "Branco", 150000),
+    Eletrico(500, 250, "Particular", 4, 5, 1700, "Nissan", "Leaf", 2023, "Prata", 90000),
+    Eletrico(700, 350, "Particular", 4, 5, 1900, "BMW", "i3", 2024, "Azul", 120000),
+    Automotor("Gasolina", 300, "Particular", 4, 4, 1700, "Honda", "Civic", 2023, "Preto", 120000),
+    Automotor("Etanol", 180, "Particular", 4, 5, 1600, "Ford", "Ka", 2023, "Vermelho", 60000),
+    Automotor("Diesel", 220, "Particular", 4, 5, 2000, "Volvo", "XC60", 2022, "Cinza", 220000),
+    PropulsaoHumana(27, 1000, "Bicicleta", 2, 1, 130, "Giant", "Trance", 2022, "Azul", 9500),
+    PropulsaoHumana(25, 1300, "Triciclo", 3, 2, 170, "Cannondale", "Scalpel", 2024, "Preto", 12000),
+    PropulsaoHumana(28, 900, "Patinete", 2, 1, 140, "Specialized", "Epic", 2023, "Verde", 8500),
+    Eletrico(550, 280, "Particular", 4, 5, 1750, "Audi", "e-tron", 2023, "Branco", 140000),
+    Eletrico(650, 320, "Particular", 4, 5, 1850, "Jaguar", "I-Pace", 2024, "Prata", 160000),
+    Eletrico(600, 300, "Particular", 4, 5, 1800, "Porsche", "Taycan", 2023, "Vermelho", 170000),
+    Automotor("Gasolina", 280, "Particular", 4, 5, 1650, "Hyundai", "HB20", 2023, "Preto", 85000),
+    Automotor("Gasolina", 320, "Particular", 4, 5, 1800, "Kia", "Sportage", 2024, "Azul", 110000),
+    Automotor("Etanol", 190, "Particular", 4, 5, 1650, "Fiat", "Argo", 2023, "Vermelho", 70000),
+    PropulsaoHumana(30, 1100, "Bicicleta", 3, 2, 160, "Scott", "Spark", 2023, "Preto", 13500),
+    PropulsaoHumana(23, 1600, "Triciclo", 3, 2, 190, "Santa Cruz", "Blur", 2024, "Laranja", 15000),
+    PropulsaoHumana(26, 1200, "Patinete", 2, 1, 140, "Yeti", "SB100", 2023, "Azul", 11000),
+    Eletrico(700, 350, "Particular", 4, 5, 1950, "Renault", "Zoe", 2023, "Branco", 130000),
+    Eletrico(500, 250, "Particular", 4, 5, 1700, "Mitsubishi", "Outlander", 2023, "Prata", 95000),
+    Eletrico(600, 300, "Particular", 4, 5, 1800, "Mini", "Cooper SE", 2024, "Vermelho", 125000),
+    Automotor("Gasolina", 260, "Particular", 4, 5, 1550, "Jeep", "Compass", 2023, "Preto", 95000),
+    Automotor("Etanol", 210, "Particular", 4, 5, 1700, "Peugeot", "208", 2024, "Branco", 80000),
+    Automotor("Diesel", 240, "Particular", 4, 5, 1900, "Land Rover", "Discovery", 2022, "Cinza", 250000),
+    PropulsaoHumana(29, 900, "Bicicleta", 3, 2, 175, "Orbea", "Occam", 2023, "Verde", 12500),
+    PropulsaoHumana(27, 1100, "Triciclo", 3, 2, 170, "GT", "Sensor", 2024, "Preto", 11500),
+    PropulsaoHumana(24, 1400, "Patinete", 2, 1, 150, "Canyon", "Lux", 2023, "Vermelho", 10500),
+    Eletrico(650, 330, "Particular", 4, 5, 1900, "Volvo", "XC40 Recharge", 2023, "Branco", 155000),
+    Eletrico(550, 270, "Particular", 4, 5, 1650, "Citroën", "C4 elétrico", 2023, "Azul", 110000),
+    Eletrico(600, 320, "Particular", 4, 5, 1850, "Ford", "Mustang Mach-E", 2024, "Vermelho", 160000),
+    Automotor("Gasolina", 300, "Particular", 4, 5, 1700, "Audi", "A3", 2023, "Preto", 125000),
+    Automotor("Etanol", 190, "Particular", 4, 5, 1600, "Volkswagen", "Golf", 2024, "Prata", 90000),
+    Automotor("Diesel", 230, "Particular", 4, 5, 1800, "BMW", "X1", 2022, "Azul", 180000),
+    PropulsaoHumana(28, 1000, "Bicicleta", 3, 2, 165, "BMC", "Fourstroke", 2023, "Preto", 14000),
+    PropulsaoHumana(25, 1200, "Triciclo", 3, 2, 160, "Merida", "Big Nine", 2024, "Laranja", 13000),
+    PropulsaoHumana(30, 800, "Patinete", 2, 1, 145, "Yeti", "SB115", 2023, "Azul", 11500),
+    Eletrico(700, 360, "Particular", 4, 5, 2000, "Polestar", "2", 2023, "Branco", 170000),
+    Eletrico(500, 260, "Particular", 4, 5, 1750, "Mazda", "MX-30", 2023, "Prata", 100000)
+]
 
 print()
 print("////--------------------- Seja Bem vindo!!!! ---------------------\\\\\\\\")
@@ -61,7 +129,6 @@ print(f"{'-' * 5} Vamos começar a escolher o seu carro!!!! {'-' * 5}")
 
 print("Faremos algumas perguntas para entender melhor a sua situação atual!")
 
-respostas = []
 resposta_valida = False
 
 while not resposta_valida:
@@ -70,17 +137,33 @@ while not resposta_valida:
     (1) Estudante
     (2) Profissional liberal
     (3) Empresário(a)
-    (4) Trabalhador(a) de escritório
-    (5) Trabalhador(a) manual (ex.: construção, indústria)
-    (6) Aposentado(a)
+    (4) Trabalhador(a) CLT
+    (5) Aposentado(a)
     Escolha a opção: """))
     
-    if ocupacao in range(1,7):
+    if ocupacao in range(1,6):
         resposta_valida = True
     else:
         print("Opção inválida!")
 
-respostas.append(ocupacao)
+carros_disponiveis = atualiza_carros_disponiveis_baseado_resposta('ocupacao', ocupacao, carros_disponiveis)
+print()
+print(f"Separamos {len(carros_disponiveis)} veículos com sua resposta")
+
+if len(carros_disponiveis) <= 1:
+    if len(carros_disponiveis) == 1:
+        print("Veja abaixo o seu carro ideal: \n")
+        exibe_carros_atendidos(carros_disponiveis)
+    print("Obrigado por usar nossos seriços!\n")
+    exit()
+
+if input("Deseja ver os veículos separados (s para ver)? ").lower() == 's':
+    exibe_carros_atendidos(carros_disponiveis)
+    print()
+    print("Gostou das recomendações? Deseja continuar a procura?")
+    if input("Digite s para sair ou qualquer outra tecla para continuar... ").lower() == "s":
+        print("\nObrigado por usar nosso sistema!\n")
+        exit()
 
 resposta_valida = False
 
@@ -99,7 +182,24 @@ while not resposta_valida:
         print("Opção inválida!")
 
 
-respostas.append(estilo_vida)
+carros_disponiveis = atualiza_carros_disponiveis_baseado_resposta('estilo_vida', estilo_vida, carros_disponiveis)
+print()
+print(f"Separamos {len(carros_disponiveis)} veículos com sua resposta")
+
+if len(carros_disponiveis) <= 1:
+    if len(carros_disponiveis) == 1:
+        print("Veja abaixo o seu carro ideal: \n")
+        exibe_carros_atendidos(carros_disponiveis)
+    print("Obrigado por usar nossos seriços!\n")
+    exit()
+
+if input("Deseja ver os carros separados (s para ver)? ").lower() == 's':
+    exibe_carros_atendidos(carros_disponiveis)
+    print()
+    print("Gostou das recomendações? Deseja continuar a procura?")
+    if input("Digite s para sair ou qualquer outra tecla para continuar... ").lower() == "s":
+        print("\nObrigado por usar nosso sistema!\n")
+        exit()
 
 resposta_valida = False
 
@@ -110,16 +210,32 @@ while not resposta_valida:
     (2) Com frequência (duas a três vezes por mês)
     (3) Ocasionalmente (uma vez por mês)
     (4) Raramente (menos de uma vez por mês)
-    (5) Nunca
     Escolha a opção: """))
 
-    if viajante in range(1,6):
+    if viajante in range(1,5):
         resposta_valida = True
     else:
         print("Opção inválida!")
 
 
-respostas.append(viajante)
+carros_disponiveis = atualiza_carros_disponiveis_baseado_resposta('autononia', viajante, carros_disponiveis)
+print()
+print(f"Separamos {len(carros_disponiveis)} veículos com sua resposta")
+
+if len(carros_disponiveis) <= 1:
+    if len(carros_disponiveis) == 1:
+        print("Veja abaixo o seu carro ideal: \n")
+        exibe_carros_atendidos(carros_disponiveis)
+    print("Obrigado por usar nossos seriços!\n")
+    exit()
+
+if input("Deseja ver os carros separados (s para ver)? ").lower() == 's':
+    exibe_carros_atendidos(carros_disponiveis)
+    print()
+    print("Gostou das recomendações? Deseja continuar a procura?")
+    if input("Digite s para sair ou qualquer outra tecla para continuar... ").lower() == "s":
+        print("\nObrigado por usar nosso sistema!\n")
+        exit()
 
 resposta_valida = False
 
@@ -127,81 +243,26 @@ while not resposta_valida:
     combustivel = int(input("""
     4. Qual é a importância de características como economia de combustível e manutenção para você ao escolher um veículo?
     (1) Muito importante
-    (2) Importante
-    (3) Neutro
-    (4) Pouco importante
-    (5) Não é importante
+    (2) Neutro
+    (3) Pouco importante
     Escolha a opção: """))
 
-    if combustivel in range(1,6):
+    if combustivel in range(1,4):
         resposta_valida = True
     else:
         print("Opção inválida!")
 
 
-respostas.append(combustivel)
+carros_disponiveis = atualiza_carros_disponiveis_baseado_resposta('combustivel', combustivel, carros_disponiveis)
+print()
+print(f"Separamos {len(carros_disponiveis)} veículos com sua resposta")
 
-resposta_valida = False
+if len(carros_disponiveis) <= 1:
+    if len(carros_disponiveis) == 1:
+        print("Veja abaixo o seu carro ideal: \n")
+        exibe_carros_atendidos(carros_disponiveis)
+    print("Obrigado por usar nossos seriços!\n")
+    exit()
 
-while not resposta_valida:
-    tecnologia = int(input("""
-    5. Você tem preferência por algum tipo de tecnologia de assistência ao motorista (ex.: piloto automático, assistência de estacionamento)?
-    (1) Sim, prefiro veículos com essas tecnologias
-    (2) Neutro, não é um fator decisivo
-    (3) Não, não tenho interesse em tecnologias avançadas
-    Escolha a opção: """))
-
-    if tecnologia in range(1,4):
-        resposta_valida = True
-    else:
-        print("Opção inválida!")
-
-
-respostas.append(tecnologia)
-
-resposta_valida = False
-
-while not resposta_valida:
-    pavimentacao = int(input("""
-    6. Como você lida com condições adversas de tráfego (ex.: trânsito intenso, estradas não pavimentadas)?
-    (1) Estou acostumado(a) e lido bem com isso
-    (2) É um desafio, mas adapto-me
-    (3) Evito condições adversas sempre que possível
-    (4) Não enfrento essas condições frequentemente
-    Escolha a opção: """))
-
-    if pavimentacao in range(1,5):
-        resposta_valida = True
-    else:
-        print("Opção inválida!")
-
-
-respostas.append(pavimentacao)
-
-resposta_valida = False
-
-while not resposta_valida:
-    prioridades = int(input("""
-    7. Qual é a sua prioridade ao escolher um veículo novo?
-    (1) Conforto e espaço interno
-    (2) Segurança e tecnologia
-    (3) Desempenho e dirigibilidade
-    (4) Economia de combustível
-    Escolha a opção: """))
-
-    if prioridades in range(1,5):
-        resposta_valida = True
-    else:
-        print("Opção inválida!")
-
-
-respostas.append(prioridades)
-
-
-for carro in carros_disponiveis:
-    print(f"- {carro.exibir_marca()} - {carro.exibir_modelo()}:", end=" ")
-    if carro.atende_requisitos(respostas):
-        print("Sim")
-    else:
-        print("Não")
-
+exibe_carros_atendidos(carros_disponiveis)
+print()

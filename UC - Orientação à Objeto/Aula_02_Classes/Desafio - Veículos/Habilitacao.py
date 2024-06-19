@@ -14,8 +14,5 @@ class Habilitacao:
         elif self.quantidade_ocupantes > 9:
             return "D"
         
-        if self.idade >=21:
-            return "E"
-        
         return "Categoria não identificada"
     
