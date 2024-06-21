@@ -16,3 +16,5 @@ class Habilitacao:
         
         return "Categoria não identificada"
     
+    def habilitacao_necessaria(self):
+        return f"Para esse veículo será necessário a carteira {self.tipo_habilitacao()}"

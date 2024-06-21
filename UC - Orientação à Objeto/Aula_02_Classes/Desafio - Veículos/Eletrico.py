@@ -19,7 +19,9 @@ class Eletrico(TipoTracao, Categoria, Veiculo, Habilitacao):
     
     def exibir_informacoes(self):
         texto_pai = super().exibir_informacoes()
-        return f"{texto_pai}{self.descricao_tracao()}\nNome categoria: {self.nome_categoria}, combustivel: {self.autonomia}, potencia: {self.potencia}"
+        return f"""{texto_pai}{self.descricao_tracao()}
+        Nome categoria: {self.nome_categoria}, combustivel: {self.autonomia}, potencia: {self.potencia}
+        Valor: R$ {self.preco:.2f} - {self.habilitacao_necessaria()}"""
 
     def exibir_marca(self):
         return self.marca
@@ -52,35 +54,30 @@ class Eletrico(TipoTracao, Categoria, Veiculo, Habilitacao):
             return False
     
     def atende_requisito_autonomia(self, autonomia):
-        if autonomia == 1 and (self.autonomia >= 300):
+        if autonomia == 1 and self.autonomia >= 300:
             return True
-        elif autonomia == 2 and (self.autonomia >= 200):
+        elif autonomia == 2 and self.autonomia >= 200:
             return True
-        elif autonomia == 3 and (self.autonomia >= 100):
+        elif autonomia == 3 and self.autonomia >= 100:
             return True
-        elif autonomia == 4 and (self.autonomia < 100):
+        elif autonomia == 4:
             return True
         else:
             return False
         
     def atende_requisito_combustivel(self, combustivel):
-        if combustivel == 1 and (self.tipo_tracao() == "Propulsão Humana"):
+        if combustivel == 2 or self.autonomia >= 100:
             return True
-        elif combustivel == 2 and (self.tipo_tracao() == "Elétrico"):
-            return True
-        elif combustivel == 3 and (self.tipo_tracao() == "Automotor"):
-            return True
-        else:
-            return False
+        return False
         
     def atende_requisito_estilo_vida(self, estilo_vida):
-        if estilo_vida == 1 and (self.ano >= 2022):
+        if estilo_vida == 1 and self.ano >= 2022:
             return True
-        elif estilo_vida == 2 and (self.nome_categoria == "Aluguel"):
+        elif estilo_vida == 2 and self.nome_categoria == "Aluguel":
             return True
         elif estilo_vida == 3 and (self.potencia >= 100 and (self.cor == "Branca" or self.cor == "Preto")):
             return True
-        elif estilo_vida == 4 and (self.quantidade_ocupantes >= 3):
+        elif estilo_vida == 4 and self.quantidade_ocupantes >= 3:
             return True
         else:
             return False
