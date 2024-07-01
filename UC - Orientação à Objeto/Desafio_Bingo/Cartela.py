@@ -3,6 +3,7 @@ import random
 class Cartela:
     def __init__(self):
         self.cartela = {"B": [], "I": [], "N": [], "G": [], "O": []}
+        self.numeros_sorteados = []
 
     def gerar_cartela(self):
         while True:
@@ -50,3 +51,10 @@ class Cartela:
                 break            
         
         return self.cartela
+    
+    def verificarCartelaBingada(self) -> bool:
+        for i in range(len(self.numeros_sorteados)):
+            print(i)
+
+    def salvarNumeroSorteado(self, numero):
+        self.numeros_sorteados.append(numero)

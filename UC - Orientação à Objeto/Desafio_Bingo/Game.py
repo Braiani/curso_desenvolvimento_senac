@@ -34,7 +34,16 @@ def mostrar_cartela():
         print(f"|{"-"*15}||{"-"*14}||{"-"*14}||{"-"*14}||{"-"*13}|")
 
 def multiplayer():
-    pass
+    print("Seja bem vindo ao jogo multiplayer!")
+    mostrar_cartela()
+
+    while True:
+        try:
+            sorteado = int(input("Digite o número sorteado: (ctrl + c para sair) "))
+            cartela.salvarNumeroSorteado(sorteado)
+            cartela.verificarCartelaBingada()
+        except KeyboardInterrupt:
+            break
 
 def principal():
     global cartela
