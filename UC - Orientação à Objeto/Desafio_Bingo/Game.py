@@ -8,66 +8,57 @@ def exibir_menu():
     print("2. Exibir minha Cartela")
     print("3. Exibir números sorteados")
     print("4. Jogar bingo com outra pessoa")
-    print("5. Sair")
+    print("5. Gerar nova cartela")
+    print("6. Sair")
     print("==============================")
-
-def formatar_numero(num):
-    if num < 10:
-        return f"0{num}"
-    return num
-
-def mostrar_cartela():
-    print("Veja abaixo sua cartela: ")
-    print()
-    print(f"+{'-'*78}+")
-    print("|\t B\t||\t I\t||\t N\t||\t G\t||\t O\t|")
-    print(f"+{'-'*78}+")
-    for i in range(5):
-        print(f"|\t{formatar_numero(cartela["B"][i])}\t|", end="")
-        print(f"|\t{formatar_numero(cartela["I"][i])}\t|", end="")
-        if i != 2:
-            print(f"|\t{formatar_numero(cartela["N"][i])}\t|", end="")
-        else:
-            print(f"|     Free     |", end="")
-        print(f"|\t{formatar_numero(cartela["G"][i])}\t|", end="")
-        print(f"|\t{formatar_numero(cartela["O"][i])}\t|")
-        print(f"|{"-"*15}||{"-"*14}||{"-"*14}||{"-"*14}||{"-"*13}|")
 
 def multiplayer():
     print("Seja bem vindo ao jogo multiplayer!")
-    mostrar_cartela()
 
     while True:
+        cartela.mostrarCartela()
+
         try:
             sorteado = int(input("Digite o número sorteado: (ctrl + c para sair) "))
             cartela.salvarNumeroSorteado(sorteado)
-            cartela.verificarCartelaBingada()
+            if cartela.verificarCartelaBingada():
+                print("\n\n\n\n")
+                print("Você ganhou!!!")
+                print("Grite BINGOOOOOOOOOOOOOOOO!!!")
+                print("\n\n\n\n")
         except KeyboardInterrupt:
+            print()
+            print("Obrigado por usar nosso modo on-line!")
+            print()
             break
 
 def principal():
     global cartela
-    cartela = Cartela().gerar_cartela()
+    cartela = Cartela()
 
     sorteados = []
     roleta = Roleta()
+
+    contador = 0
     
+    cartela.mostrarCartela()
+    print()
     
     while True:
         exibir_menu()
         
         try:
             escolha_usuario = int(input("Digite a opção desejada: "))
-            if escolha_usuario not in range(1,6):
+            if escolha_usuario not in range(1,7):
                 raise ValueError
             
-            if escolha_usuario == 5:
+            if escolha_usuario == 6:
                 raise KeyboardInterrupt
             
             if escolha_usuario == 2:
                 print()
                 print()
-                mostrar_cartela()
+                cartela.mostrarCartela()
                 print()
             
             if escolha_usuario == 3:
@@ -79,18 +70,50 @@ def principal():
 
             if escolha_usuario == 1:
                 print("Girandooooo......")
-                while True:
-                    numero_sorteado = roleta.girar()
-                    if numero_sorteado not in sorteados:
-                        sorteados.append(numero_sorteado)
-                        sleep(2)
-                        print()
-                        print(f"O número sorteado foi.... {numero_sorteado}")
-                        print()
-                        break
+                numero_sorteado = roleta.girar()
+                sorteados.append(numero_sorteado)
+                contador += 1
+                cartela.salvarNumeroSorteado(numero_sorteado)
+                sleep(1)
+                print()
+
+                if numero_sorteado <= 15:
+                    numero_sorteado = "B " + str(numero_sorteado)
+                elif numero_sorteado <= 30:
+                    numero_sorteado = "I " + str(numero_sorteado)
+                elif numero_sorteado <= 45:
+                    numero_sorteado = "N " + str(numero_sorteado)
+                elif numero_sorteado <= 60:
+                    numero_sorteado = "G " + str(numero_sorteado)
+                elif numero_sorteado > 60:
+                    numero_sorteado = "O " + str(numero_sorteado)
+                
+
+                if contador < 5:
+                    print(f"O número sorteado foi.... {numero_sorteado}")
+                    print()
+                else:
+                    print(f"O número sorteado foi....")
+                    sleep(1)
+                    print(f"Fooiii....")
+                    sleep(1)
+                    print(f"Quem está na boa aí?!?!?!....")
+                    sleep(2)
+                    print(f"O número sorteado foi.... {numero_sorteado}")
+                    print()
+
+                if cartela.verificarCartelaBingada():
+                    print("\n\n\n\n")
+                    print("Você ganhou!!!")
+                    print("Grite BINGOOOOOOOOOOOOOOOO!!!")
+                    print("\n\n\n\n")
             
             if escolha_usuario == 4:
                 multiplayer()
+
+            if escolha_usuario == 5:
+                cartela.gerarNovaCartela()
+                cartela.mostrarCartela()
 
         except KeyboardInterrupt:
             print()
