@@ -36,7 +36,6 @@ class Matematica:
                 continue
             except ValueError:
                 print("Você não digitou um número!") 
-            break
 
 if __name__ == "__main__":
     Matematica()
