@@ -1,3 +1,4 @@
+DROP DATABASE `netflix`;
 create database netflix;
 use netflix;
 create table usuarios(
@@ -7,7 +8,8 @@ create table usuarios(
     senha varchar(100) not null,
     data_nascimento date not null,
     cpf varchar(100) not null,
-    telefone varchar(100)
+    telefone varchar(100),
+    cadastro_ativo tinyint default 1
 );
 create table enderecos(
     id int primary key auto_increment,
@@ -48,15 +50,6 @@ create table situacao_pagamento(
     id int primary key auto_increment,
     descricao varchar(100) not null
 );
-create table pagamentos(
-    id int primary key auto_increment,
-    usuario_id int not null,
-    data date not null,
-    valor float not null,
-    situacao_id int not null,
-    foreign key (usuario_id) references usuarios(id),
-    foreign key (situacao_id) references situacao_pagamento(id)
-);
 create table avisos_emails(
     id int primary key auto_increment,
     usuario_id int not null,
@@ -65,28 +58,18 @@ create table avisos_emails(
     mensagem text not null,
     foreign key (usuario_id) references usuarios(id)
 );
-
-create table filmes (
+create table pagamentos(
     id int primary key auto_increment,
-    titulo varchar(100) not null,
-    ano_producao int not null,
-    duracao int not null
-);
-create table series (
-    id int primary key auto_increment,
-    titulo varchar(100) not null,
-    ano_producao int not null,
-    temporadas int not null
-);
-create table episodios (
-    id int primary key auto_increment,
-    titulo varchar(100) not null,
-    ano_producao int not null,
-    duracao int not null,
-    temporada int not null,
-    numero int not null,
-    proximo_episodio_id int,
-    foreign key (proximo_episodio_id) references episodios(id)
+    usuario_id int not null,
+    data date not null,
+    valor float not null,
+    situacao_id int not null,
+    cartao_id int not null,
+    avisos_email_id int,
+    foreign key (usuario_id) references usuarios(id),
+    foreign key (situacao_id) references situacao_pagamento(id),
+    foreign key (cartao_id) references cartoes(id),
+    foreign key (avisos_email_id) references avisos_emails(id)
 );
 create table produtoras (
     id int primary key auto_increment,
@@ -94,22 +77,48 @@ create table produtoras (
     data_fundacao date not null,
     cidade_sede varchar(100) not null
 );
+create table filmes (
+    id int primary key auto_increment,
+    duracao int not null
+);
+create table series (
+    id int primary key auto_increment,
+    temporadas int not null
+);
 create table documentarios (
     id int primary key auto_increment,
-    titulo varchar(100) not null,
-    ano_producao int not null,
     duracao int not null,
     produtora_id int not null,
     foreign key (produtora_id) references produtoras(id)
+);
+create table videos (
+    id int primary key auto_increment,
+    titulo varchar(100) not null,
+    ano_producao int not null,
+    tipo_video char(1) not null default "f",
+    tipo_video_id int not null,
+    foreign key (tipo_video_id) references filmes(id),
+    foreign key (tipo_video_id) references series(id),
+    foreign key (tipo_video_id) references documentarios(id)
+);
+create table episodios (
+    id int primary key auto_increment,
+    serie_id int not null,
+    titulo varchar(100) not null,
+    ano_producao int not null,
+    duracao int not null,
+    temporada int not null,
+    numero int not null,
+    proximo_episodio_id int,
+    foreign key (proximo_episodio_id) references episodios(id),
+    foreign key (serie_id) references series(id)
 );
 create table avaliacoes (
     id int primary key auto_increment,
     video_id int not null,
     usuario_id int not null,
     nota int not null,
-    foreign key (video_id) references filmes(id) on delete cascade,
-    foreign key (video_id) references series(id) on delete cascade,
-    foreign key (video_id) references documentarios(id) on delete cascade
+    foreign key (video_id) references videos(id),
     foreign key (usuario_id) references usuarios(id)
 );
 create table atores (
@@ -122,7 +131,5 @@ create table atores_videos (
     ator_id int not null,
     video_id int not null,
     foreign key (ator_id) references atores(id),
-    foreign key (video_id) references filmes(id) on delete cascade,
-    foreign key (video_id) references series(id) on delete cascade,
-    foreign key (video_id) references documentarios(id) on delete cascade
+    foreign key (video_id) references videos(id)
 );
