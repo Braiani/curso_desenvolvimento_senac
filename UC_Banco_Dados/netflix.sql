@@ -94,6 +94,7 @@ create table videos (
     id int primary key auto_increment,
     titulo varchar(100) not null,
     ano_producao int not null,
+    caminho_arquivo varchar(255) not null,
     tipo_video char(1) not null default "f",
     tipo_video_id int not null,
     foreign key (tipo_video_id) references filmes(id),
