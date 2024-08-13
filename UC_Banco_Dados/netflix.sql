@@ -1,4 +1,3 @@
-DROP DATABASE `netflix`;
 create database netflix;
 use netflix;
 create table usuarios(
