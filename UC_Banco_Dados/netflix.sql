@@ -24,11 +24,13 @@ create table enderecos(
 create table cartoes(
     id int primary key auto_increment,
     usuario_id int not null,
+    endereco_id int not null,
     numero varchar(100) not null,
     nome_titular varchar(100) not null,
     data_validade date not null,
     cvv int not null,
-    foreign key (usuario_id) references usuarios(id)
+    foreign key (usuario_id) references usuarios(id),
+    foreign key (endereco_id) references enderecos(id)
 );
 create table planos(
     id int primary key auto_increment,
@@ -95,7 +97,7 @@ create table videos (
     titulo varchar(100) not null,
     ano_producao int not null,
     caminho_arquivo varchar(255) not null,
-    tipo_video char(1) not null default "f",
+    tipo_video enum("f","s","d") default "f",
     tipo_video_id int not null,
     foreign key (tipo_video_id) references filmes(id),
     foreign key (tipo_video_id) references series(id),
@@ -115,10 +117,8 @@ create table episodios (
 );
 create table avaliacoes (
     id int primary key auto_increment,
-    video_id int not null,
     usuario_id int not null,
     nota int not null,
-    foreign key (video_id) references videos(id),
     foreign key (usuario_id) references usuarios(id)
 );
 create table atores (
@@ -132,4 +132,12 @@ create table atores_videos (
     video_id int not null,
     foreign key (ator_id) references atores(id),
     foreign key (video_id) references videos(id)
+);
+create table assistidos (
+    usuario_id int not null,
+    video_id int not null,
+    avaliacao_id int,
+    foreign key (video_id) references videos(id),
+    foreign key (avaliacao_id) references avaliacoes(id),
+    foreign key (usuario_id) references usuarios(id)
 );
