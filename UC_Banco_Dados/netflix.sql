@@ -98,10 +98,12 @@ create table videos (
     ano_producao int not null,
     caminho_arquivo varchar(255) not null,
     tipo_video enum("f","s","d") default "f",
-    tipo_video_id int not null,
-    foreign key (tipo_video_id) references filmes(id),
-    foreign key (tipo_video_id) references series(id),
-    foreign key (tipo_video_id) references documentarios(id)
+    filme_id int,
+    serie_id int,
+    documentario_id int,
+    foreign key (filme_id) references filmes(id),
+    foreign key (serie_id) references series(id),
+    foreign key (documentario_id) references documentarios(id)
 );
 create table episodios (
     id int primary key auto_increment,
