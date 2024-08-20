@@ -19,6 +19,7 @@ class Usuario:
 class Programa:
     def __init__(self) -> None:
         self.janela = Tk()
+        self.janela.title("Cadastro")
         self.janela.geometry("600x480")
         self.entradas = []
 
@@ -49,6 +50,7 @@ def verificar_senha():
 
     if usuario == '' or senha == '' or confirm_senha == '':
         messagebox.showwarning("Validação!", "Campo não preenchido!")
+        return
 
     login = Usuario(usuario, senha, confirm_senha)
     login = login.validar_login()
