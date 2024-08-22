@@ -20,19 +20,32 @@ class Programa:
     def __init__(self) -> None:
         self.janela = Tk()
         self.janela.title("Cadastro")
-        self.janela.geometry("600x480")
+        self.janela.geometry("600x480+600+200")
+        self.background = 'black'
+        self.janela.config(background=self.background)
         self.entradas = []
 
-    def adicionar_label(self, text, relx, rely, anchor):
-        ttk.Label(self.janela, text=text).place(relx=relx, rely=rely, anchor=anchor)
+    def adicionar_label(self, text, relx, rely, anchor, options: dict = {}):
+        label = ttk.Label(self.janela, text=text, background=self.background)
+        if options:
+            for key, value in options.items():
+                label[key] = value
+        label.place(relx=relx, rely=rely, anchor=anchor)
     
-    def adicionar_entry(self, relx, rely, anchor, placeholder = ''):
-        entrada = ttk.Entry(self.janela, show=placeholder)
+    def adicionar_entry(self, relx, rely, anchor, placeholder = '', options: dict = {}):
+        entrada = ttk.Entry(self.janela, show=placeholder, width=20)
         self.entradas.append(entrada)
+        if options:
+            for key, value in options.items():
+                entrada[key] = value
         entrada.place(relx=relx, rely=rely, anchor=anchor)
 
-    def adicionar_button(self, text, relx, rely, anchor, command):
-        ttk.Button(self.janela, text=text, command=command).place(relx=relx, rely=rely, anchor=anchor)
+    def adicionar_button(self, text, relx, rely, anchor, command, options: dict = {}):
+        btn = ttk.Button(self.janela, text=text, command=command)
+        if options:
+            for key, value in options.items():
+                btn[key] = value
+        btn.place(relx=relx, rely=rely, anchor=anchor)
     
     def get_entradas(self, entrada = None):
         if entrada == None:
@@ -64,15 +77,26 @@ def verificar_senha():
 if __name__ == '__main__':
     programa = Programa()
 
-    programa.adicionar_label("Digite seu nome", 0.5, 0.20, 'center')
-    programa.adicionar_entry(0.5, 0.25, 'center')
+    labels = {
+        'font': ('Arial', 18),
+        'foreground': 'white',
+    }
+    btns = {
+        'width': 25
+    }
+    entry = {
+        'width': 25
+    }
 
-    programa.adicionar_label("Digite sua senha", 0.5, 0.30, 'center')
-    programa.adicionar_entry(0.5, 0.35, 'center', '*')
+    programa.adicionar_label("Digite seu nome", 0.5, 0.20, 'center', labels)
+    programa.adicionar_entry(0.5, 0.25, 'center', options=entry)
 
-    programa.adicionar_label("Confirme sua senha", 0.5, 0.40, 'center')
-    programa.adicionar_entry(0.5, 0.45, 'center', '*')
+    programa.adicionar_label("Digite sua senha", 0.5, 0.35, 'center', labels)
+    programa.adicionar_entry(0.5, 0.40, 'center', '*', options=entry)
 
-    programa.adicionar_button("Cadastrar", 0.5, 0.6, 'center', verificar_senha)
+    programa.adicionar_label("Confirme sua senha", 0.5, 0.50, 'center', labels)
+    programa.adicionar_entry(0.5, 0.55, 'center', '*', options=entry)
+
+    programa.adicionar_button("Cadastrar", 0.5, 0.65, 'center', verificar_senha, btns)
 
     programa.iniciar()
