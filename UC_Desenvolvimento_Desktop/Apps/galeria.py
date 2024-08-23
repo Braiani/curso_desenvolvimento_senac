@@ -2,17 +2,29 @@ from tkinter import *
 from tkinter import PhotoImage
 
 class Application:
-    def __init__(self, options:dict = {}) -> None:
+    def __init__(self) -> None:
         self.janela = Tk()
         self.images = []
-        if 'title' in options:
-            self.janela.title(options['title'])
-        if 'geometry' in options:
-            self.janela.geometry(options['geometry'])
-        if 'background' in options:
-            self.background = options['background']
-            self.janela.config(background=self.background)
     
+    def set_resizable(self, resizable=True):
+        self.janela.resizable(resizable,resizable)
+
+    def set_geometry(self, width, height):
+        screen_width = self.janela.winfo_screenwidth()
+        screen_height = self.janela.winfo_screenheight()
+
+        x = (screen_width - width) // 2
+        y = (screen_height - height) // 2
+
+        self.janela.geometry(f"{width}x{height}+{x}+{y}")
+    
+    def set_title(self, title=""):
+        self.janela.title(title)
+
+    def set_background(self, color):
+        self.background = color
+        self.janela.config(background=color)
+
     def resize_image(self, image_path: str, width: int, height: int):
         img = PhotoImage(file=image_path)
         if img.width() <= width:
@@ -29,10 +41,10 @@ class Application:
         return img
 
     def container(self, image: dict = {}):
-        frame = Frame(self.janela)
-        frame.grid(row=image['row'], column=image['col'], padx=30, pady=30)
+        frame = Frame(self.janela, background=self.background)
+        frame.grid(row=image['row'], column=image['col'], padx=50, pady=30)
 
-        img = self.resize_image(image_path=image['src'], width=200, height=200)
+        img = self.resize_image(image_path=image['src'], width=300, height=300)
         self.images.append(img)
 
         Label(frame, image=img).pack()
@@ -41,35 +53,35 @@ class Application:
     def start(self):
         self.janela.mainloop()
 
-
 if __name__ == '__main__':
-    options_window = {
-        'title': 'Galeria',
-        'geometry': '600x600+400+200'
-    }
+    programa = Application()
+    programa.set_resizable(False)
+    programa.set_background('gray')
+    programa.set_geometry(1000,650)
+    programa.set_title('Galeria')
+
     images = [
         {
-            'src': 'C:\\Users\\FelipeSantos\\Documents\\Curso\\UC_Desenvolvimento_Desktop\\Apps\\images\\image1.png',
+            'src': 'UC_Desenvolvimento_Desktop\\Apps\\images\\image1.png',
             'row': 0,
             'col': 0
         },
         {
-            'src': 'C:\\Users\\FelipeSantos\\Documents\\Curso\\UC_Desenvolvimento_Desktop\\Apps\\images\\image2.png',
+            'src': 'UC_Desenvolvimento_Desktop\\Apps\\images\\image2.png',
             'row': 0,
             'col': 1
         },
         {
-            'src': 'C:\\Users\\FelipeSantos\\Documents\\Curso\\UC_Desenvolvimento_Desktop\\Apps\\images\\image3.png',
+            'src': 'UC_Desenvolvimento_Desktop\\Apps\\images\\image3.png',
             'row': 1,
             'col': 0
         },
         {
-            'src': 'C:\\Users\\FelipeSantos\\Documents\\Curso\\UC_Desenvolvimento_Desktop\\Apps\\images\\image4.png',
+            'src': 'UC_Desenvolvimento_Desktop\\Apps\\images\\image4.png',
             'row': 1,
             'col': 1
         },
     ]
-    programa = Application(options=options_window)
     
     for image in images:
         programa.container(image)
