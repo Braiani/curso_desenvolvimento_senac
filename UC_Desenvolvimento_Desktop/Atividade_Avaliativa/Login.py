@@ -6,12 +6,14 @@ from Usuarios import Usuarios
 from Application import Application
 
 class Login(Application):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, janela: Tk):
+        super().__init__(janela=janela)
         self.set_geometry(400, 300, True)
         self.set_title('Login')
         self.set_background('gray')
         self.entradas = []
+        self.logado = False
+        self.usuario = None
 
         self.adicionar_label('Usuário', 0.5, 0.2, CENTER)
         self.adicionar_entry(0.5, 0.3, CENTER, {'width': 20})
@@ -28,6 +30,12 @@ class Login(Application):
             for key, value in options.items():
                 entrada[key] = value
         entrada.place(relx=relx, rely=rely, anchor=anchor)
+
+    def get_logado(self):
+        if self.logado:
+            return self.usuario
+        
+        return False
 
     def validar_login(self):
         usuario = self.entradas[0].get()
@@ -52,6 +60,8 @@ class Login(Application):
         if result:
             messagebox.showinfo('Sucesso', "Login Realizado com sucesso!")
             self.janela.destroy()
+            self.logado = True
+            self.usuario = result[0][1]
             return
 
         messagebox.showerror('Erro', 'Credenciais inválidas!')

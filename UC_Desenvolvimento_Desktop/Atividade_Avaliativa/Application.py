@@ -6,16 +6,16 @@ from SqlHandler import SqlHandler
 
 
 class Application:
-    def __init__(self):
+    def __init__(self, janela: Tk):
         SqlHandler()
-        self.janela = Tk()
+        self.janela = janela
         self.images = []
         self.background = 'gray'
         self.title = 'Restaurante do Ederson'
 
     def set_geometry(self, width, height, center = True, fullscreen = False):
         if fullscreen:
-            self.janela.state('zoomed')
+            self.janela.state('iconic')
             return
         
         if center:
