@@ -2,16 +2,22 @@ from tkinter import *
 from tkinter import PhotoImage
 from tkinter import messagebox
 from tkinter import ttk
+from SqlHandler import SqlHandler
 
 
 class Application:
     def __init__(self):
+        SqlHandler()
         self.janela = Tk()
         self.images = []
         self.background = 'gray'
         self.title = 'Restaurante do Ederson'
 
-    def set_geometry(self, width, height, center = True):
+    def set_geometry(self, width, height, center = True, fullscreen = False):
+        if fullscreen:
+            self.janela.state('zoomed')
+            return
+        
         if center:
             screen_width = self.janela.winfo_screenwidth()
             screen_height = self.janela.winfo_screenheight()
