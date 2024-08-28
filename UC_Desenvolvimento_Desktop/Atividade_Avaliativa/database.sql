@@ -27,6 +27,7 @@ create table products (
 create table cart (
 	id int auto_increment primary key,
     product_id int not null,
+    quantity int default(1),
     constraint foreign key (product_id) references products(id)
 );
 
