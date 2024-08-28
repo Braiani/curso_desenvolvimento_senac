@@ -10,12 +10,13 @@ class Application:
         SqlHandler()
         self.janela = janela
         self.images = []
+        self.buttons = []
         self.background = 'gray'
         self.title = 'Restaurante do Ederson'
 
     def set_geometry(self, width, height, center = True, fullscreen = False):
         if fullscreen:
-            self.janela.state('iconic')
+            self.janela.state('zoomed')
             return
         
         if center:
@@ -56,6 +57,8 @@ class Application:
             for key, value in options.items():
                 btn[key] = value
         btn.place(relx=relx, rely=rely, anchor=anchor)
+
+        self.buttons.append(btn)
 
     def start(self):
         self.janela.mainloop()
