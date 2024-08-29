@@ -3,6 +3,7 @@ from tkinter import PhotoImage
 from tkinter import messagebox
 from tkinter import ttk
 from SqlHandler import SqlHandler
+import os
 
 
 class Application:
@@ -15,8 +16,12 @@ class Application:
         self.title = 'Restaurante do Ederson'
 
     def set_geometry(self, width, height, center = True, fullscreen = False):
+        os_type = os.uname().sysname
         if fullscreen:
-            self.janela.state('zoomed')
+            if os_type == 'Linux':
+                self.janela.attributes('-zoomed', True)
+            else:
+                self.janela.state('zoomed')
             return
         
         if center:
