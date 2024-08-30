@@ -17,7 +17,10 @@ class Application:
         self.title = 'Restaurante do Ederson'
 
     def set_geometry(self, width, height, center = True, fullscreen = False):
-        os_type = os.uname().sysname
+        try:
+            os_type = os.uname().sysname
+        except:
+            os_type = 'Windows'
         if fullscreen:
             if os_type == 'Linux':
                 self.janela.attributes('-zoomed', True)
