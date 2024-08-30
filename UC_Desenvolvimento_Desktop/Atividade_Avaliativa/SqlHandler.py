@@ -9,7 +9,7 @@ class SqlHandler:
             config = self.get_info_from_env()
             if not config:
                 raise Exception('Erro ao carregar variáveis de ambiente')
-            
+            print(config)
             self.connection = mysql.connector.connect(host=config['host'],
                                                       port=config['port'],
                                                       database=config['database'],

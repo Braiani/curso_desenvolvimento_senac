@@ -1,3 +1,4 @@
+import customtkinter as ctk
 from tkinter import *
 from tkinter import PhotoImage
 from tkinter import messagebox
@@ -7,16 +8,21 @@ import os
 
 
 class Application:
-    def __init__(self, janela: Tk):
-        SqlHandler()
+    def __init__(self, janela: ctk.CTk):
+        self.connector = SqlHandler()
         self.janela = janela
         self.images = []
         self.buttons = []
         self.background = 'gray'
         self.title = 'Restaurante do Ederson'
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("green")
 
     def set_geometry(self, width, height, center = True, fullscreen = False):
-        os_type = os.uname().sysname
+        try:
+            os_type = os.uname().sysname
+        except:
+            os_type = 'Windows'
         if fullscreen:
             if os_type == 'Linux':
                 self.janela.attributes('-zoomed', True)
@@ -42,26 +48,19 @@ class Application:
         self.background = color
         self.janela.config(background=color)
 
-    def adicionar_entry(self, relx, rely, anchor, options: dict = {}):
-        entrada = ttk.Entry(self.janela)
-        if options:
-            for key, value in options.items():
-                entrada[key] = value
-        entrada.place(relx=relx, rely=rely, anchor=anchor)
+    def adicionar_entry(self, padx, pady, options = {}):
+        entrada = ctk.CTkEntry(self.janela)
 
-    def adicionar_label(self, text, relx, rely, anchor, options: dict = {}):
-        label = ttk.Label(self.janela, text=text, background=self.background)
-        if options:
-            for key, value in options.items():
-                label[key] = value
-        label.place(relx=relx, rely=rely, anchor=anchor)
+        entrada.pack(padx=padx, pady=pady)
+        return entrada
 
-    def adicionar_button(self, text, relx, rely, anchor, command, options: dict = {}):
-        btn = ttk.Button(self.janela, text=text, command=command)
-        if options:
-            for key, value in options.items():
-                btn[key] = value
-        btn.place(relx=relx, rely=rely, anchor=anchor)
+    def adicionar_label(self, text, padx, pady):
+        label = ctk.CTkLabel(self.janela, text=text)
+        label.pack(padx=padx, pady=pady)
+
+    def adicionar_button(self, text, padx, pady, command):
+        btn = ctk.CTkButton(self.janela, text=text, command=command)
+        btn.pack(padx=padx, pady=pady)
 
         self.buttons.append(btn)
 
