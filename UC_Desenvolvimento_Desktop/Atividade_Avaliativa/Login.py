@@ -1,37 +1,114 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from Usuarios import Usuarios
-from Application import Application
+from Main import Main
 
-class Login(Application):
+class Login(Main):
     def __init__(self, janela: ctk.CTk):
         super().__init__(janela=janela)
-        self.set_geometry(400, 400, True)
+        self.set_geometry(600, 600, True)
         self.set_title('Login')
+        self.set_grid_column_weight(columns=1, weight=3)
         self.entradas = []
         self.logado = False
         self.usuario = None
         self.set_itens_screen()
 
     def set_itens_screen(self):
-        self.adicionar_label(text='Usuário', padx=0, pady=0)
-        usuario = self.adicionar_entry(padx=0, pady=0)
-        usuario.configure(placeholder_text="Usuário")
+        self.adicionar_label_image('https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png', 'Login', options={
+            'config': {
+                'width': 600,
+                'height': 600
+            },
+            'background': True,
+            'progress': {
+                'position': (0, 590)
+            }
+
+        })
+
+        self.adicionar_label(text='Usuário', options={
+            'config': {
+                'font': ('Arial', 16)
+            },
+            'grid': {
+                'row': 0,
+                'pady': (40, 0)
+            }
+        })
+        usuario = self.adicionar_entry(options={
+            'config': {
+                'corner_radius': 25,
+                'height': 30,
+                'width': 200
+            },
+            'grid': {
+                'row': 1,
+                'pady': (5, 0)
+            }
+        })
         self.entradas.append(usuario)
 
-        self.adicionar_label(text='Senha', padx=0, pady=0)
-        senha = self.adicionar_entry(padx=0, pady=0)
-        senha.configure(placeholder_text="Senha")
-        senha.configure(show="*")
+        self.adicionar_label(text='Senha', options={
+            'config': {
+                'font': ('Arial', 16)
+            },
+            'grid': {
+                'row': 2,
+                'pady': (10, 0)
+            }
+        })
+
+        senha = self.adicionar_entry(options={
+            'config': {
+                'corner_radius': 25,
+                'height': 30,
+                'width': 200,
+                'show': '*'
+            },
+            'grid': {
+                'row': 3,
+                'pady': (5, 0)
+            }
+        })
+
         self.entradas.append(senha)
 
-        self.adicionar_label(text='Confirmar Senha', padx=0, pady=0)
-        conf_senha = self.adicionar_entry(padx=0, pady=0)
-        conf_senha.configure(placeholder_text="Confirmar Senha")
-        conf_senha.configure(show="*")
+        self.adicionar_label(text='Confirmar Senha', options={
+            'config': {
+                'font': ('Arial', 16)
+            },
+            'grid': {
+                'row': 4,
+                'pady': (10, 0)
+            }
+        })
+
+        conf_senha = self.adicionar_entry(options={
+            'config': {
+                'corner_radius': 25,
+                'height': 30,
+                'width': 200,
+                'show': '*'
+            },
+            'grid': {
+                'row': 5,
+                'pady': (5, 0)
+            }
+        })
+
         self.entradas.append(conf_senha)
 
-        self.adicionar_button(text='Entrar', padx=0, pady=25,command=lambda: self.validar_login())
+        self.adicionar_button(text='Entrar', command=lambda: self.validar_login(), options={
+            'config': {
+                'height': 40,
+                'corner_radius': 25
+            },
+            'grid': {
+                'row': 6,
+                'pady': (20, 0)
+            }
+        })
 
     def get_logado(self):
         if self.logado:
@@ -69,6 +146,5 @@ class Login(Application):
         messagebox.showerror('Erro', 'Credenciais inválidas!')
 
 if __name__ == '__main__':
-    root = ctk.CTk()
-    app = Login(root)
-    app.start()
+    from Restaurante import Restaurante
+    Restaurante()

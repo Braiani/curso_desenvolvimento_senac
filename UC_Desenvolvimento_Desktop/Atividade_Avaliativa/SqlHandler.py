@@ -9,19 +9,19 @@ class SqlHandler:
             config = self.get_info_from_env()
             if not config:
                 raise Exception('Erro ao carregar variáveis de ambiente')
-            print(config)
             self.connection = mysql.connector.connect(host=config['host'],
                                                       port=config['port'],
                                                       database=config['database'],
                                                       user=config['user'],
                                                       password=config['password'])
             if self.connection.is_connected():
-                db_Info = self.connection.get_server_info()
-                print("Connected to MySQL Server version ", db_Info)
+                db_info = self.connection.get_server_info()
+                print("Connected to MySQL Server version ", db_info)
         except Error as e:
             print("Error while connecting to MySQL", e)
 
-    def get_info_from_env(self):
+    @staticmethod
+    def get_info_from_env():
         try:
             load_dotenv()
             return {
@@ -31,8 +31,8 @@ class SqlHandler:
                 'user': os.getenv('user', 'suporte'),
                 'password': os.getenv('password', 'suporte')
             }
-        except:
-            print('Erro ao carregar variáveis de ambiente')
+        except Exception as e:
+            print(f'Erro ao carregar variáveis de ambiente: {e}')
             return False
 
     def execQuery(self, query):
