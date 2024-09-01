@@ -7,8 +7,8 @@ from PIL import Image
 from customtkinter import CTkProgressBar as Progressbar
 from Application import Application
 import requests
-import tempfile
 import threading
+import os
 
 class Main(Application):
     def __init__(self, janela: CTk|CTkToplevel, centered: bool = True):
@@ -42,6 +42,16 @@ class Main(Application):
             position = options['progress'].get('position', (0, 0))
             self.show_progress_bar(position)
 
+        # verificar se existe o arquivo na pasta /images antes de iniciar o download
+        if os.path.exists(f"images/{text}.png"):
+            img_downloaded = Image.open(f"images/{text}.png")
+            img = self.ctk_image(image_path=img_downloaded, size=(500,500))
+            label = CTkLabel(self.janela, image=img, text=text)
+            self.set_options_elements(options, label)
+            label.place(x=0,y=0)
+            self.stop_progressbar()
+            return
+
         thread = threading.Thread(target=self.load_image, args=(image_url, text, options))
         thread.start()
 
@@ -52,21 +62,27 @@ class Main(Application):
 
             img_data = get_image.content
 
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
-                temp_file.write(img_data)
-                temp_file_path = temp_file.name
+            temp_file_path = f"images/{text}.png"
+
+            with open(temp_file_path, 'wb') as file:
+                file.write(img_data)
+
             img_downloaded = Image.open(temp_file_path)
             img = self.ctk_image(image_path=img_downloaded, size=(500,500))
 
             self.janela.after(0, self.update_image_label, img, temp_file_path, text, options)
         except Exception as e:
             print(f"Erro ao carregar a imagem: {e}")
+            self.stop_progressbar()
 
-    def update_image_label(self, img, temp_file_path, text, options):
+    def stop_progressbar(self):
         if self.progress_bar:
             self.progress_bar.stop()
             self.progress_bar.destroy()
             self.progress_bar = None
+
+    def update_image_label(self, img, temp_file_path, text, options):
+        self.stop_progressbar()
         
         self.images.append(img)
 
@@ -79,7 +95,6 @@ class Main(Application):
         self.janela.protocol("WM_DELETE_WINDOW", lambda: self.cleanup(temp_file_path))
 
     def cleanup(self, file_path):
-        import os
         os.remove(file_path)
         self.janela.destroy()
 
