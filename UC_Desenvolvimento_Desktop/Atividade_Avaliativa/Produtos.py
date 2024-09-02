@@ -6,7 +6,7 @@ class Produtos:
         self.connector = connector
 
     @staticmethod
-    def prepareJoin(join: bool|list):
+    def prepare_join(join: bool | list):
         joins = ''
         if not join:
             return joins
@@ -16,55 +16,55 @@ class Produtos:
 
         return joins
 
-    def getById(self, id, join: bool|list=False):
-        joinQuery = self.prepareJoin(join=join)
+    def get_by_id(self, id, join: bool | list=False):
+        join_query = self.prepare_join(join=join)
 
-        whereQuery = f"""
+        where_query = f"""
             select
                 *
             from 
                 products
-            {joinQuery}
+            {join_query}
             where 
                 products.id = '{id}'
         """
-        response = self.connector.execQuery(whereQuery)
+        response = self.connector.execQuery(where_query)
 
         if not response:
             return False
 
         return response[0]
 
-    def getAll(self, join: bool|list=False):
-        joinQuery = self.prepareJoin(join=join)
+    def get_all(self, join: bool | list=False):
+        join_query = self.prepare_join(join=join)
 
-        whereQuery = f"""
+        where_query = f"""
             select
                 *
             from 
                 products
-            {joinQuery}
+            {join_query}
         """
-        response = self.connector.execQuery(whereQuery)
+        response = self.connector.execQuery(where_query)
 
         if not response:
             return False
 
         return response
 
-    def getAllByCategory(self, category, join: bool|list=False):
-        joinQuery = self.prepareJoin(join=join)
+    def get_all_by_category(self, category, join: bool | list=False, select_join: str = '*'):
+        join_query = self.prepare_join(join=join)
 
-        whereQuery = f"""
+        where_query = f"""
             select
-                *
+                {select_join}
             from 
                 products
-            {joinQuery}
+            {join_query}
             where
                 products.category_id = {category}
         """
-        response = self.connector.execQuery(whereQuery)
+        response = self.connector.execQuery(where_query)
 
         if not response:
             return False

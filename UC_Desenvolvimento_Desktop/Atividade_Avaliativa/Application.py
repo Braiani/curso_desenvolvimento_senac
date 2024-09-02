@@ -1,6 +1,8 @@
 import customtkinter as ctk
+from PIL.Image import Image
 from SqlHandler import SqlHandler
-import os
+from customtkinter import CTkProgressBar as Progressbar
+import os, sys
 
 
 class Application:
@@ -84,7 +86,7 @@ class Application:
             element.configure(**options['config'])
 
     @staticmethod
-    def positionate_element(element, options):
+    def positional_element(element, options):
         """
             Configura o posicionamento de um elemento usando o método grid.
 
@@ -102,30 +104,56 @@ class Application:
         if options is not None and 'grid' in options:
             grid_options.update(options['grid'])
 
+        if options.get('place', False):
+            element.place(**options['place'])
+            return
+
+        if options.get('pack', False):
+            element.place(**options['pack'])
+            return
+
         element.grid(**grid_options)
 
     def adicionar_entry(self, options=None):
         entrada = ctk.CTkEntry(self.janela)
         self.set_options_elements(options, entrada)
 
-        self.positionate_element(element=entrada, options=options)
+        self.positional_element(element=entrada, options=options)
         return entrada
+
+    def adicionar_imagem(self, image: Image, image_options=None, label_options=None):
+        img = ctk.CTkImage(image)
+        self.set_options_elements(options=image_options, element=img)
+        self.images.append(img)
+
+        label = ctk.CTkLabel(self.janela, text='', image=img)
+        self.set_options_elements(label_options, label)
+
+        self.positional_element(element=label, options=label_options)
 
     def adicionar_label(self, text, options=None):
         label = ctk.CTkLabel(self.janela, text=text)
 
         self.set_options_elements(options, label)
 
-        self.positionate_element(element=label, options=options)
+        self.positional_element(element=label, options=options)
 
     def adicionar_button(self, text, command, options=None):
         btn = ctk.CTkButton(self.janela, text=text, command=command)
 
         self.set_options_elements(options, btn)
 
-        self.positionate_element(element=btn, options=options)
+        self.positional_element(element=btn, options=options)
 
         self.buttons.append(btn)
+
+    def adicionar_progressbar(self, options=None):
+        progress = Progressbar(self.janela)
+        progress.set(0)
+        self.set_options_elements(options, progress)
+        self.positional_element(element=progress, options=options)
+        return progress
+
 
     def minimize(self):
         self.janela.iconify()
@@ -144,3 +172,7 @@ class Application:
 
     def start(self):
         self.janela.mainloop()
+
+    @staticmethod
+    def get_base_path():
+        return os.path.dirname(os.path.abspath(sys.argv[0]))

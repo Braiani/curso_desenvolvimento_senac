@@ -6,25 +6,26 @@ from Main import Main
 class Login(Main):
     def __init__(self, janela: ctk.CTk):
         super().__init__(janela=janela)
-        self.set_geometry(600, 600, True)
+        self.set_geometry(800, 600, True)
         self.set_title('Login')
-        self.set_grid_column_weight(columns=1, weight=3)
+        self.set_grid_column_weight(columns=2, weight=2)
         self.entradas = []
         self.logado = False
         self.usuario = None
         self.set_itens_screen()
 
     def set_itens_screen(self):
-        self.adicionar_label_image('https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png', 'Login', options={
+        login_image = f"{self.get_base_path()}/images/Login.png"
+        self.adicionar_label_image(filename=login_image, text='', options={
             'config': {
-                'width': 600,
-                'height': 600
+                'size': (400,600)
             },
+            # 'blur': 3,
             'background': True,
-            'progress': {
-                'position': (0, 590)
+            'place': {
+                'x': 0,
+                'y': 0
             }
-
         })
 
         self.adicionar_label(text='Usuário', options={
@@ -33,7 +34,9 @@ class Login(Main):
             },
             'grid': {
                 'row': 0,
-                'pady': (40, 0)
+                'column': 1,
+                'padx': (60, 0),
+                'pady': (40, 0),
             }
         })
         usuario = self.adicionar_entry(options={
@@ -44,6 +47,8 @@ class Login(Main):
             },
             'grid': {
                 'row': 1,
+                'column': 1,
+                'padx': (60, 0),
                 'pady': (5, 0)
             }
         })
@@ -55,6 +60,8 @@ class Login(Main):
             },
             'grid': {
                 'row': 2,
+                'column': 1,
+                'padx': (60, 0),
                 'pady': (10, 0)
             }
         })
@@ -68,6 +75,8 @@ class Login(Main):
             },
             'grid': {
                 'row': 3,
+                'column': 1,
+                'padx': (60, 0),
                 'pady': (5, 0)
             }
         })
@@ -80,6 +89,8 @@ class Login(Main):
             },
             'grid': {
                 'row': 4,
+                'column': 1,
+                'padx': (60, 0),
                 'pady': (10, 0)
             }
         })
@@ -93,6 +104,8 @@ class Login(Main):
             },
             'grid': {
                 'row': 5,
+                'column': 1,
+                'padx': (60, 0),
                 'pady': (5, 0)
             }
         })
@@ -106,6 +119,8 @@ class Login(Main):
             },
             'grid': {
                 'row': 6,
+                'column': 1,
+                'padx': (60, 0),
                 'pady': (20, 0)
             }
         })
@@ -140,7 +155,7 @@ class Login(Main):
             messagebox.showinfo('Sucesso', "Login Realizado com sucesso!")
             self.janela.destroy()
             self.logado = True
-            self.usuario = result[0][1]
+            self.usuario = result[0]
             return
 
         messagebox.showerror('Erro', 'Credenciais inválidas!')

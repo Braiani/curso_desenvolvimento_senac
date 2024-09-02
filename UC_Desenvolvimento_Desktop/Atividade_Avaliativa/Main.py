@@ -4,11 +4,9 @@ from customtkinter import CTkImage
 from customtkinter import CTkLabel
 import PIL
 from PIL import Image
-from customtkinter import CTkProgressBar as Progressbar
+from PIL import ImageFilter
 from Application import Application
-import requests
-import threading
-import os, sys
+import os
 
 class Main(Application):
     def __init__(self, janela: CTk|CTkToplevel, centered: bool = True):
@@ -16,99 +14,38 @@ class Main(Application):
         self.set_geometry(800, 600, centered)
         self.set_title(self.title)
         self.images = []
-        self.progress_bar = None
 
     def start(self):
         self.janela.mainloop()
 
     @staticmethod
-    def ctk_image(image_path: Image, size: tuple[int, int]):
-        img = CTkImage(image_path, size=size)
-        return img
+    def set_blur(img: Image, blur: int):
+        if img.mode not in ('RGB', 'L'):
+            img = img.convert('RGB')
+        return img.filter(ImageFilter.GaussianBlur(blur))
 
-
-    def show_progress_bar(self, position: tuple[int, int] = (0, 0)):
-        if self.progress_bar is None:
-            self.progress_bar = Progressbar(self.janela, mode='indeterminate')
-            self.progress_bar.configure(width=self.janela.winfo_screenwidth())
-            self.progress_bar.place(x=position[0], y=position[1])
-            self.progress_bar.start()
-    
-
-    def adicionar_label_image(self, image_url: str, text, options=None):
+    # Refatorar esse código
+    def adicionar_label_image(self, filename: str, text, options=None):
         if options is None:
             options = {}
-        if options.get('progress', False):
-            position = options['progress'].get('position', (0, 0))
-            self.show_progress_bar(position)
 
-        path = os.path.dirname(os.path.abspath(sys.argv[0]))
-        filename = f"{path}/images/{text}.png"
+        if not os.path.isfile(filename):
+            raise Exception(f"Arquivo {filename} não encontrado")
 
-        # verificar se existe o arquivo na pasta /images antes de iniciar o download
-        if os.path.isfile(filename):
-            img_downloaded = Image.open(filename)
-            img = self.ctk_image(image_path=img_downloaded, size=(500,500))
-            label = CTkLabel(self.janela, image=img, text=text)
-            self.set_options_elements(options, label)
-            label.place(x=0,y=0)
-            self.stop_progressbar()
-            return
+        image = Image.open(filename)
+        if options.get('blur', False):
+            image = self.set_blur(image, options['blur'])
 
-        thread = threading.Thread(target=self.load_image, args=(image_url, path, filename, text, options))
-        thread.start()
+        img = CTkImage(image)
+        self.set_options_elements(element=img, options=options)
 
-    @staticmethod
-    def download_image(url: str, filename: str) -> bool:
-        try:
-            get_image = requests.get(url)
-            get_image.raise_for_status()
+        if options['config'].get('size', False):
+            del options['config']['size']
 
-            img_data = get_image.content
-
-            with open(filename, 'wb') as file:
-                file.write(img_data)
-        except Exception as e:
-            print(f"Erro ao fazer download da image: {e}")
-            raise Exception(e)
-
-    def load_image(self, image_url: str, path: str, filename: str, text: str, options: dict):
-        try:
-            if not os.path.exists(f'{path}/images'):
-                os.mkdir(f'{path}/images')
-            
-            self.download_image(url=image_url, filename=filename)
-
-            img_downloaded = Image.open(filename)
-            img = self.ctk_image(image_path=img_downloaded, size=(500,500))
-
-            self.janela.after(0, self.update_image_label, img, filename, text, options)
-        except Exception as e:
-            print(f"Erro ao carregar a imagem: {e}")
-            self.stop_progressbar()
-
-    def stop_progressbar(self):
-        if self.progress_bar:
-            self.progress_bar.stop()
-            self.progress_bar.destroy()
-            self.progress_bar = None
-
-    def update_image_label(self, img, temp_file_path, text, options):
-        self.stop_progressbar()
-        
-        self.images.append(img)
-
-        label = CTkLabel(self.janela, image=temp_file_path, text=text)
-
+        label = CTkLabel(self.janela, image=img, text=text)
         self.set_options_elements(options, label)
+        self.positional_element(element=label, options=options)
 
-        label.place(x=0,y=0)
-        
-        self.janela.protocol("WM_DELETE_WINDOW", lambda: self.cleanup(temp_file_path))
-
-    def cleanup(self, file_path):
-        os.remove(file_path)
-        self.janela.destroy()
 
 if __name__ == '__main__':
     from Restaurante import Restaurante

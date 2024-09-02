@@ -1,5 +1,3 @@
-from SqlHandler import SqlHandler
-
 class Usuarios:
     def __init__(self, usuario, senha, connector) -> None:
         self.usuario = usuario

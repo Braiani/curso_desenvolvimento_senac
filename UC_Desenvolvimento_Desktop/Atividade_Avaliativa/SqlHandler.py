@@ -40,7 +40,7 @@ class SqlHandler:
             print("Não conectado ao banco de dados!")
             return False
         
-        cursor = self.connection.cursor()
+        cursor = self.connection.cursor(dictionary=True)
 
         try:
             cursor.execute(query)
