@@ -8,7 +8,7 @@ from customtkinter import CTkProgressBar as Progressbar
 from Application import Application
 import requests
 import threading
-import os
+import os, sys
 
 class Main(Application):
     def __init__(self, janela: CTk|CTkToplevel, centered: bool = True):
@@ -42,9 +42,12 @@ class Main(Application):
             position = options['progress'].get('position', (0, 0))
             self.show_progress_bar(position)
 
+        path = os.path.dirname(os.path.abspath(sys.argv[0]))
+        filename = f"{path}/images/{text}.png"
+
         # verificar se existe o arquivo na pasta /images antes de iniciar o download
-        if os.path.exists(f"images/{text}.png"):
-            img_downloaded = Image.open(f"images/{text}.png")
+        if os.path.isfile(filename):
+            img_downloaded = Image.open(filename)
             img = self.ctk_image(image_path=img_downloaded, size=(500,500))
             label = CTkLabel(self.janela, image=img, text=text)
             self.set_options_elements(options, label)
@@ -52,25 +55,34 @@ class Main(Application):
             self.stop_progressbar()
             return
 
-        thread = threading.Thread(target=self.load_image, args=(image_url, text, options))
+        thread = threading.Thread(target=self.load_image, args=(image_url, path, filename, text, options))
         thread.start()
 
-    def load_image(self, image_url: str, text, options):
+    @staticmethod
+    def download_image(url: str, filename: str) -> bool:
         try:
-            get_image = requests.get(image_url)
+            get_image = requests.get(url)
             get_image.raise_for_status()
 
             img_data = get_image.content
 
-            temp_file_path = f"images/{text}.png"
-
-            with open(temp_file_path, 'wb') as file:
+            with open(filename, 'wb') as file:
                 file.write(img_data)
+        except Exception as e:
+            print(f"Erro ao fazer download da image: {e}")
+            raise Exception(e)
 
-            img_downloaded = Image.open(temp_file_path)
+    def load_image(self, image_url: str, path: str, filename: str, text: str, options: dict):
+        try:
+            if not os.path.exists(f'{path}/images'):
+                os.mkdir(f'{path}/images')
+            
+            self.download_image(url=image_url, filename=filename)
+
+            img_downloaded = Image.open(filename)
             img = self.ctk_image(image_path=img_downloaded, size=(500,500))
 
-            self.janela.after(0, self.update_image_label, img, temp_file_path, text, options)
+            self.janela.after(0, self.update_image_label, img, filename, text, options)
         except Exception as e:
             print(f"Erro ao carregar a imagem: {e}")
             self.stop_progressbar()
