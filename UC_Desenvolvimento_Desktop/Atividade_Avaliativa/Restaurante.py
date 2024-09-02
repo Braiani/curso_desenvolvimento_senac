@@ -9,10 +9,11 @@ from Splash import Splash
 
 class Restaurante:
     def __init__(self) -> None:
-        self.logado = {'name': 'Ederson', 'id': 1}
+        # self.logado = {'name': 'Ederson', 'id': 1}
+        self.logado = None
         self.app_master = None
         self.root = None
-        self.shouldLogin = False
+        self.shouldLogin = True
         self.init()
 
     def create_show_products(self, categoria_id):
@@ -70,7 +71,6 @@ class Restaurante:
             if column == 3:
                 column = 0
                 row += 1
-            print(categoria)
 
             categoria_id = int(categoria["id"])
             self.app_master.adicionar_button(text=categoria["descricao"], command=self.create_show_products(categoria_id=categoria_id), options={
@@ -151,6 +151,8 @@ class Restaurante:
             }
         })
 
+        # prod_panel.janela.grid_rowconfigure(2,weight=2)
+
         row = 2
         column = 0
         for produto in produtos:
@@ -159,13 +161,26 @@ class Restaurante:
                 row += 1
 
             text = f"{produto['produto']} - R$ {produto['preco']:.2f}"
-            img_file = f"images/{produto['produto']}.png"
+            img_file = f"{prod_panel.get_base_path()}/images/{produto['produto']}.png"
             img = Image.open(img_file)
 
-            prod_panel.adicionar_imagem(image=img, image_options={
+            frame = prod_panel.adicionar_frame(master=prod_panel.janela, options={
+                'config':{
+                    'width': 120,
+                    'height': 120
+                },
+                'grid': {
+                    'row': row,
+                    'column': column,
+                    'pady': (50, 0)
+                }
+            })
+
+
+            prod_panel.adicionar_imagem(master=frame, image=img, image_options={
                 'config': {
                     'size': (200, 200),
-                    'corner_radius': 10
+                    'corner_radius': 10,
                 }
             }, label_options={
                 'config': {
@@ -178,7 +193,7 @@ class Restaurante:
                 }
             })
 
-            prod_panel.adicionar_label(text=text, options={
+            prod_panel.adicionar_label(master=frame, text=text, options={
                 'config': {
                     'font': ('Arial', 16)
                 },
@@ -188,7 +203,7 @@ class Restaurante:
                     'pady': (150, 0)
                 }
             })
-            prod_panel.adicionar_button(text='Adicionar ao Carrinho', command=lambda: print('teste'), options={
+            prod_panel.adicionar_button(master=frame, text='Adicionar ao Carrinho', command=lambda: print('teste'), options={
                 'config': {
                     'height': 20,
                     'corner_radius': 10

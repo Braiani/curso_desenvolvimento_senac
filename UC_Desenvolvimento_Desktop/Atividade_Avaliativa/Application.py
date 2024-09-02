@@ -15,6 +15,7 @@ class Application:
         self.title = 'Restaurante do Ederson'
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
+        self.janela.iconbitmap(f"{self.get_base_path()}/icon.ico")
 
     def set_geometry(self, width, height, center = True, fullscreen = False, x=None, y=None):
         if fullscreen:
@@ -121,25 +122,31 @@ class Application:
         self.positional_element(element=entrada, options=options)
         return entrada
 
-    def adicionar_imagem(self, image: Image, image_options=None, label_options=None):
+    def adicionar_imagem(self, image: Image, image_options=None, label_options=None, master=None):
+        if master == None:
+            master = self.janela
         img = ctk.CTkImage(image)
         self.set_options_elements(options=image_options, element=img)
         self.images.append(img)
 
-        label = ctk.CTkLabel(self.janela, text='', image=img)
+        label = ctk.CTkLabel(master, text='', image=img)
         self.set_options_elements(label_options, label)
 
         self.positional_element(element=label, options=label_options)
 
-    def adicionar_label(self, text, options=None):
-        label = ctk.CTkLabel(self.janela, text=text)
+    def adicionar_label(self, text, options=None, master=None):
+        if master == None:
+            master = self.janela
+        label = ctk.CTkLabel(master, text=text)
 
         self.set_options_elements(options, label)
 
         self.positional_element(element=label, options=options)
 
-    def adicionar_button(self, text, command, options=None):
-        btn = ctk.CTkButton(self.janela, text=text, command=command)
+    def adicionar_button(self, text, command, options=None, master=None):
+        if master == None:
+            master = self.janela
+        btn = ctk.CTkButton(master, text=text, command=command)
 
         self.set_options_elements(options, btn)
 
@@ -154,6 +161,13 @@ class Application:
         self.positional_element(element=progress, options=options)
         return progress
 
+    def adicionar_frame(self, master=None, options=None):
+        if master == None:
+            master = self.janela
+
+        frame = ctk.CTkFrame(master=master)
+        self.set_options_elements(element=frame, options=options)
+        self.positional_element(element=frame, options=options)
 
     def minimize(self):
         self.janela.iconify()
@@ -176,3 +190,7 @@ class Application:
     @staticmethod
     def get_base_path():
         return os.path.dirname(os.path.abspath(sys.argv[0]))
+    
+if __name__ == '__main__':
+    from Restaurante import Restaurante
+    Restaurante()

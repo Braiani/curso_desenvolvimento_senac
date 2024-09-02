@@ -18,9 +18,9 @@ class Login(Main):
         login_image = f"{self.get_base_path()}/images/Login.png"
         self.adicionar_label_image(filename=login_image, text='', options={
             'config': {
-                'size': (400,600)
+                'size': (350,600)
             },
-            # 'blur': 3,
+            # 'blur': 6,
             'background': True,
             'place': {
                 'x': 0,
