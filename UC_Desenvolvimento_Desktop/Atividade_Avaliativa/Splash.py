@@ -57,12 +57,28 @@ class Splash(Main):
             produtos = produtos.get_all()
             total_produtos = len(produtos)
 
-            increment_value = (100/total_produtos) / 2
+            increment_value = (100/(total_produtos + 2)) / 2
             self.increment_progressbar(increment_value)
 
             if not os.path.isfile(f"{path}/images/Login.png"):
                 filename = f"{path}/images/Login.png"
                 self.download_save('https://blogmaladeviagem.com.br/wp-content/uploads/2019/10/Fogo-caipira-2.png', filename)
+                self.step_progressbar()
+
+            if not os.path.isfile(f"{path}/images/background.png"):
+                filename = f"{path}/images/background.png"
+                self.download_save('https://images.unsplash.com/photo-1721828500244-99e16216bc99?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', filename)
+                self.step_progressbar()
+
+            if not os.path.isfile(f"{path}/images/cart.png"):
+                filename = f"{path}/images/cart.png"
+                self.download_save('https://cdn-icons-png.flaticon.com/256/5988/5988883.png', filename)
+                self.step_progressbar()
+
+            if not os.path.isfile(f"{path}/images/back.png"):
+                filename = f"{path}/images/back.png"
+                self.download_save('https://cdn-icons-png.freepik.com/256/93/93634.png', filename)
+                self.step_progressbar()
 
             for produto in produtos:
                 self.step_progressbar()

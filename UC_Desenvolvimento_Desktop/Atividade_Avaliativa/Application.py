@@ -15,7 +15,11 @@ class Application:
         self.title = 'Restaurante do Ederson'
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
-        self.janela.iconbitmap(f"{self.get_base_path()}/icon.ico")
+        try:
+            if os.uname().sysname:
+                pass
+        except AttributeError:
+            self.janela.iconbitmap(f'{self.get_base_path()}/icon.ico')
 
     def set_geometry(self, width, height, center = True, fullscreen = False, x=None, y=None):
         if fullscreen:
@@ -146,6 +150,8 @@ class Application:
     def adicionar_button(self, text, command, options=None, master=None):
         if master == None:
             master = self.janela
+        if options['config'].get('image', False):
+            options['config']['image'] = ctk.CTkImage(options['config']['image'])
         btn = ctk.CTkButton(master, text=text, command=command)
 
         self.set_options_elements(options, btn)
@@ -161,13 +167,18 @@ class Application:
         self.positional_element(element=progress, options=options)
         return progress
 
-    def adicionar_frame(self, master=None, options=None):
+    def adicionar_frame(self, master=None, options=None, scrollable=False):
         if master == None:
             master = self.janela
 
-        frame = ctk.CTkFrame(master=master)
+        if scrollable:
+            frame = ctk.CTkScrollableFrame(master)
+        else:
+            frame = ctk.CTkFrame(master)
+
         self.set_options_elements(element=frame, options=options)
         self.positional_element(element=frame, options=options)
+        return frame
 
     def minimize(self):
         self.janela.iconify()
