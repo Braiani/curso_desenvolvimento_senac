@@ -57,28 +57,21 @@ class Splash(Main):
             produtos = produtos.get_all()
             total_produtos = len(produtos)
 
-            increment_value = (100/(total_produtos + 2)) / 2
+            list_imagens_download_avulsas = {
+                'Login': 'https://blogmaladeviagem.com.br/wp-content/uploads/2019/10/Fogo-caipira-2.png',
+                'background': 'https://images.unsplash.com/photo-1605926637512-c8b131444a4b?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'cart': 'https://www.clker.com//cliparts/j/s/U/7/a/W/shopping-cart-hi.png',
+                'back': 'https://cdn-icons-png.flaticon.com/512/5548/5548528.png'
+            }
+
+            increment_value = (100/(total_produtos + len(list_imagens_download_avulsas))) / 2
             self.increment_progressbar(increment_value)
 
-            if not os.path.isfile(f"{path}/images/Login.png"):
-                filename = f"{path}/images/Login.png"
-                self.download_save('https://blogmaladeviagem.com.br/wp-content/uploads/2019/10/Fogo-caipira-2.png', filename)
-                self.step_progressbar()
-
-            if not os.path.isfile(f"{path}/images/background.png"):
-                filename = f"{path}/images/background.png"
-                self.download_save('https://images.unsplash.com/photo-1721828500244-99e16216bc99?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', filename)
-                self.step_progressbar()
-
-            if not os.path.isfile(f"{path}/images/cart.png"):
-                filename = f"{path}/images/cart.png"
-                self.download_save('https://cdn-icons-png.flaticon.com/256/5988/5988883.png', filename)
-                self.step_progressbar()
-
-            if not os.path.isfile(f"{path}/images/back.png"):
-                filename = f"{path}/images/back.png"
-                self.download_save('https://cdn-icons-png.freepik.com/256/93/93634.png', filename)
-                self.step_progressbar()
+            for key, value in list_imagens_download_avulsas.items():
+                filename = f"{path}/images/{key}.png"
+                if not os.path.isfile(filename):
+                    self.download_save(value, filename)
+                    self.step_progressbar()
 
             for produto in produtos:
                 self.step_progressbar()
@@ -89,7 +82,6 @@ class Splash(Main):
             self.janela.after(0, self.close_window)
         except Exception as e:
             print(f"Erro ao carregar as imagens: {e}")
-        finally:
             self.janela.after(0, self.close_window)
 
     @staticmethod

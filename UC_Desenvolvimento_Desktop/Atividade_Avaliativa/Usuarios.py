@@ -6,7 +6,7 @@ class Usuarios:
 
     def validar_login(self):
         sql = self.connector
-        whereQuery = f"""
+        where_query = f"""
             select
                 username, name
             from 
@@ -16,7 +16,7 @@ class Usuarios:
                 and password = '{self.senha}'
         """
 
-        response = sql.execQuery(whereQuery)
+        response = sql.exec_query(where_query)
         
         if not response:
             return False

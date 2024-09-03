@@ -15,11 +15,11 @@ class Application:
         self.title = 'Restaurante do Ederson'
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
-        try:
-            if os.uname().sysname:
-                pass
-        except AttributeError:
-            self.janela.iconbitmap(f'{self.get_base_path()}/icon.ico')
+        self.set_icon()
+        ctk.deactivate_automatic_dpi_awareness()
+
+    def set_icon(self):
+        self.janela.iconbitmap(f'{self.get_base_path()}/icon.ico')
 
     def set_geometry(self, width, height, center = True, fullscreen = False, x=None, y=None):
         if fullscreen:
@@ -83,6 +83,11 @@ class Application:
         for index in range(columns):
             self.janela.grid_columnconfigure(index, weight=weight)
 
+    def set_row_configure(self, rows, weight=1):
+        for index in range(rows):
+            self.janela.grid_rowconfigure(index, weight=weight)
+
+
     @staticmethod
     def set_options_elements(options, element):
         if options is None:
@@ -114,7 +119,7 @@ class Application:
             return
 
         if options.get('pack', False):
-            element.place(**options['pack'])
+            element.pack(**options['pack'])
             return
 
         element.grid(**grid_options)
@@ -127,7 +132,7 @@ class Application:
         return entrada
 
     def adicionar_imagem(self, image: Image, image_options=None, label_options=None, master=None):
-        if master == None:
+        if master is None:
             master = self.janela
         img = ctk.CTkImage(image)
         self.set_options_elements(options=image_options, element=img)
@@ -139,7 +144,7 @@ class Application:
         self.positional_element(element=label, options=label_options)
 
     def adicionar_label(self, text, options=None, master=None):
-        if master == None:
+        if master is None:
             master = self.janela
         label = ctk.CTkLabel(master, text=text)
 
@@ -148,7 +153,7 @@ class Application:
         self.positional_element(element=label, options=options)
 
     def adicionar_button(self, text, command, options=None, master=None):
-        if master == None:
+        if master is None:
             master = self.janela
         if options['config'].get('image', False):
             options['config']['image'] = ctk.CTkImage(options['config']['image'])
@@ -168,7 +173,7 @@ class Application:
         return progress
 
     def adicionar_frame(self, master=None, options=None, scrollable=False):
-        if master == None:
+        if master is None:
             master = self.janela
 
         if scrollable:
@@ -201,7 +206,24 @@ class Application:
     @staticmethod
     def get_base_path():
         return os.path.dirname(os.path.abspath(sys.argv[0]))
-    
+
+    @staticmethod
+    def get_colors(color: str):
+        colors = {
+            'black': '#000000',
+            'dark_green': '#004d00',
+            'medium_green': '#009900',
+            'light_green': '#66ff66',
+            'dark_gray': '#333333',
+            'light_gray': '#cccccc',
+            'lime_green': '#ccff66',
+            'olive_green': '#808000'
+        }
+        if colors.get(color, False):
+            return colors[color]
+        return "#000000"
+
+
 if __name__ == '__main__':
     from Restaurante import Restaurante
     Restaurante()

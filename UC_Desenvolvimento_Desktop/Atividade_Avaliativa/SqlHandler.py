@@ -35,7 +35,7 @@ class SqlHandler:
             print(f'Erro ao carregar variáveis de ambiente: {e}')
             return False
 
-    def execQuery(self, query):
+    def exec_query(self, query, params=None, commit=False):
         if not self.connection.is_connected():
             print("Não conectado ao banco de dados!")
             return False
@@ -43,13 +43,15 @@ class SqlHandler:
         cursor = self.connection.cursor(dictionary=True)
 
         try:
-            cursor.execute(query)
-            records = cursor.fetchall()
-
-            cursor.close()
-
-            return records
+            cursor.execute(query, params)
+            if not commit:
+                records = cursor.fetchall()
+                return records
+            else:
+                self.connection.commit()
+                return cursor.rowcount
         except Error as e:
             print(e)
-            cursor.close()
             return False
+        finally:
+            cursor.close()

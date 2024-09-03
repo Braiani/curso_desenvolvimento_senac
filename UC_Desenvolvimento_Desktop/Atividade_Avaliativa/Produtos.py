@@ -28,7 +28,7 @@ class Produtos:
             where 
                 products.id = '{id}'
         """
-        response = self.connector.execQuery(where_query)
+        response = self.connector.exec_query(where_query)
 
         if not response:
             return False
@@ -45,7 +45,7 @@ class Produtos:
                 products
             {join_query}
         """
-        response = self.connector.execQuery(where_query)
+        response = self.connector.exec_query(where_query)
 
         if not response:
             return False
@@ -64,7 +64,7 @@ class Produtos:
             where
                 products.category_id = {category}
         """
-        response = self.connector.execQuery(where_query)
+        response = self.connector.exec_query(where_query)
 
         if not response:
             return False
