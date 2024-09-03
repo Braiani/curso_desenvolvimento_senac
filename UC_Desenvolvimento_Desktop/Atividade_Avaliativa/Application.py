@@ -154,6 +154,8 @@ class Application:
         self.set_options_elements(options, label)
 
         self.positional_element(element=label, options=options)
+        
+        return label
 
     def adicionar_button(self, text, command, options=None, master=None):
         if master is None:

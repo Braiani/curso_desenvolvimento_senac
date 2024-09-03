@@ -14,6 +14,7 @@ class Splash(Main):
         self.set_geometry(350, 280, True)
         self.set_title('Splash')
         self.set_grid_column_weight(columns=1, weight=3)
+        self.loading_text = 'Carregando...'
 
         self.adicionar_imagem(image=self.get_icon(), image_options={
             'config': {
@@ -25,7 +26,7 @@ class Splash(Main):
             }
         })
 
-        self.adicionar_label(text='Carregando...', options={
+        self.label = self.adicionar_label(text=self.loading_text, options={
             'config': {
                 'font': ('Arial', 16)
             },
@@ -65,16 +66,28 @@ class Splash(Main):
                 'back': 'https://cdn-icons-png.flaticon.com/512/5548/5548528.png'
             }
 
-            increment_value = (100/(total_produtos + len(list_imagens_download_avulsas))) / 2
+            total_downloads = total_produtos + len(list_imagens_download_avulsas)
+            increment_value = (100/(total_downloads)) / 2
             self.increment_progressbar(increment_value)
 
+            count = 0
+            self.loading_text += f" {count} de {total_downloads} imagens"
+
             for key, value in list_imagens_download_avulsas.items():
+                count += 1
+                self.loading_text = f"Carregando... {count} de {total_downloads} imagens"
+                self.label.configure(text=self.loading_text)
+
                 filename = f"{path}/images/{key}.png"
                 if not os.path.isfile(filename):
                     self.download_save(value, filename)
                     self.step_progressbar()
 
             for produto in produtos:
+                count += 1
+                self.loading_text = f"Carregando... {count} de {total_downloads} imagens"
+                self.label.configure(text=self.loading_text)
+                
                 self.step_progressbar()
                 filename = f"{path}/images/{produto['description']}.png"
                 if not os.path.isfile(filename):
