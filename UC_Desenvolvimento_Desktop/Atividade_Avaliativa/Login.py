@@ -2,13 +2,14 @@ import customtkinter as ctk
 from tkinter import messagebox
 from Usuarios import Usuarios
 from Main import Main
+import pywinstyles
 
 class Login(Main):
     def __init__(self, janela: ctk.CTk):
         super().__init__(janela=janela)
         self.set_geometry(800, 600, True)
         self.set_title('Login')
-        self.set_grid_column_weight(columns=2, weight=2)
+        self.set_grid_column_weight(columns=1, weight=3)
         self.entradas = []
         self.logado = False
         self.usuario = None
@@ -18,9 +19,9 @@ class Login(Main):
         login_image = f"{self.get_base_path()}/images/Login.png"
         self.adicionar_label_image(filename=login_image, text='', options={
             'config': {
-                'size': (350,600)
+                'size': (800,600)
             },
-            # 'blur': 6,
+            'blur': 6,
             'background': True,
             'place': {
                 'x': 0,
@@ -30,24 +31,28 @@ class Login(Main):
 
         self.adicionar_label(text='Usuário', options={
             'config': {
-                'font': ('Arial', 16)
+                'font': ('Arial', 16),
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 0,
-                'column': 1,
+                'column': 0,
                 'padx': (60, 0),
-                'pady': (40, 0),
+                'pady': (60, 0),
             }
         })
         usuario = self.adicionar_entry(options={
             'config': {
                 'corner_radius': 25,
                 'height': 30,
-                'width': 200
+                'width': 200,
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 1,
-                'column': 1,
+                'column': 0,
                 'padx': (60, 0),
                 'pady': (5, 0)
             }
@@ -56,11 +61,13 @@ class Login(Main):
 
         self.adicionar_label(text='Senha', options={
             'config': {
-                'font': ('Arial', 16)
+                'font': ('Arial', 16),
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 2,
-                'column': 1,
+                'column': 0,
                 'padx': (60, 0),
                 'pady': (10, 0)
             }
@@ -71,11 +78,13 @@ class Login(Main):
                 'corner_radius': 25,
                 'height': 30,
                 'width': 200,
-                'show': '*'
+                'show': '*',
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 3,
-                'column': 1,
+                'column': 0,
                 'padx': (60, 0),
                 'pady': (5, 0)
             }
@@ -85,11 +94,13 @@ class Login(Main):
 
         self.adicionar_label(text='Confirmar Senha', options={
             'config': {
-                'font': ('Arial', 16)
+                'font': ('Arial', 16),
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 4,
-                'column': 1,
+                'column': 0,
                 'padx': (60, 0),
                 'pady': (10, 0)
             }
@@ -100,11 +111,13 @@ class Login(Main):
                 'corner_radius': 25,
                 'height': 30,
                 'width': 200,
-                'show': '*'
+                'show': '*',
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 5,
-                'column': 1,
+                'column': 0,
                 'padx': (60, 0),
                 'pady': (5, 0)
             }
@@ -114,12 +127,17 @@ class Login(Main):
 
         self.adicionar_button(text='Entrar', command=lambda: self.validar_login(), options={
             'config': {
-                'height': 40,
-                'corner_radius': 25
+                'height': 50,
+                'corner_radius': 32,
+                'fg_color': self.get_colors('dark_gray'),
+                'bg_color': '#000001',
+                'border_width': 2,
+                'border_color': self.get_colors('medium_green'),
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 6,
-                'column': 1,
+                'column': 0,
                 'padx': (60, 0),
                 'pady': (20, 0)
             }

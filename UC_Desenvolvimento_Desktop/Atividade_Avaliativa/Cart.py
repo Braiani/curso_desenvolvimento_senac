@@ -1,7 +1,18 @@
 class Cart:
     def __init__(self, connector) -> None:
         self.connector = connector
+    
+    @staticmethod
+    def prepare_join(join: bool | list):
+        joins = ''
+        if not join:
+            return joins
 
+        for item in join:
+            joins += f"JOIN {item['table']} ON cart.{item['foreing_key']} = {item['table']}.{item['primary_key']}"
+
+        return joins
+    
     def get_all(self):
         query = "SELECT * FROM cart"
         response = self.connector.exec_query(query)
@@ -40,7 +51,8 @@ class Cart:
         if not response:
             return False
 
-    def get_open_cart(self):
-        query = "SELECT * FROM cart WHERE status = 'open'"
+    def get_open_cart(self, join: bool | list=False, select_join: str = '*'):
+        join_query = self.prepare_join(join=join)
+        query = f"SELECT {select_join} FROM cart {join_query} WHERE status = 'open'"
         response = self.connector.exec_query(query)
         return response if response else False

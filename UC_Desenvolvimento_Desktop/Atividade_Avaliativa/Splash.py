@@ -60,10 +60,10 @@ class Splash(Main):
 
             list_imagens_download_avulsas = {
                 'Login': 'https://blogmaladeviagem.com.br/wp-content/uploads/2019/10/Fogo-caipira-2.png',
-                # 'background': 'https://images.unsplash.com/photo-1605926637512-c8b131444a4b?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                 'background': 'https://i.pinimg.com/736x/ce/1a/18/ce1a18dcf0c6cfc9b5538dfae8e4aa09.jpg',
                 'cart': 'https://www.clker.com//cliparts/j/s/U/7/a/W/shopping-cart-hi.png',
-                'back': 'https://cdn-icons-png.flaticon.com/512/5548/5548528.png'
+                'back': 'https://cdn-icons-png.flaticon.com/512/5548/5548528.png',
+                'trash': 'https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/trash-512.png',
             }
 
             total_downloads = total_produtos + len(list_imagens_download_avulsas)
@@ -101,7 +101,7 @@ class Splash(Main):
     @staticmethod
     def download_save(url, filename):
         try:
-            get_image = requests.get(url)
+            get_image = requests.get(url, headers={'User-Agent': 'Mozilla/5.0 (iPhone14,3; U; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/19A346 Safari/602.1'})
             get_image.raise_for_status()
             with open(filename, 'wb') as file:
                 file.write(get_image.content)

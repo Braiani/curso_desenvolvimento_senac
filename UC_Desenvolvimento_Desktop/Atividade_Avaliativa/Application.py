@@ -91,8 +91,6 @@ class Application:
 
     @staticmethod
     def set_options_elements(options: dict, element):
-        if options is None:
-            return
         if 'opacity' in options:
             pywinstyles.set_opacity(element, color=options.get('opacity', 'white'))
         if 'config' in options:
