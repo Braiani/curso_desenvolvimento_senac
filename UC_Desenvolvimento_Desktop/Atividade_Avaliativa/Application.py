@@ -3,6 +3,7 @@ from PIL.Image import Image
 from SqlHandler import SqlHandler
 from customtkinter import CTkProgressBar as Progressbar
 import os, sys
+import pywinstyles
 
 
 class Application:
@@ -89,9 +90,11 @@ class Application:
 
 
     @staticmethod
-    def set_options_elements(options, element):
+    def set_options_elements(options: dict, element):
         if options is None:
             return
+        if 'opacity' in options:
+            pywinstyles.set_opacity(element, color=options.get('opacity', 'white'))
         if 'config' in options:
             element.configure(**options['config'])
 
@@ -164,6 +167,7 @@ class Application:
         self.positional_element(element=btn, options=options)
 
         self.buttons.append(btn)
+        return btn
 
     def adicionar_progressbar(self, options=None):
         progress = Progressbar(self.janela)

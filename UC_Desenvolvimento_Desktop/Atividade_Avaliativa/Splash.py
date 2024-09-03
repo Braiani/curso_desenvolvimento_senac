@@ -59,7 +59,8 @@ class Splash(Main):
 
             list_imagens_download_avulsas = {
                 'Login': 'https://blogmaladeviagem.com.br/wp-content/uploads/2019/10/Fogo-caipira-2.png',
-                'background': 'https://images.unsplash.com/photo-1605926637512-c8b131444a4b?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                # 'background': 'https://images.unsplash.com/photo-1605926637512-c8b131444a4b?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'background': 'https://i.pinimg.com/736x/ce/1a/18/ce1a18dcf0c6cfc9b5538dfae8e4aa09.jpg',
                 'cart': 'https://www.clker.com//cliparts/j/s/U/7/a/W/shopping-cart-hi.png',
                 'back': 'https://cdn-icons-png.flaticon.com/512/5548/5548528.png'
             }
@@ -122,3 +123,7 @@ class Splash(Main):
 
     def start(self):
         self.janela.mainloop()
+
+if __name__ == '__main__':
+    from Restaurante import Restaurante
+    Restaurante()

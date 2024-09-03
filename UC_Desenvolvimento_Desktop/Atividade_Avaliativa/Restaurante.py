@@ -1,4 +1,5 @@
 from tkinter import messagebox
+from tkinter import StringVar
 from PIL import Image
 from customtkinter import CTk, CTkToplevel
 from Main import Main
@@ -7,16 +8,18 @@ from Categoria import Categoria
 from Produtos import Produtos
 from Splash import Splash
 from Cart import Cart
+import customtkinter as ctk
 
 
 class Restaurante:
     def __init__(self) -> None:
-        self.logado = {'name': 'Ederson', 'id': 1}
-        # self.logado = None
+        # self.logado = {'name': 'Ederson', 'id': 1}
+        self.logado = None
         self.app_master = None
         self.root = None
-        self.shouldLogin = False
+        self.shouldLogin = True
         self.cart = None
+        self.itens_cart = 0
         self.init()
 
     def create_show_products(self, categoria_id):
@@ -24,6 +27,9 @@ class Restaurante:
             self.show_products(category_id=categoria_id)
 
         return function
+    
+    def count_itens_cart(self):
+        self.itens_cart = len(self.cart.get_open_cart())
 
     def init(self):
         temp_ctk = CTk()
@@ -43,30 +49,70 @@ class Restaurante:
         self.root = root
         self.app_master = Main(self.root)
 
+        self.itens_cart = StringVar()
+
         self.cart = Cart(self.app_master.connector)
+
+        self.count_itens_cart()
 
         self.app_master.janela.configure(fg_color=self.app_master.get_colors('black'))
 
         self.app_master.set_geometry(width=800, height=600, fullscreen=False)
         self.app_master.set_grid_column_weight(columns=3, weight=2)
 
-        self.app_master.adicionar_label(text=self.app_master.title, options={
+        image_background = f"{self.app_master.get_base_path()}/images/background.png"
+        self.app_master.adicionar_label_image(filename=image_background, text='', options={
+            'config': {
+                'size': (1920,1080)
+            },
+            'blur': 3,
+            'place': {
+                'x': 0,
+                'y': 0
+            }
+        })
+
+        frame_title = self.app_master.adicionar_frame(options={
+            'config': {
+                'border_width': 2,
+                'corner_radius': 32,
+                'border_color': self.app_master.get_colors('medium_green'),
+                'fg_color': self.app_master.get_colors('dark_gray'),
+                'bg_color': '#000001',
+            },
+            'opacity': '#000001',
+            'grid': {
+                'row': 0,
+                'column': 0,
+                'columnspan': 3,
+                'pady': (50, 100)
+            }
+        })
+
+        self.app_master.adicionar_label(master=frame_title, text=self.app_master.title, options={
             'config': {
                 'font': ('Arial', 32),
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 0,
                 'column': 1,
+                'padx': (20,20),
+                'pady': (20,0)
             }
         })
-        self.app_master.adicionar_label(text=f'Seja bem vindo {self.logado["name"]}', options={
+        self.app_master.adicionar_label(master=frame_title, text=f'Seja bem vindo {self.logado["name"]}', options={
             'config': {
                 'font': ('Arial', 28),
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 1,
                 'column': 1,
-                'pady': (0,150)
+                'padx': (20,20),
+                'pady': (0,20)
             }
         })
 
@@ -84,33 +130,37 @@ class Restaurante:
                 'config': {
                     'height': 50,
                     'corner_radius': 32,
-                    'fg_color': 'transparent',
+                    'fg_color': self.app_master.get_colors('dark_gray'),
+                    'bg_color': '#000001',
                     'border_width': 2,
                     'border_color': self.app_master.get_colors('dark_green')
                 },
+                'opacity': '#000001',
                 'grid': {
                     'row': row,
                     'column': column,
-                    'pady': (0, 30)
+                    'pady': (0, 30),
+                    'sticky': 'nwes'
                 }
             })
             column += 1
 
         row += 1
-        items = self.cart.get_open_cart()
-        print(items)
-        self.app_master.adicionar_button(text='Carrinho', command=lambda: print('teste'), options={
+        btn = self.app_master.adicionar_button(text='Carrinho', command=lambda: print('teste'), options={
             'config': {
                 'height': 50,
-                    'corner_radius': 32,
-                    'fg_color': 'transparent',
-                    'border_width': 2,
-                    'border_color': self.app_master.get_colors('dark_green')
+                'corner_radius': 32,
+                'fg_color': self.app_master.get_colors('dark_gray'),
+                'bg_color': '#000001',
+                'border_width': 3,
+                'border_color': self.app_master.get_colors('dark_green')
             },
+            'opacity': '#000001',
             'grid': {
                 'row': row,
                 'column': 0,
-                'pady': (40, 0)
+                'pady': (40, 0),
+                'sticky': 'nwes'
             }
         })
 
@@ -118,14 +168,17 @@ class Restaurante:
             'config': {
                 'height': 50,
                     'corner_radius': 32,
-                    'fg_color': 'transparent',
+                    'fg_color': self.app_master.get_colors('dark_gray'),
+                    'bg_color': '#000001',
                     'border_width': 2,
                     'border_color': self.app_master.get_colors('dark_green')
             },
+            'opacity': '#000001',
             'grid': {
                 'row': row,
                 'column': 2,
-                'pady': (40, 0)
+                'pady': (40, 0),
+                'sticky': 'nwes'
             }
         })
 
@@ -152,18 +205,17 @@ class Restaurante:
 
         produtos = prod.get_all_by_category(category=category_id, join=joins, select_join=select_join)
 
-        # image_background = f"{prod_panel.get_base_path()}/images/background.png"
-        # prod_panel.adicionar_label_image(filename=image_background, text='', options={
-        #     'config': {
-        #         'size': (600,500)
-        #     },
-        #     'blur': 2,
-        #     'grid': {
-        #         'row': 0,
-        #         'column': 0,
-        #         'rowspan': 10,
-        #     }
-        # })
+        image_background = f"{prod_panel.get_base_path()}/images/background.png"
+        prod_panel.adicionar_label_image(filename=image_background, text='', options={
+            'config': {
+                'size': (1920,1080)
+            },
+            'blur': 1,
+            'place': {
+                'x': 0,
+                'y': 0
+            }
+        })
 
 
         frame_title = prod_panel.adicionar_frame(options={
@@ -173,9 +225,10 @@ class Restaurante:
                 'border_width': 2,
                 'corner_radius': 32,
                 'border_color': prod_panel.get_colors('medium_green'),
-                'fg_color': 'transparent',
-                'bg_color': 'transparent'
+                'fg_color': prod_panel.get_colors('dark_gray'),
+                'bg_color': '#000001',
             },
+            'opacity': '#000001',
             'grid': {
                 'row': 0,
                 'column': 0,
@@ -236,12 +289,15 @@ class Restaurante:
                     'border_width': 2,
                     'corner_radius': 10,
                     'border_color': prod_panel.get_colors('medium_green'),
-                    'fg_color': 'transparent',
+                    'fg_color': prod_panel.get_colors('dark_gray'),
+                    'bg_color': '#000001'
                 },
+                'opacity': '#000001',
                 'grid': {
                     'row': row,
                     'column': column,
-                    'pady': (20, 20)
+                    'padx': (30, 30),
+                    'pady': (30, 30)
                 }
             })
 
@@ -257,7 +313,7 @@ class Restaurante:
                 'grid': {
                     'row': 0,
                     'column': 0,
-                    'pady': (15,0)
+                    'pady': (30,0)
                 }
             })
 
@@ -269,7 +325,7 @@ class Restaurante:
                 'grid': {
                     'row': 1,
                     'column': 0,
-                    'pady': (0,0)
+                    'pady': (15,0)
                 }
             })
             
@@ -285,7 +341,7 @@ class Restaurante:
                 'grid': {
                     'row': 2,
                     'column': 0,
-                    'pady': (0,15)
+                    'pady': (15,15)
                 }
             })
 
@@ -296,11 +352,12 @@ class Restaurante:
             'config': {
                 'corner_radius': 32,
                 'fg_color': 'transparent',
-                'bg_color': 'transparent',
+                'bg_color': '#000001',
                 'border_color': prod_panel.get_colors('medium_green'),
                 'border_width': 2,
                 'image': back_image
             },
+            'opacity': '#000001',
             'grid': {
                 'row': row + 1,
                 'column': 0,
@@ -318,10 +375,12 @@ class Restaurante:
 
     def add_item_to_cart(self, product_id):
         cart = Cart(self.app_master.connector)
-        print(cart.get_all())
-        print(f"Adicionando item ao carrinho: {product_id}")
+        dialog = ctk.CTkInputDialog(text="Digite a quantidade:", title="Quantidade")
+        if dialog is None:
+            messagebox.showwarning(title="Atenção", message="Produto não adicionado!")
+            return
         try:
-            add_cart = cart.add_item(product_id=product_id, quantity=1)
+            add_cart = cart.add_item(product_id=product_id, quantity=int(dialog.get_input()))
             if add_cart:
                 messagebox.showinfo('Sucesso', 'Produto adicionado ao carrinho!')
             else:
