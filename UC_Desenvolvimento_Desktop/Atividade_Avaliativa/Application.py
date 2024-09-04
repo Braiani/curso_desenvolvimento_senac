@@ -18,6 +18,9 @@ class Application:
         ctk.set_default_color_theme("green")
         self.set_icon()
         ctk.deactivate_automatic_dpi_awareness()
+        pywinstyles.apply_style(self.janela, 'optimised')
+        pywinstyles.change_header_color(self.janela, color=self.get_colors('dark_gray'))
+        pywinstyles.change_border_color(self.janela, color=self.get_colors('dark_gray'))
 
     def set_icon(self):
         self.janela.iconbitmap(f'{self.get_base_path()}/icon.ico')
@@ -69,7 +72,7 @@ class Application:
         self.background = color
         self.janela.config(background=color)
 
-    def set_grid_column_weight(self, columns, weight = 2):
+    def set_grid_column_weight(self, columns, weight = 2, options:dict=None):
         """
         Define o peso das colunas no layout de grade da janela.
 
@@ -82,7 +85,10 @@ class Application:
         - `set_grid_column_weight(3, 1)` define o peso das primeiras 3 colunas para 1.
         """
         for index in range(columns):
-            self.janela.grid_columnconfigure(index, weight=weight)
+            if options is not None:
+                self.janela.grid_columnconfigure(index, weight=weight, **options)
+            else:
+                self.janela.grid_columnconfigure(index, weight=weight)
 
     def set_row_configure(self, rows, weight=1):
         for index in range(rows):

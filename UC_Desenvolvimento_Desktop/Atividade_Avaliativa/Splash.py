@@ -67,7 +67,7 @@ class Splash(Main):
             }
 
             total_downloads = total_produtos + len(list_imagens_download_avulsas)
-            increment_value = (100/(total_downloads)) / 2
+            increment_value = (100/total_downloads) / 2
             self.increment_progressbar(increment_value)
 
             count = 0

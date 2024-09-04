@@ -24,9 +24,9 @@ class Cart:
         response = self.connector.exec_query(query, params, True)
         return True if response else False
 
-    def remove_item(self, product_id):
-        query = "DELETE FROM cart WHERE product_id = %s"
-        params = (product_id,)
+    def remove_item(self, id):
+        query = "DELETE FROM cart WHERE id = %s"
+        params = (id,)
         response = self.connector.exec_query(query, params, True)
         return True if response else False
 
@@ -41,6 +41,7 @@ class Cart:
             SELECT SUM(p.price * c.quantity) AS total
             FROM cart c
             JOIN products p ON p.id = c.product_id
+            WHERE c.status = 'open'
         """
         response = self.connector.exec_query(query)
         return response[0]['total'] if response else False

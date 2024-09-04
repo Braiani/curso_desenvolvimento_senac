@@ -48,6 +48,7 @@ class Login(Main):
                 'height': 30,
                 'width': 200,
                 'bg_color': '#000001',
+                'border_color': self.get_colors('medium_green'),
             },
             'opacity': '#000001',
             'grid': {
@@ -80,6 +81,7 @@ class Login(Main):
                 'width': 200,
                 'show': '*',
                 'bg_color': '#000001',
+                'border_color': self.get_colors('medium_green'),
             },
             'opacity': '#000001',
             'grid': {
@@ -113,6 +115,7 @@ class Login(Main):
                 'width': 200,
                 'show': '*',
                 'bg_color': '#000001',
+                'border_color': self.get_colors('medium_green'),
             },
             'opacity': '#000001',
             'grid': {

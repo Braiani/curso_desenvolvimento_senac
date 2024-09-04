@@ -1,4 +1,3 @@
-import Restaurante
 import customtkinter as ctk
 from Main import Main
 from Cart import Cart
@@ -8,7 +7,7 @@ from PIL import Image
 from tkinter import messagebox
 
 class ProductsView(Main):
-    def __init__(self, category_id: int, parent: Restaurante):
+    def __init__(self, category_id: int, parent):
         surface = CTkToplevel()
         self.category_id = category_id
         self.parent = parent
@@ -33,17 +32,7 @@ class ProductsView(Main):
 
         produtos = prod.get_all_by_category(category=self.category_id, join=joins, select_join=select_join)
 
-        image_background = f"{self.get_base_path()}/images/background.png"
-        self.adicionar_label_image(filename=image_background, text='', options={
-            'config': {
-                'size': (1920,1080)
-            },
-            'blur': 1,
-            'place': {
-                'x': 0,
-                'y': 0
-            }
-        })
+        self.apply_background_image()
 
 
         frame_title = self.adicionar_frame(options={
@@ -186,11 +175,13 @@ class ProductsView(Main):
     def add_item_to_cart(self, product_id):
         cart = Cart(self.connector)
         dialog = ctk.CTkInputDialog(text="Digite a quantidade:", title="Quantidade")
-        if dialog.get_input() is None:
+        quantity = dialog.get_input()
+        print(quantity)
+        if quantity is None:
             messagebox.showwarning(title="Atenção", message="Produto não adicionado!")
             return
         try:
-            add_cart = cart.add_item(product_id=product_id, quantity=dialog.get_input())
+            add_cart = cart.add_item(product_id=product_id, quantity=quantity)
             if add_cart:
                 messagebox.showinfo('Sucesso', 'Produto adicionado ao carrinho!')
             else:
@@ -203,4 +194,5 @@ class ProductsView(Main):
         self.parent.deiconify()
 
 if __name__ == '__main__':
+    from Restaurante import Restaurante
     Restaurante()

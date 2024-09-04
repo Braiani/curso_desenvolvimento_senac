@@ -46,6 +46,19 @@ class Main(Application):
         self.set_options_elements(options, label)
         self.positional_element(element=label, options=options)
 
+    def apply_background_image(self):
+        image_background = f"{self.get_base_path()}/images/background.png"
+        self.adicionar_label_image(filename=image_background, text='', options={
+            'config': {
+                'size': (self.janela.winfo_screenwidth(), self.janela.winfo_screenheight())
+            },
+            'blur': 1,
+            'place': {
+                'x': 0,
+                'y': 0
+            }
+        })
+
 
 if __name__ == '__main__':
     from Restaurante import Restaurante

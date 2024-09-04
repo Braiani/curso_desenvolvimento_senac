@@ -1,15 +1,11 @@
-from tkinter import messagebox
-from PIL import Image
 from customtkinter import CTk, CTkToplevel
 from Main import Main
 from Login import Login
 from Categoria import Categoria
-from Produtos import Produtos
 from Splash import Splash
 from Cart import Cart
 from Products_view import ProductsView
 from Cart_view import CartView
-import customtkinter as ctk
 
 
 class Restaurante:
@@ -27,11 +23,6 @@ class Restaurante:
             self.show_products(category_id=categoria_id)
 
         return function
-    
-    def count_itens_cart(self):
-        itens = self.cart.get_open_cart()
-        if itens:
-            self.itens_cart = len(itens)
 
     def init(self):
         temp_ctk = CTk()
@@ -51,26 +42,12 @@ class Restaurante:
         self.root = root
         self.app_master = Main(self.root)
 
-        self.cart = Cart(self.app_master.connector)
-
-        self.count_itens_cart()
-
         self.app_master.janela.configure(fg_color=self.app_master.get_colors('black'))
 
         self.app_master.set_geometry(width=800, height=600, fullscreen=False)
         self.app_master.set_grid_column_weight(columns=3, weight=2)
 
-        image_background = f"{self.app_master.get_base_path()}/images/background.png"
-        self.app_master.adicionar_label_image(filename=image_background, text='', options={
-            'config': {
-                'size': (1920,1080)
-            },
-            'blur': 3,
-            'place': {
-                'x': 0,
-                'y': 0
-            }
-        })
+        self.app_master.apply_background_image()
 
         frame_title = self.app_master.adicionar_frame(options={
             'config': {
