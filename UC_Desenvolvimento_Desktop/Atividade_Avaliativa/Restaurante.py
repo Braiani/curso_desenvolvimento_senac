@@ -1,97 +1,176 @@
+from customtkinter import CTk, CTkToplevel
 from Main import Main
 from Login import Login
 from Categoria import Categoria
-from Produtos import Produtos
-from tkinter import Tk
-from tkinter import *
-   
+from Splash import Splash
+from Cart import Cart
+from Products_view import ProductsView
+from Cart_view import CartView
+
+
 class Restaurante:
     def __init__(self) -> None:
-        self.logado = 'Felipe'
-        self.shouldLogin = False
+        self.logado = None
+        self.app_master = None
+        self.root = None
+        self.shouldLogin = True
+        self.cart = None
+        self.itens_cart = 0
         self.init()
 
     def create_show_products(self, categoria_id):
         def function():
-            self.showProducts(category_id=categoria_id)
+            self.show_products(category_id=categoria_id)
+
         return function
 
     def init(self):
-        if self.shouldLogin:
-            root = Tk()
-            app = Login(root)
-            app.start()
-            self.logado = app.get_logado()
+        temp_ctk = CTk()
+        splash = Splash(temp_ctk)
+        splash.start()
+
+        if self.shouldLogin and self.logado is None:
+            root = CTk()
+            login = Login(root)
+            login.start()
+            self.logado = login.get_logado()
             if not self.logado:
                 print('Saindo do programa!')
                 exit()
-        
-        root = Tk()
-        app = Main(root)
 
-        app.set_geometry(800, 600, True, True)
-        
-        app.adicionar_label(text=app.title, relx=0.5, rely=0.05, anchor='center', options={'font': ('Arial', 20), 'foreground': 'white'})
-        app.adicionar_label(text=f'Seja bem vindo {self.logado}', relx=0.5, rely=0.1, anchor='center', options={'font': ('Arial', 16), 'foreground': 'white'})
-        espacamento = 0.3
-        btn_options = {
-            'padding': 10,
-            'width': 25
-        }
+        root = CTk()
+        self.root = root
+        self.app_master = Main(self.root)
+
+        self.app_master.janela.configure(fg_color=self.app_master.get_colors('black'))
+
+        self.app_master.set_geometry(width=800, height=600, fullscreen=False)
+        self.app_master.set_grid_column_weight(columns=3, weight=2)
+
+        self.app_master.apply_background_image()
+
+        frame_title = self.app_master.adicionar_frame(options={
+            'config': {
+                'border_width': 2,
+                'corner_radius': 32,
+                'border_color': self.app_master.get_colors('medium_green'),
+                'fg_color': self.app_master.get_colors('dark_gray'),
+                'bg_color': '#000001',
+            },
+            'opacity': '#000001',
+            'grid': {
+                'row': 0,
+                'column': 0,
+                'columnspan': 3,
+                'pady': (50, 100)
+            }
+        })
+
+        self.app_master.adicionar_label(master=frame_title, text=self.app_master.title, options={
+            'config': {
+                'font': ('Arial', 32),
+                'bg_color': '#000001',
+            },
+            'opacity': '#000001',
+            'grid': {
+                'row': 0,
+                'column': 1,
+                'padx': (20,20),
+                'pady': (20,0)
+            }
+        })
+        self.app_master.adicionar_label(master=frame_title, text=f'Seja bem vindo {self.logado["name"]}', options={
+            'config': {
+                'font': ('Arial', 28),
+                'bg_color': '#000001',
+            },
+            'opacity': '#000001',
+            'grid': {
+                'row': 1,
+                'column': 1,
+                'padx': (20,20),
+                'pady': (0,20)
+            }
+        })
 
         categorias = Categoria().getAll()
+        column = 0
+        row = 2
 
         for categoria in categorias:
-            categoria_id = int(categoria[0])
-            app.adicionar_button(
-                text=categoria[1],
-                relx=0.5,
-                rely=espacamento,
-                anchor='center',
-                command=self.create_show_products(categoria_id=categoria_id),
-                options=btn_options)
-            espacamento += 0.05
+            if column == 3:
+                column = 0
+                row += 1
 
-
-        app.adicionar_button(text='Carrinho', relx=0.45, rely=espacamento, anchor='center',command=app.janela.quit, options=btn_options)
-        app.adicionar_button(text='Sair', relx=0.55, rely=espacamento, anchor='center',command=app.janela.destroy, options=btn_options)
-        
-        app.start()
-
-    def showProducts(self, category_id: int):
-        surface = Toplevel()
-        prod_panel = Main(surface)
-        prod_panel.set_geometry(width=600, height=600, center=False, fullscreen=True)
-
-        prod = Produtos()
-        joins = [{
-            'table': 'categories',
-            'foreing_key': 'category_id',
-            'primary_key': 'id'
-        }]
-
-        optinos_label = {'font': ('Arial', 16), 'foreground': 'white'}
-
-        produtos = prod.getAllByCategory(category=category_id, join=joins)
-
-        prod_panel.adicionar_label(text=prod_panel.title, relx=0.5, rely=0.05, anchor='center', options={'font': ('Arial', 20), 'foreground': 'white'})
-        prod_panel.adicionar_label(text=f'Produtos da Categoria {produtos[0][1]}', relx=0.5, rely=0.1, anchor='center', options=optinos_label)
-
-        espacamento = 0.3
-        for produto in produtos:
-            text = f"{produto[1]} - R$ {produto[2]:.2f}"
-            prod_panel.adicionar_label_image(image_url=produto[4], text=text, options={
-                'relx': 0.3,
-                'rely': espacamento,
-                'anchor': 'center',
-                'font': ('Arial', 20)
+            categoria_id = int(categoria["id"])
+            self.app_master.adicionar_button(text=categoria["descricao"], command=self.create_show_products(categoria_id=categoria_id), options={
+                'config': {
+                    'height': 50,
+                    'corner_radius': 32,
+                    'fg_color': self.app_master.get_colors('dark_gray'),
+                    'bg_color': '#000001',
+                    'border_width': 2,
+                    'border_color': self.app_master.get_colors('dark_green')
+                },
+                'opacity': '#000001',
+                'grid': {
+                    'row': row,
+                    'column': column,
+                    'pady': (0, 30),
+                    'sticky': 'nwes'
+                }
             })
-            espacamento += 0.15
-        
-        prod_panel.adicionar_button(text='Voltar', relx=0.25, rely=espacamento, anchor='center',command=prod_panel.janela.destroy)
+            column += 1
 
-        prod_panel.start()
+        row += 1
+        self.app_master.adicionar_button(text='Carrinho', command=self.open_cart_view, options={
+            'config': {
+                'height': 50,
+                'corner_radius': 32,
+                'fg_color': self.app_master.get_colors('dark_gray'),
+                'bg_color': '#000001',
+                'border_width': 3,
+                'border_color': self.app_master.get_colors('dark_green')
+            },
+            'opacity': '#000001',
+            'grid': {
+                'row': row,
+                'column': 0,
+                'pady': (40, 0),
+                'sticky': 'nwes'
+            }
+        })
 
+        self.app_master.adicionar_button(text='Sair', command=lambda: self.app_master.close(), options={
+            'config': {
+                'height': 50,
+                    'corner_radius': 32,
+                    'fg_color': self.app_master.get_colors('dark_gray'),
+                    'bg_color': '#000001',
+                    'border_width': 2,
+                    'border_color': self.app_master.get_colors('dark_green')
+            },
+            'opacity': '#000001',
+            'grid': {
+                'row': row,
+                'column': 2,
+                'pady': (40, 0),
+                'sticky': 'nwes'
+            }
+        })
+
+        self.app_master.start()
+
+    def open_cart_view(self):
+        self.app_master.minimize()
+        CartView(parent=self)
+
+    def show_products(self, category_id: int):
+        self.app_master.minimize()
+        ProductsView(category_id=category_id, parent=self)
+    
+    def deiconify(self):
+        self.app_master.deiconify()
 
 if __name__ == '__main__':
     Restaurante()

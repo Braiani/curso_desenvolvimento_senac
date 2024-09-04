@@ -1,13 +1,12 @@
-from SqlHandler import SqlHandler
-
 class Usuarios:
-    def __init__(self, usuario, senha) -> None:
+    def __init__(self, usuario, senha, connector) -> None:
         self.usuario = usuario
         self.senha = senha
+        self.connector = connector
 
     def validar_login(self):
-        sql = SqlHandler()
-        whereQuery = f"""
+        sql = self.connector
+        where_query = f"""
             select
                 username, name
             from 
@@ -17,7 +16,7 @@ class Usuarios:
                 and password = '{self.senha}'
         """
 
-        response = sql.execQuery(whereQuery)
+        response = sql.exec_query(where_query)
         
         if not response:
             return False

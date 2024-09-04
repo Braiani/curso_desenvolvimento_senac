@@ -15,7 +15,7 @@ class Categoria:
             where 
                 id = '{id}'
         """
-        response = sql.execQuery(whereQuery)
+        response = sql.exec_query(whereQuery)
         
         if not response:
             return False
@@ -31,7 +31,7 @@ class Categoria:
             from 
                 categories
         """
-        response = sql.execQuery(whereQuery)
+        response = sql.exec_query(whereQuery)
         
         if not response:
             return False
