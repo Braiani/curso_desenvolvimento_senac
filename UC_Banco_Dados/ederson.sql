@@ -41,6 +41,11 @@ CREATE TABLE escolaridade(
     escolaridade varchar(100)
 );
 
+CREATE TABLE estado_civil(
+    id_estado_civil int auto_increment primary key,
+    estado_civil varchar(100)
+);
+
 CREATE TABLE clientes(
 	cpf varchar(14) unique primary key,
     nome varchar(255) not null,
@@ -51,11 +56,13 @@ CREATE TABLE clientes(
     id_nacionalidade int,
     id_raca int,
     id_escolaridade int,
+    id_estado_civil int,
     foreign key fk_cidade(id_cidade) references cidade(id_cidade),
     foreign key fk_sexo(id_sexo) references sexo(id_sexo),
     foreign key fk_nacionalidade(id_nacionalidade) references nacionalidade(id_nacionalidade),
     foreign key fk_raca(id_raca) references raca(id_raca),
-    foreign key fk_escolaridade(id_escolaridade) references escolaridade(id_escolaridade)
+    foreign key fk_escolaridade(id_escolaridade) references escolaridade(id_escolaridade),
+    foreign key fk_estado_civil(id_estado_civil) references estado_civil(id_estado_civil)
 );
 
 -- Incluir no mínimo 20 cadastros;
@@ -5756,30 +5763,42 @@ INSERT INTO `escolaridade` (`escolaridade`) VALUES
 ('Doutorado');
 
 --
+-- Inserindo dados na tabela "estado_civil"
+--
+
+INSERT INTO `estado_civil` (`estado_civil`) VALUES 
+('Solteiro'),
+('Casado'),
+('Divorciado'),
+('Viúvo'),
+('União Estável');
+
+
+--
 -- Inserindo dados na tabela "clientes"
 --
 
-INSERT INTO `clientes` (`cpf`, `nome`, `rg`, `fone`, `id_cidade`, `id_sexo`, `id_nacionalidade`, `id_raca`, `id_escolaridade`) VALUES
-('123.456.789-00', 'João da Silva', 'MG1234567', '(11) 98765-4321', 100, 1, 1, 1, 6),
-('234.567.890-11', 'Maria Oliveira', 'MG2345678', '(21) 87654-3210', 2, 2, 1, 2, 5),
-('345.678.901-22', 'Pedro Santos', 'MG3456789', '(31) 76543-2109', 356, 1, 2, 3, 4),
-('456.789.012-33', 'Ana Costa', 'MG4567890', '(41) 65432-1098', 4589, 2, 2, 4, 3),
-('567.890.123-44', 'Carlos Almeida', 'MG5678901', '(51) 54321-0987', 55, 1, 1, 5, 2),
-('678.901.234-55', 'Fernanda Lima', 'MG6789012', '(61) 43210-9876', 1239, 2, 1, 1, 6),
-('789.012.345-66', 'Roberto Pereira', 'MG7890123', '(71) 32109-8765', 226, 1, 2, 2, 5),
-('890.123.456-77', 'Juliana Mendes', 'MG8901234', '(81) 21098-7654', 399, 2, 1, 3, 4),
-('901.234.567-88', 'Fernando Ribeiro', 'MG9012345', '(91) 10987-6543', 4586, 1, 2, 4, 3),
-('012.345.678-99', 'Tatiane Martins', 'MG0123456', '(11) 98765-4321', 5000, 2, 1, 5, 2),
-('123.456.780-11', 'Marcos Silva', 'MG1234568', '(21) 87654-3210', 111, 1, 2, 1, 6),
-('234.567.891-22', 'Claudia Souza', 'MG2345679', '(31) 76543-2109', 222, 2, 1, 2, 5),
-('345.678.902-33', 'Jorge Lima', 'MG3456780', '(41) 65432-1098', 3869, 1, 2, 3, 4),
-('456.789.013-44', 'Patrícia Costa', 'MG4567891', '(51) 54321-0987', 4659, 2, 1, 4, 3),
-('567.890.234-55', 'Eduardo Rodrigues', 'MG5678902', '(61) 43210-9876', 588, 1, 2, 5, 2),
-('678.901.345-66', 'Lorena Oliveira', 'MG6789013', '(71) 32109-8765', 1000, 2, 1, 1, 6),
-('789.012.456-77', 'Gustavo Ferreira', 'MG7890124', '(81) 21098-7654', 256, 1, 2, 2, 5),
-('890.123.567-88', 'Mariana Santos', 'MG8901235', '(91) 10987-6543', 300, 2, 1, 3, 4),
-('901.234.678-99', 'Lucas Oliveira', 'MG9012346', '(11) 98765-4321', 4456, 1, 2, 4, 3),
-('012.345.679-00', 'Larissa Martins', 'MG0123457', '(21) 87654-3210', 59, 2, 1, 5, 2);
+INSERT INTO `clientes` (`cpf`, `nome`, `rg`, `fone`, `id_cidade`, `id_sexo`, `id_nacionalidade`, `id_raca`, `id_escolaridade`, `id_estado_civil`) VALUES
+('123.456.789-00', 'João da Silva', 'MG1234567', '(11) 98765-4321', 100, 1, 1, 1, 6, 1),
+('234.567.890-11', 'Maria Oliveira', 'MG2345678', '(21) 87654-3210', 2, 2, 1, 2, 5, 3),
+('345.678.901-22', 'Pedro Santos', 'MG3456789', '(31) 76543-2109', 356, 1, 2, 3, 4, 3),
+('456.789.012-33', 'Ana Costa', 'MG4567890', '(41) 65432-1098', 4589, 2, 2, 4, 3, 2),
+('567.890.123-44', 'Carlos Almeida', 'MG5678901', '(51) 54321-0987', 55, 1, 1, 5, 2, 4),
+('678.901.234-55', 'Fernanda Lima', 'MG6789012', '(61) 43210-9876', 1239, 2, 1, 1, 6, 5),
+('789.012.345-66', 'Roberto Pereira', 'MG7890123', '(71) 32109-8765', 226, 1, 2, 2, 5, 5),
+('890.123.456-77', 'Juliana Mendes', 'MG8901234', '(81) 21098-7654', 399, 2, 1, 3, 4, 3),
+('901.234.567-88', 'Fernando Ribeiro', 'MG9012345', '(91) 10987-6543', 4586, 1, 2, 4, 3, 4),
+('012.345.678-99', 'Tatiane Martins', 'MG0123456', '(11) 98765-4321', 5000, 2, 1, 5, 2, 2),
+('123.456.780-11', 'Marcos Silva', 'MG1234568', '(21) 87654-3210', 111, 1, 2, 1, 6, 1),
+('234.567.891-22', 'Claudia Souza', 'MG2345679', '(31) 76543-2109', 222, 2, 1, 2, 5, 1),
+('345.678.902-33', 'Jorge Lima', 'MG3456780', '(41) 65432-1098', 3869, 1, 2, 3, 4, 3),
+('456.789.013-44', 'Patrícia Costa', 'MG4567891', '(51) 54321-0987', 4659, 2, 1, 4, 3, 3),
+('567.890.234-55', 'Eduardo Rodrigues', 'MG5678902', '(61) 43210-9876', 588, 1, 2, 5, 2, 5),
+('678.901.345-66', 'Lorena Oliveira', 'MG6789013', '(71) 32109-8765', 1000, 2, 1, 1, 6, 4),
+('789.012.456-77', 'Gustavo Ferreira', 'MG7890124', '(81) 21098-7654', 256, 1, 2, 2, 5, 3),
+('890.123.567-88', 'Mariana Santos', 'MG8901235', '(91) 10987-6543', 300, 2, 1, 3, 4, 3),
+('901.234.678-99', 'Lucas Oliveira', 'MG9012346', '(11) 98765-4321', 4456, 1, 2, 4, 3, 3),
+('012.345.679-00', 'Larissa Martins', 'MG0123457', '(21) 87654-3210', 59, 2, 1, 5, 2, 2);
 
 -- Apresentar um select apenas com o nome e a cidade.
 -- Apresentar um select apenas com o nome e o estado.
@@ -5860,3 +5879,99 @@ JOIN sexo s ON c.id_sexo = s.id_sexo
 JOIN nacionalidade n ON c.id_nacionalidade = n.id_nacionalidade
 JOIN raca r ON c.id_raca = r.id_raca
 JOIN escolaridade es ON c.id_escolaridade = es.id_escolaridade;
+
+-- Se a letra da cidade começar de A até M, Mudar o nome da cidade para “Abaixo de M”, e de M até o final do alfabeto mudar o nome para “Acima de M”;
+UPDATE cidade SET cidade = "Abaixo de M" where cidade < "M%";
+UPDATE cidade SET cidade = "Acima de M" where cidade > "M%";
+
+-- Os estados, deixaremos de utilizar seu nome, e sim sua região, então verifique a região do estado e altere, ex.: se o estado for Mato Grosso do Sul, você irá alterar o nome para “Centro Oeste”;
+UPDATE estado SET estado = "Centro-Oeste" WHERE estado in ("Mato Grosso do Sul", "Mato Grosso", "Goias", "Distrito Federal");
+UPDATE estado SET estado = "Nordeste" WHERE estado in ("Bahia", "Sergipe", "Alagoas", "Pernambuco", "Paraíba", "Rio Grande do Norte", "Ceará", "Maranhão", "Piauí");
+UPDATE estado SET estado = "Norte" WHERE estado in ("Acre", "Amazonas", "Pará", "Rondônia", "Roraima", "Tocantins", "Amapá");
+UPDATE estado SET estado = "Sul" WHERE estado in ("Paraná", "Santa Catarina", "Rio Grande do Sul");
+UPDATE estado SET estado = "Sudeste" WHERE estado in ("São Paulo", "Rio de Janeiro", "Minas Gerais", "Espírito Santo");
+
+-- Na nacionalidade, alterar estrangeiro para “Fora do Brasil”;
+UPDATE nacionalidade SET nacionalidade = "Fora do Brasil" WHERE nacionalidade = "Estrangeira";
+
+-- Nas raças, alterar para “seres humanos”;
+UPDATE raca SET raca = "Seres Humanos";
+
+-- Na escolaridade mudaremos o padrão, tudo que for ensino fundamental ou médio, será alterado para “ensino básico”, e o que for de graduação para cima, será alterado para “ensino avançado”.
+UPDATE escolaridade SET escolaridade = "Ensino Básico" WHERE escolaridade LIKE "%Fundamental%" OR escolaridade LIKE "%Médio%";
+UPDATE escolaridade SET escolaridade = "Ensino Avançado" WHERE escolaridade <> "Ensino Básico";
+
+
+-- 
+-- Apresentar um select apenas com o nome e a cidade.
+--
+
+SELECT c.nome, ci.cidade
+FROM clientes c
+JOIN cidade ci ON c.id_cidade = ci.id_cidade;
+
+-- 
+-- Apresentar um select apenas com o nome e o estado.
+--
+
+SELECT c.nome, e.estado
+FROM clientes c
+JOIN cidade ci ON c.id_cidade = ci.id_cidade
+JOIN estado e ON ci.id_estado = e.id_estado;
+
+-- 
+-- Apresentar um select apenas com o nome, cpf e a raça.
+--
+
+SELECT c.nome, c.cpf, r.raca
+FROM clientes c
+JOIN raca r ON c.id_raca = r.id_raca;
+
+-- 
+-- Apresentar um select apenas com o nome e a nacionalidade.
+--
+
+SELECT c.nome, n.nacionalidade
+FROM clientes c
+JOIN nacionalidade n ON c.id_nacionalidade = n.id_nacionalidade;
+
+-- 
+-- Apresentar um select apenas com o nome e a escolaridade.
+--
+
+SELECT c.nome, e.escolaridade
+FROM clientes c
+JOIN escolaridade e ON c.id_escolaridade = e.id_escolaridade;
+
+-- 
+-- Apresentar um select com nome, cidade e estado.
+--
+
+SELECT c.nome, ci.cidade, e.estado
+FROM clientes c
+JOIN cidade ci ON c.id_cidade = ci.id_cidade
+JOIN estado e ON ci.id_estado = e.id_estado;
+
+-- 
+-- Apresentar um select com nome, cidade, estado, fone, rg, sexo, nacionalidade, raça, escolaridade.
+--
+
+SELECT 
+    c.nome, 
+    ci.cidade, 
+    e.estado, 
+    c.fone, 
+    c.rg, 
+    s.sexo, 
+    n.nacionalidade, 
+    r.raca, 
+    es.escolaridade,
+    civil.estado_civil
+FROM clientes c
+JOIN cidade ci ON c.id_cidade = ci.id_cidade
+JOIN estado e ON ci.id_estado = e.id_estado
+JOIN sexo s ON c.id_sexo = s.id_sexo
+JOIN nacionalidade n ON c.id_nacionalidade = n.id_nacionalidade
+JOIN raca r ON c.id_raca = r.id_raca
+JOIN escolaridade es ON c.id_escolaridade = es.id_escolaridade
+JOIN estado_civil civil ON c.id_estado_civil = civil.id_estado_civil;
