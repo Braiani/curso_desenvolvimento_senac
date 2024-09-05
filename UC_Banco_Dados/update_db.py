@@ -4,11 +4,11 @@ from mysql.connector import Error
 class SqlHandle:
     def __init__(self) -> None:
         try:
-            self.connection = mysql.connector.connect(host='10.28.2.15',
+            self.connection = mysql.connector.connect(host='localhost',
                                                       port='3306',
                                                       database='cadastros',
-                                                      user='suporte',
-                                                      password='suporte')
+                                                      user='root',
+                                                      password='root')
             if self.connection.is_connected():
                 db_info = self.connection.get_server_info()
                 print("Connected to MySQL Server version ", db_info)
@@ -70,8 +70,21 @@ def alter_cidade_curitiba(connector: SqlHandle):
     print("\n Dados atualizados")
 
 
-def alter_dominio_email(conncetor: SqlHandle):
-    pass
+def alter_dominio_email(conncetor: SqlHandle, start: int = 20, end: int = 45, from_domain: str = '@exemplo.com', to_domain: str = '@teste.com'):
+    sql = "SELECT * FROM cliente WHERE id_cliente BETWEEN %s AND %s"
+
+    registros = conncetor.exec_query(sql, params=(start, end))
+
+    for registro in registros:
+        email = registro['email_cliente']
+        if from_domain in email:
+            new_email = email.replace(from_domain, to_domain)
+
+            query = "UPDATE cliente SET email_cliente = %s WHERE id_cliente = %s"
+
+            conncetor.exec_query(query, params=(new_email, registro['id_cliente']), commit=True)
+
+    print("Tudo certo!!!\n\n")
 
 def mostrar_menu():
     print("\n--- Menu Principal ---")
