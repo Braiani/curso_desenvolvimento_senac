@@ -64,9 +64,11 @@ def adicionar_numero_cell(connector: SqlHandle):
             
 
 def alter_cidade_curitiba(connector: SqlHandle):
-    sql = "SELECT * FROM cidade"
+    sql = "UPDATE cidade set id_estado = 2 WHERE nome_cidade = 'Curitiba'"
 
-    print(connector.exec_query(sql))
+    connector.exec_query(sql, commit=True)
+    print("\n Dados atualizados")
+
 
 def alter_dominio_email(conncetor: SqlHandle):
     pass
