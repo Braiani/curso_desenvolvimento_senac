@@ -1,0 +1,18 @@
+-- 4. No MySQL Workbench, utilizando o banco de dados ‘sprint’:
+-- Criar a tabela chamada Professor para conter os dados: idProfessor, nome (tamanho 50),
+-- especialidade (tamanho 40), dtNasc (date), sendo que idProfessor é a chave primária da
+-- tabela.
+-- Exemplo do campo data: ‘AAAA-MM-DD’, ‘1983-10-13’.
+-- Inserir dados na tabela, procurando colocar uma especialista para mais de um professor.
+-- Procure inserir pelo menos uns 6 professores.
+-- Execute os comandos para:
+-- a) Exibir todos os dados da tabela.
+-- b) Adicionar o campo funcao do tipo varchar(50), onde a função só pode ser ‘monitor’,
+-- ‘assistente’ ou ‘titular’;
+-- c) Atualizar os professores inseridos e suas respectivas funções;
+-- d) Inserir um novo professor;
+-- e) Excluir o professor onde o idProfessor é igual a 5;
+-- f) Exibir apenas os nomes dos professores titulares;
+-- g) Exibir apenas as especialidades e as datas de nascimento dos professores monitores;
+-- h) Atualizar a data de nascimento do idProfessor igual a 3;
+-- i) Limpar a tabela Professor;
