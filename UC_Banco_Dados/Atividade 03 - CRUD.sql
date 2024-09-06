@@ -361,9 +361,9 @@ SELECT * FROM Musica;
 -- diretor;
 -- • Limpar os dados da tabela;
 
-CREATE TABLE Artista (
-    idArtista int auto_increment primary key,
-    artista varchar(40)
+CREATE TABLE Diretor (
+    idDiretor int auto_increment primary key,
+    diretor varchar(40)
 );
 
 ALTER TABLE Genero MODIFY genero varchar(40);
@@ -371,15 +371,64 @@ ALTER TABLE Genero MODIFY genero varchar(40);
 CREATE TABLE Filme (
     idFilme int auto_increment primary key,
     titulo varchar(50),
-    idArtista int,
+    idDiretor int,
     idGenero int,
-    constraint foreign key fk_artista(idArtista) references Artista(idArtista) 
+    constraint foreign key fk_diretor(idDiretor) references Artista(idDiretor) 
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     constraint foreign key fk_genero(idGenero) references Genero(idGenero) 
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+--
+-- Inserir Gêneros
+--
+INSERT INTO Genero (genero) VALUES ('Ação');
+INSERT INTO Genero (genero) VALUES ('Comédia');
+INSERT INTO Genero (genero) VALUES ('Drama');
+INSERT INTO Genero (genero) VALUES ('Suspense');
+
+--
+-- Inserir Diretores
+--
+INSERT INTO Diretor (diretor) VALUES ('Steven Spielberg');
+INSERT INTO Diretor (diretor) VALUES ('Martin Scorsese');
+INSERT INTO Diretor (diretor) VALUES ('Quentin Tarantino');
+INSERT INTO Diretor (diretor) VALUES ('Christopher Nolan');
+
+--
+-- Inserir Filmes para o Diretor Steven Spielberg
+--
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Jurassic Park', 1, 1);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('E.T.', 1, 1);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('A Lista de Schindler', 1, 3);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Indiana Jones', 1, 1);
+
+--
+-- Inserir Filmes para o Diretor Martin Scorsese
+--
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Taxi Driver', 2, 3);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Goodfellas', 2, 3);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('The Irishman', 2, 3);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('The Wolf of Wall Street', 2, 3);
+
+--
+-- Inserir Filmes para o Diretor Quentin Tarantino
+--
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Pulp Fiction', 3, 2);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Kill Bill: Vol. 1', 3, 1);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Inglourious Basterds', 3, 1);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Django Unchained', 3, 1);
+
+--
+-- Inserir Filmes para o Diretor Christopher Nolan
+--
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Inception', 4, 4);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('The Dark Knight', 4, 1);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Interstellar', 4, 4);
+INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Dunkirk', 4, 4);
+
 
 
 
