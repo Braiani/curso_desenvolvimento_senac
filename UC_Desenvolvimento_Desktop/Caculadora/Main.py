@@ -60,8 +60,8 @@ class App:
 
         return frame
     
-    def place_buttons(self, options: dict=None):
-        btn = ctk.CTkButton(master=options.get('master', self.janela))
+    def place_buttons(self, command, options: dict=None):
+        btn = ctk.CTkButton(master=options.get('master', self.janela), command=command)
 
         self.set_options_elements(element=btn, options=options)
         self.positional_element(element=btn, options=options)
@@ -101,10 +101,18 @@ class App:
 
 class Calculadora:
     def __init__(self) -> None:
-        self.valor_atual = 0
+        pass
 
     def atualizar_valor(self, new):
-        self.valor_atual = new
+        pass
+
+
+def botao_apertado(valor, calc: Calculadora, entry: ctk.CTkEntry):
+    calc.atualizar_valor(valor)
+    if valor == 'back':
+        entrada.delete(ctk.END, ctk.END)
+        return
+    entry.insert(index=ctk.END,string=valor)
 
 
 if __name__ == '__main__':
@@ -148,7 +156,7 @@ if __name__ == '__main__':
         }
     })
 
-    valor = app.place_entry(options={
+    entrada = app.place_entry(options={
         'config': {
             'height': 80,
             'font': ('Arial', 40),
@@ -167,17 +175,36 @@ if __name__ == '__main__':
     })
 
 
-    botoes = [
-        '+/-', '√', '%', ' ', '÷',
-        'back', '7', '8', '9', 'X',
-        'C', '4', '5', '6', '-',
-        'AC', '1', '2', '3', 'plus',
-        '0', '00', '.', '='
-    ]
+    botoes = {
+        'invert': '+/-',
+        'raiz' :'√',
+        '%':'%',
+        ' ':' ',
+        '÷':'÷',
+        'back':'back',
+        '7':'7',
+        '8':'8',
+        '9':'9',
+        'X':'X',
+        'C':'C',
+        '4':'4',
+        '5':'5',
+        '6':'6',
+        '-':'-',
+        'AC':'AC',
+        '1':'1',
+        '2':'2',
+        '3':'3',
+        '+':'plus',
+        '0':'0',
+        '00':'00',
+        '.':'.',
+        '=': '='
+    }
     
     column = 0
     row = 2
-    for botao in botoes:
+    for key, botao in botoes.items():
         if column > 4:
             column = 0
             row += 1
@@ -198,10 +225,7 @@ if __name__ == '__main__':
             'bg_color': "#000001"
         }
 
-        if botao == ' ':
-            config['state']: "disabled"
-            
-
+        
         if botao == 'back':
             config['text'] = ''
             img = Image.open(f"{app.base_path()}/backspace.png")
@@ -213,7 +237,9 @@ if __name__ == '__main__':
             grid['sticky'] = 'nwes'
 
 
-        app.place_buttons({
+        app.place_buttons(
+            command=lambda digitado=key: botao_apertado(valor=digitado, calc=calculadora, entry=entrada),
+            options={
             'config': config,
             'grid': grid,
             'opacity': "#000001",
