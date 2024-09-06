@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
 from tkinter import PhotoImage
+from tkinter import messagebox
 import pywinstyles, os, sys
 
 
@@ -101,16 +102,76 @@ class App:
 
 class Calculadora:
     def __init__(self) -> None:
-        pass
+        self.secret = False
 
-    def atualizar_valor(self, new):
-        pass
+    def ativa_secret(self):
+        self.secret = True
+    
+    def get_screen(self):
+        return self.secret
+    
+    @staticmethod
+    def pode_calcular(entrada):
+        for i in entrada:
+            if i not in '0123456789+-*/.()':
+                return False
+        return True
+
+    @staticmethod
+    def execute_secret():
+        messagebox.showinfo('FASIO', 'A melhor calculadora do mundo!')
+        messagebox.askyesno('FASIO', 'Concorda?')
+
+    @staticmethod
+    def especial_caracters():
+        return {
+            '÷': '/',
+            'X': '*',
+            'raiz': '**0.5',
+            '%': '/100'
+        }
 
 
 def botao_apertado(valor, calc: Calculadora, entry: ctk.CTkEntry):
-    calc.atualizar_valor(valor)
     if valor == 'back':
-        entrada.delete(ctk.END, ctk.END)
+        entrada.delete(len(entrada.get()) - 1, ctk.END)
+        return
+    if valor == 'AC':
+        entrada.delete(0, ctk.END)
+        return
+    if valor == 'C':
+        index = 0
+        for i in range(len(entrada.get()), 0, -1):
+            if entrada.get()[i-1] in '+-*/':
+                index = i
+                break
+        entrada.delete(index, ctk.END)
+        return
+    if valor == 'invert':
+        entrada.insert(ctk.END, '-')
+        return
+    
+    if valor == ' ':
+        calc.ativa_secret()
+        return
+    
+    if valor in calc.especial_caracters():
+        entrada.insert(ctk.END, calc.especial_caracters()[valor])
+        return
+    
+    if valor == '=':
+        try:
+            if not calc.get_screen() and not calc.pode_calcular(entrada.get()):
+                entrada.delete(0, ctk.END)
+                entrada.insert(ctk.END, 'Erro')
+                return
+                
+            resultado = eval(entrada.get())
+            entrada.delete(0, ctk.END)
+            entrada.insert(ctk.END, resultado)
+        except:
+            entrada.delete(0, ctk.END)
+            entrada.insert(ctk.END, 'Erro')
         return
     entry.insert(index=ctk.END,string=valor)
 
