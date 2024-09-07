@@ -361,19 +361,19 @@ SELECT * FROM Musica;
 -- diretor;
 -- • Limpar os dados da tabela;
 
-CREATE TABLE Diretor (
+CREATE TABLE IF NOT EXISTS Diretor (
     idDiretor int auto_increment primary key,
     diretor varchar(40)
 );
 
 ALTER TABLE Genero MODIFY genero varchar(40);
 
-CREATE TABLE Filme (
+CREATE TABLE IF NOT EXISTS Filme (
     idFilme int auto_increment primary key,
     titulo varchar(50),
     idDiretor int,
     idGenero int,
-    constraint foreign key fk_diretor(idDiretor) references Artista(idDiretor) 
+    constraint foreign key fk_diretor(idDiretor) references Diretor(idDiretor) 
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     constraint foreign key fk_genero(idGenero) references Genero(idGenero) 
@@ -430,6 +430,92 @@ INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Interstellar', 4, 4);
 INSERT INTO Filme (titulo, idDiretor, idGenero) VALUES ('Dunkirk', 4, 4);
 
 
+-- • Exibir todos os dados da tabela.
+SELECT
+    *
+FROM
+    Filme f
+JOIN
+    Diretor d ON d.idDiretor = f.idDiretor
+JOIN
+    Genero g ON g.idGenero = f.idGenero;
 
+-- • Adicionar o campo protagonista do tipo varchar(50) na tabela;
+ALTER TABLE Filme ADD COLUMN idArtista int after titulo;
+ALTER TABLE Filme ADD FOREIGN KEY fk_artista(idArtista) REFERENCES Artista(idArtista) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- • Atualizar o campo protagonista de todas os filmes inseridos;
+INSERT INTO Artista (artista) VALUES 
+('Harrison Ford'),
+('Robert De Niro'),
+('Leonardo DiCaprio'),
+('Brad Pitt');
+
+
+UPDATE Filme SET idArtista = 1 WHERE idFilme = 1;
+UPDATE Filme SET idArtista = 1 WHERE idFilme = 2;
+UPDATE Filme SET idArtista = 1 WHERE idFilme = 3;
+UPDATE Filme SET idArtista = 1 WHERE idFilme = 4;
+UPDATE Filme SET idArtista = 2 WHERE idFilme = 5;
+UPDATE Filme SET idArtista = 2 WHERE idFilme = 6;
+UPDATE Filme SET idArtista = 2 WHERE idFilme = 7;
+UPDATE Filme SET idArtista = 2 WHERE idFilme = 8;
+UPDATE Filme SET idArtista = 3 WHERE idFilme = 9;
+UPDATE Filme SET idArtista = 3 WHERE idFilme = 10;
+UPDATE Filme SET idArtista = 3 WHERE idFilme = 11;
+UPDATE Filme SET idArtista = 3 WHERE idFilme = 12;
+UPDATE Filme SET idArtista = 4 WHERE idFilme = 13;
+UPDATE Filme SET idArtista = 4 WHERE idFilme = 14;
+UPDATE Filme SET idArtista = 4 WHERE idFilme = 15;
+UPDATE Filme SET idArtista = 4 WHERE idFilme = 16;
+
+-- • Modificar o campo diretor do tamanho 40 para o tamanho 150;
+ALTER TABLE Diretor MODIFY diretor varchar(150);
+
+-- • Atualizar o diretor do filme com id=5;
+UPDATE Filme SET idDiretor = 3 WHERE idFilme = 5;
+
+-- • Atualizar o diretor dos filmes com id=2 e com o id=7;
+UPDATE Filme SET idDiretor = 4 WHERE idFilme in (2,7);
+
+-- • Atualizar o título do filme com o id=6;
+UPDATE Filme SET titulo = 'The Irishman' WHERE idFilme = 6;
+
+-- • Excluir o filme com o id=3;
+DELETE FROM Filme WHERE idFilme = 3;
+
+-- • Exibir os filmes em que o gênero é diferente de drama;
+SELECT
+    *
+FROM
+    Filme f
+JOIN
+    Diretor d ON d.idDiretor = f.idDiretor
+JOIN
+    Genero g ON g.idGenero = f.idGenero
+WHERE g.genero <> 'Drama';
+
+-- • Exibir os dados dos filmes que o gênero é igual ‘suspense’;
+SELECT
+    *
+FROM
+    Filme f
+JOIN
+    Diretor d ON d.idDiretor = f.idDiretor
+JOIN
+    Genero g ON g.idGenero = f.idGenero
+WHERE g.genero <> 'Suspense';
+
+-- • Descrever os campos da tabela mostrando a atualização do campo protagonista e diretor;
+DESCRIBE Filme;
+DESCRIBE Diretor;
+DESCRIBE Genero;
+
+-- • Limpar os dados da tabela;
+SET foreign_key_checks = 0;
+TRUNCATE Diretor;
+TRUNCATE Genero;
+TRUNCATE Filme;
+SET foreign_key_checks = 1;
 
 -- =========================================== END ATIVIDADE 03 ===================================================== --
