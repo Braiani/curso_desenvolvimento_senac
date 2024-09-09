@@ -1,6 +1,5 @@
 import customtkinter as ctk
 from PIL import Image
-from tkinter import PhotoImage
 from tkinter import messagebox
 import pywinstyles, os, sys
 
@@ -11,7 +10,7 @@ class App:
         self.set_title("Calculadora FASIO")
         self.set_geometry(600,700,True)
         self.janela.resizable(False, False)
-        pywinstyles.apply_style(self.janela, 'aero')
+        pywinstyles.apply_style(self.janela, 'acrylic')
         ctk.set_appearance_mode('dark')
         ctk.set_default_color_theme(f"{self.base_path()}/theme.json")
 
@@ -107,7 +106,7 @@ class Calculadora:
     def ativa_secret(self):
         self.secret = True
     
-    def get_screen(self):
+    def get_secret(self):
         return self.secret
     
     @staticmethod
@@ -120,7 +119,8 @@ class Calculadora:
     @staticmethod
     def execute_secret():
         messagebox.showinfo('FASIO', 'A melhor calculadora do mundo!')
-        messagebox.askyesno('FASIO', 'Concorda?')
+        if messagebox.askyesno('FASIO', 'Concorda?'):
+            return "Então concordamos!"
 
     @staticmethod
     def especial_caracters():
@@ -161,7 +161,7 @@ def botao_apertado(valor, calc: Calculadora, entry: ctk.CTkEntry):
     
     if valor == '=':
         try:
-            if not calc.get_screen() and not calc.pode_calcular(entrada.get()):
+            if not calc.get_secret() and not calc.pode_calcular(entrada.get()):
                 entrada.delete(0, ctk.END)
                 entrada.insert(ctk.END, 'Erro')
                 return
