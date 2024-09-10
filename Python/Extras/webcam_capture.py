@@ -1,6 +1,24 @@
 import cv2
+from fer import FER
+
+def translate_emotion(emotion) -> str:
+    try:
+        emotions = {
+            'angry': "Bravo", 
+            'disgust': "Desgostoso",
+            'fear': "Medo",
+            'happy': "Feliz",
+            'sad': "Triste",
+            'surprise': "Surpreso",
+            'neutral': "Neutro"
+        }
+        return emotions[emotion]
+    except KeyError:
+        return "Desconhecido"
 
 try:
+
+    detector = FER()
     # Inicializando a webcam (0 é o ID padrão da webcam)
     cap = cv2.VideoCapture(0)
 
@@ -21,7 +39,23 @@ try:
             print("Falha ao capturar a imagem")
             break
 
-        # Mostra o frame capturado
+        # Detecta emoções faciais no frame
+        emotions = detector.detect_emotions(frame)
+        for emotion in emotions:
+            box = emotion.get('box', (0, 0, 0, 0))
+            (x, y, w, h) = box
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 255), 2)
+            
+            dominant_emotion = ""
+            actual_dominant = 0
+
+            for emotion_captured, value in emotion['emotions'].items():
+                if value > actual_dominant:
+                    dominant_emotion = translate_emotion(emotion_captured)
+                    actual_dominant = value
+
+            cv2.putText(frame, dominant_emotion, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 255), 2)
+
         cv2.imshow('Webcam - Pressione Q para sair', frame)
 
         # Pressione 'q' para sair do loop
