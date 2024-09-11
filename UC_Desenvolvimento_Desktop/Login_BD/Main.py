@@ -3,10 +3,24 @@ import PIL.Image as Image
 from Utils import Utils
 from Usuarios import Usuarios
 
-def logar(entradas):
-    usuario = Usuarios()
+def logar(entradas: dict):
+    usuario = entradas.get('usuario', '').get()
+    senha = entradas.get('senha', '').get()
+    if usuario == '' or senha == '':
+        app.message_box(message='Dados inválidos', title='Verifique os dados', type='error')
+        return
 
-base_path = Utils.get_base_path()
+    global utils
+    usuario = Usuarios(usuario, senha, utils.get_connection())
+    if not usuario.validar_login():
+        app.message_box('Usuário inválido', 'Erro', 'warning')
+        return
+    
+    app.message_box('Logado com sucesso!')
+
+utils = Utils()
+
+base_path = utils.get_base_path()
 
 app = App(width=1200, height=800)
 
@@ -86,7 +100,7 @@ usuario = app.adicionar_entry(position={
     'master': main_frame
 })
 
-entradas.update('usuario', usuario.get())
+entradas.update({'usuario': usuario})
 
 app.adicionar_label('Digite sua senha:', position={
     'grid':{
@@ -117,7 +131,7 @@ senha = app.adicionar_entry(position={
     'master': main_frame
 })
 
-entradas.update('usuario', senha.get())
+entradas.update({'senha': senha})
 
 app.adicionar_button(position={
     'grid':{
@@ -130,7 +144,8 @@ app.adicionar_button(position={
     'config': {
         'corner_radius': 32,
         'height': 50,
-        'text': 'Logar'
+        'text': 'Logar',
+        'command': lambda: logar(entradas)
     },
     'master': main_frame
 })
@@ -146,8 +161,7 @@ app.adicionar_button(position={
     'config': {
         'corner_radius': 32,
         'height': 50,
-        'text': 'Cadastrar',
-        'command': lambda: logar(entradas)
+        'text': 'Cadastrar'
     },
     'master': main_frame
 })

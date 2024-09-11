@@ -1,6 +1,7 @@
 import PIL.Image as Image
 from PIL import ImageFilter
 import customtkinter as ctk
+from tkinter import messagebox
 import pywinstyles
 
 class App:
@@ -117,6 +118,14 @@ class App:
         
         self.set_position(element=btn, position=position)
 
+    def message_box(self, message, title = 'Informação', type = 'info'):
+        if type == 'info':
+            messagebox.showinfo(title=title, message=message)
+        elif type == 'error':
+            messagebox.showerror(title=title, message=message)
+        elif type == 'warning':
+            messagebox.showwarning(title=title, message=message)
+    
     def start(self):
         self.janela.mainloop()
 

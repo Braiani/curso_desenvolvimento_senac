@@ -10,7 +10,7 @@ class Usuarios:
         sql = self.connector
         where_query = f"""
             select
-                username, name, mensagem, photo
+                username, name
             from 
                 users 
             where 
