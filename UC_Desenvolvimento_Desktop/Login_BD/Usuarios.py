@@ -10,15 +10,22 @@ class Usuarios:
         sql = self.connector
         where_query = f"""
             select
-                username, name
+                usuarios.nome,
+                usuarios.usuario,
+                usuarios.mensagem,
+                usuarios.photo,
+                perfil.descricao
             from 
-                users 
+                usuarios 
+            JOIN
+                perfil ON usuarios.perfil_id = perfil.id
             where 
-                username = '{self.usuario}'
-                and password = '{self.senha}'
+                usuarios.usuario = '{self.usuario}'
+                and usuarios.senha = '{self.senha}'
         """
 
         response = sql.exec_query(where_query)
+
         
         if not response:
             return False

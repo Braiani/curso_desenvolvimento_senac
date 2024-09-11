@@ -11,7 +11,8 @@ def logar(entradas: dict):
         return
 
     global utils
-    usuario = Usuarios(usuario, senha, utils.get_connection())
+    print(usuario, utils.generate_md5(senha))
+    usuario = Usuarios(usuario, utils.generate_md5(senha), utils.get_connection())
     if not usuario.validar_login():
         app.message_box('Usuário inválido', 'Erro', 'warning')
         return
