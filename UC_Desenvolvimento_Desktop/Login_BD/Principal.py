@@ -13,11 +13,15 @@ class Principal(Utils):
 
     def desenhar_elementos(self):
         self.app.janela.bind('<Escape>', lambda e: self.sair())
+        self.app.janela.grid_columnconfigure(0, weight=1)
+        self.app.janela.grid_columnconfigure(1, weight=2)
+        self.app.janela.grid_columnconfigure(2, weight=1)
 
         main_frame = self.app.adicionar_frame(position={
             'grid': {
                 'row': 0,
-                'column': 0,
+                'column': 1,
+                'columnspan': 2,
                 'padx': 50,
                 'sticky': 'nsew'
             }
@@ -27,19 +31,39 @@ class Principal(Utils):
             }
         })
 
-        self.app.adicionar_label(f'Bem-vindo {self.usuario.get_nome()}!', position={
-            'grid': {
-                'row': 0,
-                'column': 0,
-                'pady': 60
-            }
-        }, options={
-            'config': {
-                'font': ('Arial', 32),
-                'bg_color': 'black'
+        elementos = {
+            'welcome': {
+                'label': f'Bem-vindo {self.usuario.get_nome()}!',
             },
-            'master': main_frame
-        })
+            'usuario': {
+                'label': f'- Seu Usuário de acesso é: {self.usuario.get_usuario()}!',
+            },
+            'perfil': {
+                'label': f'- Seu Perfil de acesso é: {self.usuario.get_perfil()}!',
+            },
+            'mensagem': {
+                'label': f'- Sua Mensagem pessoal é: {self.usuario.get_mensagem()}!',
+            }
+        }
+        row = 0
+
+        for item, elemento in elementos.items():
+            self.app.adicionar_label(elemento.get('label'), position={
+                'grid': {
+                    'row': row,
+                    'column': 0,
+                    'pady': 20,
+                    'sticky': 'nwes',
+                    'padx': 20
+                }
+            }, options={
+                'config': {
+                    'font': ('Arial', 32),
+                    'bg_color': 'black'
+                },
+                'master': main_frame
+            })
+            row += 1
 
 
     def sair(self):
