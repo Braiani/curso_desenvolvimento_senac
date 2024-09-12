@@ -7,6 +7,7 @@ class SqlHandler:
     def __init__(self) -> None:
         self.connection = False
         self.config = self.get_info_from_env()
+        self.connect()
     
     def connect(self):
         if not self.connection:

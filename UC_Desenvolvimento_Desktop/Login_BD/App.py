@@ -5,8 +5,11 @@ from tkinter import messagebox
 import pywinstyles
 
 class App:
-    def __init__(self, width:int = 600, height:int = 600):
-        self.janela = ctk.CTk()
+    def __init__(self, width:int=600, height:int=600, janela=None):
+        if janela is None:
+            janela = ctk.CTk()
+
+        self.janela = janela
         self.images = []
         self.width = width
         self.height = height
@@ -18,6 +21,9 @@ class App:
 
     def theme(self, theme):
         pywinstyles.apply_style(self.janela, theme)
+
+    def set_title(self, title):
+        self.janela.title(title)
 
     @staticmethod
     def set_blur(img: Image, blur: int):
@@ -63,7 +69,7 @@ class App:
         return entry
     @staticmethod
     def set_position(
-        element: ctk.CTkButton | ctk.CTkLabel | ctk.CTkEntry | ctk.CTkFrame, 
+        element: ctk.CTkButton | ctk.CTkLabel | ctk.CTkEntry | ctk.CTkFrame | ctk.CTkComboBox,
         position: dict
         ):
         if position.get('grid', False):
@@ -118,6 +124,17 @@ class App:
         
         self.set_position(element=btn, position=position)
 
+    def adicionar_combobox(self, position: dict, options: dict = {}):
+        master = options.get('master', self.janela)
+
+        combo = ctk.CTkComboBox(master=master)
+
+        if options.get('config', False):
+            combo.configure(**options['config'])
+
+        self.set_position(element=combo, position=position)
+        return combo
+
     def message_box(self, message, title = 'Informação', type = 'info'):
         if type == 'info':
             messagebox.showinfo(title=title, message=message)
@@ -125,9 +142,23 @@ class App:
             messagebox.showerror(title=title, message=message)
         elif type == 'warning':
             messagebox.showwarning(title=title, message=message)
-    
+
+    @staticmethod
+    def top_level():
+        return ctk.CTkToplevel()
+
+    def iconify(self):
+        self.janela.iconify()
+
     def start(self):
         self.janela.mainloop()
+
+    def destroy(self):
+        self.janela.destroy()
+
+    def deiconify(self):
+        self.janela.deiconify()
+
 
 if __name__ == "__main__":
     import Main

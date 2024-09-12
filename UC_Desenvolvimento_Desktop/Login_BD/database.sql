@@ -20,12 +20,13 @@ CREATE TABLE IF NOT EXISTS usuarios(
 );
 
 INSERT INTO perfil(nome, descricao) values('Administrador', 'Perfil de Administrador do Sistema');
-INSERT INTO perfil(nome, descricao) values('Usuario', 'Perfil de Usuário do Sistema');
+INSERT INTO perfil(nome, descricao) values('Usuário', 'Perfil de Usuário do Sistema');
 INSERT INTO perfil(nome, descricao) values('Convidado', 'Perfil de Convidado do Sistema');
 
-INSERT INTO usuarios(nome, usuario, senha, mensagem) values('Administrador', 'admin', md5('senha'), 'Sou o Administrador do Sistema!');
-INSERT INTO usuarios(nome, usuario, senha, mensagem) values('Administrador 2', 'admin2', md5('senha'), 'Sou o Administrador do Sistema!');
-INSERT INTO usuarios(nome, usuario, senha, mensagem) values('Usuario', 'usuario', md5('senha'), 'Sou um Usuário do Sistema!');
-INSERT INTO usuarios(nome, usuario, senha, mensagem) values('Usuario 2', 'usuario2', md5('senha'), 'Sou um Usuário do Sistema!');
-INSERT INTO usuarios(nome, usuario, senha, mensagem) values('Convidado', 'convidado', md5('senha'), 'Sou um Convidado do Sistema!');
-INSERT INTO usuarios(nome, usuario, senha, mensagem) values('Convidado 2', 'convidado2', md5('senha'), 'Sou um Convidado do Sistema!');
+INSERT INTO usuarios(nome, usuario, senha, mensagem, perfil_id) values
+('Administrador', 'admin', md5('senha'), 'Sou o Administrador do Sistema!', 1),
+('Administrador 2', 'admin2', md5('senha'), 'Sou o Administrador do Sistema!', 1),
+('Usuario', 'usuario', md5('senha'), 'Sou um Usuário do Sistema!', 2),
+('Usuario 2', 'usuario2', md5('senha'), 'Sou um Usuário do Sistema!', 2),
+('Convidado', 'convidado', md5('senha'), 'Sou um Convidado do Sistema!', 3),
+('Convidado 2', 'convidado2', md5('senha'), 'Sou um Convidado do Sistema!', 3);
