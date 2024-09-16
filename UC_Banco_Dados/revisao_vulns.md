@@ -33,7 +33,19 @@
 ### Tabela NF;
 
 1. Tabela não possui uma coluna com primary Key;
-2. Existe uma coluna num_pedido, mas não tem uma tabela de pedidos;
-
+2. Existe uma coluna num_pedido, mas não tem uma tabela de pedidos (poderia ter essa coluna extra);
+3. Coluna vendedor Varchar, mas poderia ser uma tabela separada;
+4. Caso a tabela de endereço do cliente fosse separada, poderia utilizar aqui como referência;
+5. Campo Transportadoras poderia ser uma tabela separada;
+6. Faltou colunas de Histórico e faturamentos (podem ser gerados através dos registros anteriores, talvez)
 
 ### Tabela OrdemDeServico;
+
+1. Tabela não possui uma coluna com primary Key;
+2. Coluna "Serviço" poderia ser uma referência a tabela produto (ou serviço dentro da tabela produto);
+
+
+## Análise complementar
+
+- Não foi localizado uma tabela (ou campo de tabelas) que faça a relação entre as Notas fiscais e os produtos.
+- Não foi localizado uma tabela (ou campo de tabelas) que faça a relação entre as Ordens de Serviço e os produtos.
