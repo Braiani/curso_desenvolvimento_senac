@@ -17,3 +17,9 @@ CREATE TABLE crimes(
     Orlando_Neighborhoods varchar(100)
 );
 
+select count(*) from crimes;
+select * from crimes;
+select count(*) from crimes where Status = "Mapped";
+select * from crimes where Case_Disposition = "Arrest" and Status = "Unmapped";
+select * from crimes where Case_Offense_Charge_Type <> "Committed" and Case_Disposition <> "Arrest";
+select count(*) from crimes where Case_Offense_Category = "Kidnapping";
