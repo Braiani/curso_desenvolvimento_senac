@@ -91,14 +91,20 @@ for interacao in dataset.get('Traffic_Type'):
         traffic_type[interacao] = 1
 
 for interacao in dataset.get('Attack_Type'):
+    validos = ['DDoS', 'Intrusion', 'Malware']
+    if interacao not in validos:
+        continue
+    
     if interacao in attack_type:
         attack_type[interacao] += 1
     else:
         attack_type[interacao] = 1
 
 for interacao in dataset.get('Severity_Level'):
-    if not interacao:
+    validos = ['Medium', 'Low', 'High']
+    if interacao not in validos:
         continue
+    
     if interacao in severity_level:
         severity_level[interacao] += 1
     else:
