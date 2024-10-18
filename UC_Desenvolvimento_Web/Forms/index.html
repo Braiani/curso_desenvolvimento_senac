@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de cadastro</title>
+    <style>
+        #fname {
+            margin-bottom: 15px;
+        }
+        .required {
+            color: red;
+            font-size: small;
+        }
+        .btn {
+            margin: 15px 5px;
+            width: 150px;
+            height: 50px;
+            border-radius: 20px;
+            background-color: aqua;
+            color: red;
+            font-size: 26px;
+        }
+        input, textarea {
+            border-radius: 10px;
+            margin: 5px 0;
+            height: 15px;
+            background-color: aqua;
+            color: black;
+        }
+        textarea {
+            height: 60%;
+        }
+        input:hover {
+            background-color: chocolate;
+        }
+        input:focus {
+            background-color: antiquewhite;
+        }
+        input::placeholder {
+            color: red;
+            font-weight: 500;
+            padding-left: 10px;
+        }
+        fieldset {
+            border-radius: 20px;
+            margin: 20px 0;
+            background-color: #eeeeee;
+            height: 80%;
+        }
+        fieldset > legend {
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            text-align: justify;
+        }
+        .row {
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+            margin-right: calc(-0.5 * var(--bs-gutter-x));
+            margin-left: calc(-0.5 * var(--bs-gutter-x));
+        }
+        .col-auto {
+            flex: 0 0 auto;
+            width: 49%;
+        }
+        .col-auto:first-child {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form action="code.html" method="get">
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <fieldset>
+                        <legend>Dados Pessoais</legend>
+                        <label for="fname">Primeiro Nome: <span class="required">*</span></label><br>
+                        <input type="text" id="fname" name="fname"
+                            placeholder="Digite seu nome" required>
+                            <br>
+                        
+                            <label for="lname">Segundo Nome:</label><br>
+                        <input type="text" id="lname" name="lname"
+                            placeholder="Digite a senha secreta"><br>
+                    </fieldset>
+                </div>
+                <div class="col-auto">
+                    <fieldset>
+                        <legend>Dados Profissionais</legend>
+                        <label for="curso">Primeiro Curso da sua Vida: <span class="required">*</span></label><br>
+                        <input type="text" id="curso" name="curso"
+                            placeholder="Digite o curso" required>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <fieldset>
+                        <legend>Lingaguem de Programação Preferida</legend>
+                        <input type="radio" id="html" value="html" name="language" required>
+                        <label for="html">HTML</label><br>
+                        
+                        <input type="radio" id="css" value="css" name="language" required>
+                        <label for="css">CSS</label><br>
+                        
+                        <input type="radio" id="php" value="php" name="language" required>
+                        <label for="php">PHP</label><br>
+                    </fieldset>
+                </div>
+                <div class="col-auto">
+                    <fieldset>
+                        <legend>Experiência com quais linguagens</legend>
+                        <input type="checkbox" id="html" value="html" name="language_experience">
+                        <label for="html">HTML</label><br>
+                        
+                        <input type="checkbox" id="css" value="css" name="language_experience">
+                        <label for="css">CSS</label><br>
+                        
+                        <input type="checkbox" id="php" value="php" name="language_experience">
+                        <label for="php">PHP</label><br>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <fieldset>
+                        <legend>Dados complementares</legend>
+                        <label for="email">E-mail</label><br>
+                        <input type="email" name="email" id="email" placeholder="E-mail"><br>
+                        
+                        <label for="password">Senha</label><br>
+                        <input type="password" name="password" id="password" placeholder="Senha">
+                    </fieldset>
+                </div>
+                <div class="col-auto">
+                    <fieldset>
+                        <legend>Busca</legend>
+                        <label for="search">Pesquisar</label><br>
+                        <input type="search" name="search" id="search" placeholder="Pesquisar"><br>
+
+                        <label for="story">Conte sua história</label><br>
+                        <textarea name="story" id="story" onclick="javascript:alert('Digita aí Brother!')" cols="30" rows="10"></textarea>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <button class="btn" id="btnEnviar">Enviar</button>
+                <button class="btn right" type="reset" id="btnReset">Limpar</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
