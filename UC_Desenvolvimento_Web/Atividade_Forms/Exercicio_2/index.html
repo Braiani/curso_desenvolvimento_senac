@@ -7,7 +7,8 @@
 </head>
 <body>
     <h1>Cadastro de Usuário</h1>
-    <label for="fname">Primeiro nome:</label><br>
+    <form action="">
+        <label for="fname">Primeiro nome:</label><br>
     <input type="text" id="fname" name="fname" placeholder="(67)99634-3030"><br>
     <label for="mname">Nome do meio:</label><br>
     <input type="text" id="mname" name="mname" placeholder="(67)99634-3030"><br>
@@ -17,7 +18,63 @@
     <input type="text" id="apelido" name="apelido" placeholder="(67)99634-3030"><br>
 
     <fieldset>
-        <legend>Qual sua lingua</legend>
+        <legend>Qual sua linguaguem preferida:</legend>
+        <input type="radio" id="html" name="linguagem" value="html" checked>
+        <label for="html">HTML</label><br>
+        
+        <input type="radio" id="css" name="linguagem" value="css">
+        <label for="css">CSS</label><br>
+
+        <input type="radio" name="linguagem" id="js" value="javascript">
+        <label for="js">JavaScript</label><br>
     </fieldset>
+
+    <label for="email">E-mail:</label><br>
+    <input type="email" name="email" id="email"><br><br>
+
+    <label for="senha">Senha:</label><br>
+    <input type="password" name="senha" id="senha"><br><br>
+    
+    <label for="telefone">Telefone:</label><br>
+    <input type="tel" name="telefone" id="telefone" placeholder="(XX) XXXX-XXXX"><br><br>
+
+    <label for="nascimento">Data de Nascimento:</label><br>
+    <input type="date" name="nascimento" id="nascimento"><br><br>
+
+    <label for="cor">Cor Favorita:</label><br>
+    <input type="color" name="cor" id="cor" value="#FFFFFF"><br><br>
+
+    <label for="idade">Idade:</label><br>
+    <input type="number" name="idade" id="idade" min="0" max="120"><br><br>
+
+    <label for="genero">Gênero:</label><br>
+    <input type="radio" name="genero" id="Masculino" value="Masculino"><label for="Masculino">Masculino</label><br>
+    <input type="radio" name="genero" id="Feminino" value="Feminino"><label for="Feminino">Feminino</label><br><br>
+
+    <label >Escolha seus times favoritos:</label><br>
+    <input type="checkbox" name="time_fav" id="flamengo">
+    <label for="flamengo">Flamengo</label><br>
+    <input type="checkbox" name="time_fav" id="palmeiras">
+    <label for="palmeiras">Palmeiras</label><br>
+    <input type="checkbox" name="time_fav" id="corinthians">
+    <label for="corinthians">Corinthians</label><br><br>
+
+    <label for="pais">Pais de origem:</label><br>
+    <select name="pais" id="pais">
+        <option value="brasil">Brasil</option>
+        <option value="argentina">Argentina</option>
+        <option value="paraguai">Paraguai</option>
+        <option value="uruguai">Uruguai</option>
+    </select><br><br>
+
+    <label for="imagem">Envie uma foto de perfil:</label><br>
+    <input type="file" name="imagem" id="imagem"><br><br>
+
+    <label for="pesquisar">Pesquisar algo:</label><br>
+    <input type="search" name="pesquisar" id="pesquisar" placeholder="Buscar..."><br><br>
+
+    <button>Cadastrar</button>
+    <button type="reset">Limpar Formulário</button>
+    </form>
 </body>
 </html>
