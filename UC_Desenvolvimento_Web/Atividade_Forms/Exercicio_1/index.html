@@ -13,10 +13,49 @@
         .row {
             display: flex;
             flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .row:first-child {
+            margin-top: 0;
         }
         .col {
             flex: 0 0 auto;
             width: 33.3333333%;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        fieldset {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        legend {
+            text-align: center;
+        }
+        input[type=text], input[type=email], input[type=password], input[type=tel], input[type=date], input[type=number] {
+            width: 100%;
+            padding: 12px 20px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 15px;
+        }
+        input[type=radio], input[type=checkbox] {
+            margin-right: 5px;
+        }
+        .required {
+            color: red;
+            font-size: 12px;
+            font-weight: lighter;
+            font-style: bold;
         }
     </style>
 </head>
@@ -27,56 +66,193 @@
                 <div class="col">
                     <fieldset>
                         <legend>Dados Pessoais</legend>
-        
+                        <label for="fnome_pessoal">Primeiro nome: <span class="required">*</span></label><br>
+                        <input type="text" id="fnome_pessoal" name="fnome_pessoal" placeholder="Primeiro nome" required><br><br>
+                        
+                        <label for="lnome_pessal">Último nome: <span class="required">*</span></label><br>
+                        <input type="text" id="lnome_pessal" name="lnome_pessal" placeholder="Último nome" required><br><br>
+
+                        <label for="apelido_pessoal">Apelido:</label><br>
+                        <input type="text" id="apelido_pessoal" name="apelido_pessoal" placeholder="Apelido"><br><br>
+
+                        <label for="nascimento_pessoal">Data de Nascimento:</label><br>
+                        <input type="date" name="nascimento_pessoal" id="nascimento_pessoal"><br><br>
+
+                        <label for="genero">Gênero:</label><br>
+                        <input type="radio" name="genero" id="Masculino" value="Masculino"><label for="Masculino">Masculino</label><br>
+                        <input type="radio" name="genero" id="Feminino" value="Feminino"><label for="Feminino">Feminino</label><br>
+
                     </fieldset>
                 </div>
                 <div class="col">
                     <fieldset>
                         <legend>Endereço</legend>
-                
+                        <label for="logradouro_endereco">Logradouro: <span class="required">*</span></label><br>
+                        <input type="text" id="logradouro_endereco" name="logradouro_endereco" placeholder="Logradouro" required><br><br>
+
+                        <label for="numero_endereco">Número:</label><br>
+                        <input type="text" id="numero_endereco" name="numero_endereco" placeholder="Número"><br><br>
+
+                        <label for="complemento_endereco">Complemento:</label><br>
+                        <input type="text" id="complemento_endereco" name="complemento_endereco" placeholder="Complemento"><br><br>
+
+                        <label for="bairro_endereco">Bairro:</label><br>
+                        <input type="text" id="bairro_endereco" name="bairro_endereco" placeholder="Bairro"><br><br>
+
+                        <label for="cidade_endereco">Cidade:</label><br>
+                        <input type="text" id="cidade_endereco" name="cidade_endereco" placeholder="Cidade"><br><br>
                     </fieldset>
                 </div>
                 <div class="col">
                     <fieldset>
                         <legend>Dados Financeiros</legend>
-                
+                        <label for="salario_financeiro">Salário:</label><br>
+                        <input type="number" id="salario_financeiro" name="salario_financeiro" placeholder="Salário"><br><br>
+
+                        <label for="banco">Banco: <span class="required">*</span></label><br>
+                        <input type="text" id="banco" name="banco" placeholder="Banco" required><br><br>
+
+                        <label for="agencia">Agência:</label><br>
+                        <input type="text" id="agencia" name="agencia" placeholder="Agência"><br><br>
+
+                        <label for="conta">Conta:</label><br>
+                        <input type="text" id="conta" name="conta" placeholder="Conta"><br><br>
+
+                        <label for="cartao">Cartão:</label><br>
+                        <input type="text" id="cartao" name="cartao" placeholder="Cartão"><br><br>
                     </fieldset>
                 </div>
                 <div class="col">
                     <fieldset>
                         <legend>Dados Comerciais</legend>
-                
+                        <label for="empresa">Empresa:</label><br>
+                        <input type="text" id="empresa" name="empresa" placeholder="Empresa"><br><br>
+
+                        <label for="ramal">Ramal</label><br>
+                        <input type="text" id="ramal" name="ramal" placeholder="Ramal"><br><br>
+
+                        <label for="departamento">Departamento:</label><br>
+                        <input type="text" id="departamento" name="departamento" placeholder="Departamento"><br><br>
+
+                        <label for="cargo">Cargo:</label><br>
+                        <input type="text" id="cargo" name="cargo" placeholder="Cargo"><br><br>
+
+                        <label for="salario">Salário:</label><br>
+                        <input type="number" id="salario" name="salario" placeholder="Salário"><br><br>
                     </fieldset>
                 </div>
                 <div class="col">
                     <fieldset>
                         <legend>Cadastro Veículo</legend>
-                
+                        <label for="marca">Marca:</label><br>
+                        <input type="text" id="marca" name="marca" placeholder="Marca"><br><br>
+
+                        <label for="modelo">Modelo:</label><br>
+                        <input type="text" id="modelo" name="modelo" placeholder="Modelo"><br><br>
+
+                        <label for="ano_carro">Ano:</label><br>
+                        <input type="text" id="ano_carro" name="ano_carro" placeholder="Ano"><br><br>
+
+                        <label for="placa">Placa:</label><br>
+                        <input type="text" id="placa" name="placa" placeholder="Placa"><br><br>
+
+                        <label for="renavam">Renavam:</label><br>
+                        <input type="text" id="renavam" name="renavam" placeholder="Renavam"><br><br>
                     </fieldset>
                 </div>
                 <div class="col">
                     <fieldset>
                         <legend>Cadastro Imóvel</legend>
-                
+                        <label for="endereco_imovel">Endereço:</label><br>
+                        <input type="text" id="endereco_imovel" name="endereco_imovel" placeholder="Endereço"><br><br>
+
+                        <label for="numero_imovel">Número:</label><br>
+                        <input type="text" id="numero_imovel" name="numero_imovel" placeholder="Número"><br><br>
+
+                        <label for="complemento_imovel">Complemento:</label><br>
+                        <input type="text" id="complemento_imovel" name="complemento_imovel" placeholder="Complemento"><br><br>
+
+                        <label for="bairro_imovel">Bairro:</label><br>
+                        <input type="text" id="bairro_imovel" name="bairro_imovel" placeholder="Bairro"><br><br>
+
+                        <label for="cidade_imovel">Cidade:</label><br>
+                        <input type="text" id="cidade_imovel" name="cidade_imovel" placeholder="Cidade"><br><br>
+
                     </fieldset>
                 </div>
                 <div class="col">
                     <fieldset>
                         <legend>Dados Cônjuge</legend>
-                
+                        <label for="fnome_conjuge">Primeiro nome:</label><br>
+                        <input type="text" id="fnome_conjuge" name="fnome_conjuge" placeholder="Primeiro nome"><br><br>
+
+                        <label for="lname_conjuge">Último nome:</label><br>
+                        <input type="text" id="lname_conjuge" name="lname_conjuge" placeholder="Último nome"><br><br>
+
+                        <label for="nascimento_conjuge">Data de Nascimento:</label><br>
+                        <input type="date" name="nascimento_conjuge" id="nascimento_conjuge"><br><br>
+
+                        <label for="genero_conjuge">Gênero:</label><br>
+                        <input type="radio" name="genero_conjuge" id="Masculino" value="Masculino"><label for="Masculino">Masculino</label><br>
+                        <input type="radio" name="genero_conjuge" id="Feminino" value="Feminino"><label for="Feminino">Feminino</label><br><br>
+
+                        <label for="cor_conjuge">Cores Favoritas:</label><br>
+                        <input type="checkbox" name="cor_conjuge" id="azul" value="azul">
+                        <label for="azul">Azul</label><br>
+                        <input type="checkbox" name="cor_conjuge" id="vermelho" value="vermelho">
+                        <label for="vermelho">Vermelho</label><br>
+                        <input type="checkbox" name="cor_conjuge" id="verde" value="verde">
+                        <label for="verde">Verde</label><br>
+
                     </fieldset>
                 </div>
                 <div class="col">
                     <fieldset>
                         <legend>Dados Filhos</legend>
-                
+                        <label for="fnome_filho">Primeiro nome:</label><br>
+                        <input type="text" id="fnome_filho" name="fnome_filho" placeholder="Primeiro nome"><br><br>
+
+                        <label for="lnome_filho">Último nome:</label><br>
+                        <input type="text" id="lnome_filho" name="lnome_filho" placeholder="Último nome"><br><br>
+
+                        <label for="nascimento_filho">Data de Nascimento:</label><br>
+                        <input type="date" name="nascimento_filho" id="nascimento_filho"><br><br>
+
+                        <label for="genero_filho">Gênero:</label><br>
+                        <input type="radio" name="genero_filho" id="Masculino" value="Masculino"><label for="Masculino">Masculino</label><br>
+                        <input type="radio" name="genero_filho" id="Feminino" value="Feminino"><label for="Feminino">Feminino</label><br><br>
+                        
+                        <label for="cor_filho">Cores Favoritas:</label><br>
+                        <input type="checkbox" name="cor_filho" id="azul" value="azul">
+                        <label for="azul">Azul</label><br>
+                        <input type="checkbox" name="cor_filho" id="vermelho" value="vermelho">
+                        <label for="vermelho">Vermelho</label><br>
+                        <input type="checkbox" name="cor_filho" id="verde" value="verde">
+                        <label for="verde">Verde</label><br>
                     </fieldset>
                 </div>
                 <div class="col">
                     <fieldset>
                         <legend>Dados Formação Escolar</legend>
+                        <label for="escola">Nome da Escola:</label><br>
+                        <input type="text" id="escola" name="escola" placeholder="Nome da Escola"><br><br>
+
+                        <label for="curso">Curso:</label><br>
+                        <input type="text" id="curso" name="curso" placeholder="Curso"><br><br>
+
+                        <label for="ano_escola">Ano:</label><br>
+                        <input type="text" id="ano_escola" name="ano_escola" placeholder="Ano"><br><br>
+
+                        <label for="cidade_escola">Cidade:</label><br>
+                        <input type="text" id="cidade_escola" name="cidade_escola" placeholder="Cidade"><br><br>
+
+                        <label for="estado_escola">Estado:</label><br>
+                        <input type="text" id="estado_escola" name="estado_escola" placeholder="Estado"><br><br>
                     </fieldset>
                 </div>
+            </div>
+            <div class="row">
+                <p>Campos com <span class="required">*</span> são de preenchimento obrigatórios!</p>
             </div>
             <div class="row">
                 <div class="col">
