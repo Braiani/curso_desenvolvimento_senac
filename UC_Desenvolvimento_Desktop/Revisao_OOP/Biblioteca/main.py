@@ -1,5 +1,6 @@
 from Usuario import Usuario
 from Livro import Livro
+from Biblioteca import Biblioteca
 
 def print_menu():
     print("""
@@ -46,9 +47,6 @@ while True:
         titulo = input("Digite o título que deseja buscar: ")
         for livro in livros:
             if livro.titulo == titulo:
-                print("Livro encontrado! Deseja realizar o empréstimo? (S/N)")
+                print("Livro encontrado! Deseja realizar o empréstimo? (S/N) ")
                 if input().lower() == 's':
-                    if livro.pode_emprestar() and login.pode_emprestar():
-                        pass
-                
-                break
+                    Biblioteca.emprestar(livro, login)

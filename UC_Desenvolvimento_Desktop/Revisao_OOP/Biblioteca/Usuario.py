@@ -10,7 +10,13 @@ class Usuario:
     
     def pode_emprestar(self):
         return len(self.livros) < self.MAX_EMPRESTIMO
+    
+    def emprestar(self, livro):
+        if not self.pode_emprestar:
+            print("Usuário não pode realizar empréstimo!")
+            return
         
+        self.livros.append(livro)
 
     def valida_login(self, login, senha):
         if login == self.login and senha == self.senha:

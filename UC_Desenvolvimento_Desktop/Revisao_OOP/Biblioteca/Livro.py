@@ -1,3 +1,4 @@
+from Usuario import Usuario
 class Livro:
     def __init__(self) -> None:
         self.status = 'Disponível'
