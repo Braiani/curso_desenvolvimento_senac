@@ -1,0 +1,67 @@
+* {
+    color: white;
+    margin: 0;
+    width: 100%;
+}
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+}
+
+body, html {
+    height: 100%;   
+}
+
+.background {
+    /* The image used */
+    background-image: url("../img/pessoa-celular.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    height: 100%;
+    backdrop-filter: blur(8px);
+}
+.navbar {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    color: white;
+    column-gap: 15px;
+    padding-top: 10px;
+    text-align: center;
+    min-height: 50px;
+    background-color: gray;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding-left: 10%;
+    height: 200px;
+    align-items: center;
+}
+
+.btn {
+    color: black;
+    border-radius: 10px;
+    height: 50px;
+    width: 30%;
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+}
+
+.nav-itens {
+    text-underline-offset: 15px;
+}
