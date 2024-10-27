@@ -3,87 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NASA</title>
+    <title>NASA - Brasil</title>
     <link rel="shortcut icon" href="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" type="image/svg">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="background">
-    <div class="content">
+    <header>
         <nav class="navbar">
-            <div class="nav-itens">
-                <a href="#home">
-                    Home
-                </a>
-            </div>
-            <div class="nav-itens">
-                <a href="#news">
-                    Novidades
-                </a>
-            </div>
-            <div class="nav-itens">
-                <a href="#space">
-                    Espaço
-                </a>
-            </div>
-            <div class="nav-itens">
-                <a href="#wheather">
-                    Clima e Terra
-                </a>
-            </div>
-            <div class="nav-itens">
-                <a href="#about">
-                    Sobre a Nasa
-                </a>
-            </div>
-            <div class="nav-itens">
-                <a href="#contact">
-                    Contato
-                </a>
-            </div>
+            <a class="nav-logo" href="#">
+                <img src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" class="img-logo" alt="NASA Logo">
+            </a>
+            <ul class="nav-items">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">Novidades</a></li>
+                <li><a href="#space">Espaço</a></li>
+                <li><a href="#wheather">Clima e Terra</a></li>
+                <li><a href="#about">Sobre a NASA</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
         </nav>
-        <section id="home">
-            <div class="grid-2">
-                <div class="grid-item-1">
-                    <h1>
-                        Seja Bem-vindo A NASA (BR)
-                    </h1>
-                    <p>Aqui você encontrará de tudo! (menos Java)</p>
+    </header>
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-text">
+                <h1>Bem-vindo à NASA (BR)</h1>
+                <p>Descubra o universo e muito mais! (sem Java, claro)</p>
+                <a class="btn" href="#contact">Entre em Contato</a>
+            </div>
+        </section>
+
+        <section id="news" class="section">
+            <h2>Novidades</h2>
+            <p>Fique atualizado com as últimas notícias e descobertas da NASA.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Missão Artemis</h3>
+                    <img src="./img/artemis.png" alt="" class="img-card">
+                    <p>O lançamento histórico da missão Artemis marca o retorno à Lua.</p>
                 </div>
-                <div class="grid-item-2">
-                    <button class="btn">Entre em contato</button>
+                <div class="card">
+                    <h3>Exploração de Marte</h3>
+                    <img src="./img/marte.png" alt="" class="img-card">
+                    <p>O rover Perseverance continua a revelar segredos do Planeta Vermelho.</p>
+                </div>
+                <div class="card">
+                    <h3>Tecnologia Espacial</h3>
+                    <img src="./img/espacial.png" alt="" class="img-card">
+                    <p>Novos avanços na tecnologia para tornar a exploração mais eficiente.</p>
                 </div>
             </div>
         </section>
-        <section id="news">
+        
+        <section id="space" class="section">
+            <h2>Espaço</h2>
+            <p>Explore o cosmos e nossos projetos de exploração espacial.</p>
             <article>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, a consectetur enim quod amet, repudiandae tenetur sapiente sunt delectus distinctio inventore perferendis. Quam odio odit nostrum placeat repudiandae nulla repellendus!
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
             </article>
         </section>
-        <section id="space">
-            <article>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi nihil debitis laborum, eum earum sunt labore a temporibus. Dolor placeat earum reprehenderit natus sint tempora, praesentium maxime? Asperiores, debitis accusamus?
-            </article>
-        </section>
-        <section id="wheather">
-            <article>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, a consectetur enim quod amet, repudiandae tenetur sapiente sunt delectus distinctio inventore perferendis. Quam odio odit nostrum placeat repudiandae nulla repellendus!
-            </article>
-        </section>
-        <section id="about">
-            <article>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi nihil debitis laborum, eum earum sunt labore a temporibus. Dolor placeat earum reprehenderit natus sint tempora, praesentium maxime? Asperiores, debitis accusamus?
-            </article>
-        </section>
-        <section id="contact">
-            <article>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, a consectetur enim quod amet, repudiandae tenetur sapiente sunt delectus distinctio inventore perferendis. Quam odio odit nostrum placeat repudiandae nulla repellendus!
-            </article>
-        </section>
-        <footer>
-            <div>
-                <p>Copyright @ 2024</p>
+
+        <section id="wheather" class="section">
+            <h2>Clima e Terra</h2>
+            <p>Conheça nossas pesquisas sobre clima e condições terrestres.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Mudanças Climáticas</h3>
+                    <p>Estudos recentes mostram impactos das mudanças climáticas no Ártico.</p>
+                </div>
+                <div class="card">
+                    <h3>Desastres Naturais</h3>
+                    <p>Monitoramento de furacões e tempestades para prevenção de desastres.</p>
+                </div>
+                <div class="card">
+                    <h3>Recursos Naturais</h3>
+                    <p>A NASA investiga a conservação dos recursos naturais da Terra.</p>
+                </div>
             </div>
-        </footer>
-    </div>
+        </section>
+
+        <section id="about" class="section">
+            <h2>Sobre a NASA</h2>
+            <p>Saiba mais sobre a história e as missões da NASA.</p>
+            <article>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+            </article>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contato</h2>
+            <p>Entre em contato conosco para mais informações.</p>
+            <article>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <div>
+            <p>&copy; 2024 NASA Brasil</p>
+        </div>
+    </footer>
 </body>
 </html>
