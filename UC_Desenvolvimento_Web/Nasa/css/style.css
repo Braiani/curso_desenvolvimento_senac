@@ -8,11 +8,18 @@ body {
     font-family: Arial, sans-serif;
     color: #ffffff;
     height: 100%;
-    background-image: url('../img/pessoa-celular.jpg');
     background-size: cover;
     background-position: center;
     text-align: center;
     background-attachment: fixed;
+}
+
+.body-index {
+    background-image: url('../img/pessoa-celular.jpg');
+}
+
+.body-contact {
+    background-image: url('../img/nave.png');
 }
 
 .navbar {
@@ -31,6 +38,7 @@ body {
 
 main {
     margin-top: 70px;
+    backdrop-filter: blur(8px);
 }
 
 .nav-logo img {
@@ -58,7 +66,6 @@ main {
     display: grid;
     place-items: center;
     height: 90vh;
-    
 }
 
 .hero-text h1 {
@@ -113,7 +120,7 @@ main {
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, auto);
     gap: 1.5rem;
     margin-top: 2rem;
 }
@@ -147,6 +154,33 @@ main {
     color: #d1d5db;
 }
 
+#space article {
+    width: 75%;
+}
+
+.space-video {
+    width: 100%;
+    height: 80vh;
+}
+
+.about-video {
+    width: 100%;
+    height: 80vh;
+}
+
+form {
+    display: grid;
+    row-gap: 5px;
+}
+
+input, textarea {
+    border-radius: 10px;
+    padding-left: 20px;
+}
+
+input {
+    height: 30px;
+}
 
 footer {
     position: fixed;

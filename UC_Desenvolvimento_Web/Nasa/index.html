@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" type="image/svg">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="background">
+<body class="body-index">
     <header>
         <nav class="navbar">
             <a class="nav-logo" href="#">
@@ -58,7 +58,8 @@
             <h2>Espaço</h2>
             <p>Explore o cosmos e nossos projetos de exploração espacial.</p>
             <article>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+                <video class="space-video" muted loop autoplay
+                    src="https://eol.jsc.nasa.gov/BeyondThePhotography/CrewEarthObservationsVideos/AutomaticallyGenerated/ISS070-E-29805-30066-20231124-Night.mp4"></video>
             </article>
         </section>
 
@@ -85,7 +86,16 @@
             <h2>Sobre a NASA</h2>
             <p>Saiba mais sobre a história e as missões da NASA.</p>
             <article>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+                <p>
+                    A NASA, ou Administração Nacional da Aeronáutica e Espaço, é a agência espacial dos Estados Unidos, responsável por pesquisas e explorações no campo da aeronáutica e da astrofísica.
+                    Fundada em 1958, a NASA se destacou por suas missões históricas, como o programa Apollo, que levou os primeiros humanos à Lua, e o programa Mars Rover, que explora o solo marciano.
+                    Com um compromisso constante com a inovação e a descoberta, a NASA continua a inspirar gerações, ampliando nossos conhecimentos sobre o universo e promovendo a tecnologia espacial.
+                    Descubra mais sobre suas fascinantes missões e o impacto que elas têm no nosso entendimento do cosmos.
+                </p>
+                <video class="about-video" muted loop autoplay>
+                    <source src="https://images-assets.nasa.gov/video/jsc2024m000176-NASAs_SpaceX_Crew-8_Flight_Day_Highlights/jsc2024m000176-NASAs_SpaceX_Crew-8_Flight_Day_Highlights~small.mp4" 
+                        type="video/mp4">
+                </video>
             </article>
         </section>
 
@@ -93,7 +103,23 @@
             <h2>Contato</h2>
             <p>Entre em contato conosco para mais informações.</p>
             <article>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+                <div class="card-grid">
+                    <div class="card">
+                        <img class="img-card" src="https://apod.nasa.gov/apod/image/2410/SteveFrance_leroux_1080.jpg" alt="">
+                    </div>
+                    <div class="card"></div>
+                    <div class="card">
+                        <form action="send.html">
+                            <label for="nome">nome</label>
+                            <input type="text" required name="nome" id="nome">
+                            <label for="email">email</label>
+                            <input type="email" required name="email" id="email" placeholder="email@example.com">
+                            <label for="message">Mensagem</label>
+                            <textarea required name="message" id="message" rows="5"></textarea>
+                            <button class="btn">Enviar mensagem</button>
+                        </form>
+                    </div>
+                </div>
             </article>
         </section>
     </main>
