@@ -100,6 +100,10 @@ main {
     margin-bottom: 50px;
 }
 
+section h2 {
+    margin-top: 70px;
+}
+
 .section h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
