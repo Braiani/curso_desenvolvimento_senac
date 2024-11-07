@@ -7,4 +7,4 @@ class Livro:
         self.status = status
     
     def create(self):
-        return f'insert into livro(titulo, autor, genero, status, codigo) values ({self.titulo}, {self.autor}, {self.genero}, {self.status}, {self.codigo});'
+        return f'insert into livro(titulo, autor, genero, status, codigo) values ("{self.titulo}", "{self.autor}", "{self.genero}", "{self.status}", {self.codigo});'
