@@ -1,0 +1,38 @@
+.grid-container {
+    background-color: #2196F3;
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+}
+.grid-container > div {
+    background-color: rgba(255,255,255,0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+}
+
+@media (max-width: 767px) {
+    .grid-container {
+        background-color: #2196F3;
+        grid-template-columns: 100%;
+        gap: 10px;
+        padding: 5px;
+    }
+}
+
+@media (min-width: 768px) {
+    .grid-container {
+        background-color: #EB96F3;
+        grid-template-columns: repeat(2, auto);
+        gap: 15px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .grid-container {
+        background-color: #51f16c;
+        grid-template-columns: repeat(3, auto);
+        gap: 20px;
+        padding: 15px;
+    }
+}
