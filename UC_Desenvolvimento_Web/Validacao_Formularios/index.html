@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação Formulário com JS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form action="" autocomplete="off" class="form">
+        <div class="validate">
+            <label for="nome">Digite seu nome:</label>
+            <input type="text" id="nome" placeholder="Nome completo" class="input required" oninput="nomeValidate()">
+            <span class="span-required">O campo deve ter no mínimo 3 caracteres</span>
+        </div>
+        <div class="validate">
+            <label for="nome">Digite a senha:</label>
+            <input type="text" id="nome" placeholder="Senha" class="input required" oninput="senhaValidate()">
+            <span class="span-required">O campo deve ter no mínimo 3 caracteres</span>
+        </div>
+        <div class="validate">
+            <label for="nome">Confirme sua senha:</label>
+            <input type="text" id="nome" placeholder="Confirmar Senha" class="input required" oninput="confirmarValidate()">
+            <span class="span-required">O campo deve ter no mínimo 3 caracteres</span>
+        </div>
+        <div class="validate">
+            <button class="btn">Salvar</button>
+        </div>
+    </form>
+    <script src="script.js"></script>
+</body>
+</html>
