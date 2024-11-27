@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação Formulário com JS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bem-vindo ao ChatGPTexto</h1>
+    </div>
+    
+    <div class="container">
+        <input type="text" placeholder="Digite seu e-mail" id="email"
+            class="input required" oninput="emailValidate()">
+        <span class="span-required" id="email-span">
+            O e-mail deve ter o padrão "email@empresa.com.br"
+        </span>
+    </div>
+</body>
+</html>

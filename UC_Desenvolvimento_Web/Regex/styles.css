@@ -1,0 +1,30 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+body{
+    background-color: lightgray;
+}
+
+.container {
+    display: grid;
+    width: 70%;
+    margin: auto;
+}
+
+
+.input {
+    border-radius: 20px;
+    border: 1px solid blue;
+    background-color: white;
+    text-indent: 5px;
+    height: 20px;
+    margin-bottom: 15px;
+    color: black;
+}
+
+.span-required {
+    color: red;
+    text-align: center;
+    display: none;
+}
