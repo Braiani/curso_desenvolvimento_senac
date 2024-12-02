@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <style>
+        /* Estilo geral da página */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Estilo do formulário */
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        legend {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            box-sizing: content-box;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus {
+            border-color: #007BFF;
+        }
+
+        .form-group input[type="radio"], 
+        .form-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .form-group-check {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .form-group-check label {
+            margin-right: 15px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+
+        /* Estilo do botão */
+        .btn {
+            background-color: #28a745;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 50%;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .btn:active {
+            background-color: #1e7e34;
+        }
+
+        /* Estilo para inputs de rádio e checkbox quando selecionados */
+        input[type="radio"]:checked, input[type="checkbox"]:checked {
+            accent-color: #28a745;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <form action="formulario.php" method="post">
+        <fieldset>
+            <legend>Formulário Super Seguro!</legend>
+
+            <div class="form-group">
+                <label for="nome">Digite seu nome:</label>
+                <input type="text" name="nome" id="nome" placeholder="Seu nome completo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sistema">Qual o seu sistema operacional?</label>
+                <div class="form-group-check">
+                    <label>
+                        <input type="radio" name="sistema" value="Windows98"> Windows98
+                    </label>
+                    <label>
+                        <input type="radio" name="sistema" value="WindowsXP"> WindowsXP
+                    </label>
+                    <label>
+                        <input type="radio" name="sistema" value="Outros" checked> Outros
+                    </label>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-group">
+                <label for="professor">Qual(ais) seu(s) Professor(es)?</label>
+                <div class="form-group-check">
+                    <label>
+                        <input type="checkbox" name="prof[]" checked value="Ederson"> Ederson
+                    </label>
+                    <label>
+                        <input type="checkbox" name="prof[]" disabled value="Caique"> Caique
+                    </label>
+                    <label>
+                        <input type="checkbox" name="prof[]" disabled value="Edini"> Édini
+                    </label>
+                </div>
+            </div>
+
+            <button class="btn" type="submit">Enviar</button>
+        </fieldset>
+    </form>
+
+</body>
+</html>
