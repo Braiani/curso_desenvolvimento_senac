@@ -67,28 +67,7 @@ try {
 </head>
 
 <body>
-    <div class="sidebar">
-        <h4 class="text-center text-white">Menu</h4>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Relatórios</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Configurações</a>
-            </li>
-            <?php if($usuarioLogado['is_admin']){ ?>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="./admin.php">Ambiente Administrativo</a>
-            </li>
-            <?php } ?>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="./logout.php">Sair</a>
-            </li>
-        </ul>
-    </div>
+    <?php include('components/sidebar.php'); ?>
 
     <div class="content">
         <h2>Dashboard Usuário Comum</h2>
@@ -129,8 +108,8 @@ try {
             <div class="col-md-4 mb-4">
                 <div class="card dashboard-card">
                     <div class="card-body">
-                        <h5 class="card-title">Tickets</h5>
-                        <p class="card-text">Tickets de suporte abertos.</p>
+                        <h5 class="card-title">Clientes</h5>
+                        <p class="card-text">Total de clientes cadastrados.</p>
                         <h3 class="text-center">12</h3>
                     </div>
                 </div>

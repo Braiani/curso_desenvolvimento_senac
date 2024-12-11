@@ -47,6 +47,9 @@ session_start();
                         <div class="text-center mt-3">
                             <a href="#">Esqueceu a senha?</a>
                         </div>
+                        <div class="text-center mt-3">
+                            <a href="#">Não tem conta? Clique aqui para criar.</a>
+                        </div>
                     </div>
                 </div>
             </div>

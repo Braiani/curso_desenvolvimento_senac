@@ -66,26 +66,7 @@ try {
 </head>
 
 <body>
-    <div class="sidebar">
-        <h4 class="text-center text-white">Menu</h4>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Relatórios</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Configurações</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="./user.php">Ambiente Usuário</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="./logout.php">Sair</a>
-            </li>
-        </ul>
-    </div>
+    <?php include('components/sidebar.php'); ?>
 
     <div class="content">
         <h2>Dashboard Administrativo</h2>
