@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro JS</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Formulário</legend>
+        <form id="form">
+            <input type="text" id="dados">
+            <button id="btn">Enviar</button>
+        </form>
+    </fieldset>
+    <script>
+        // Crie um formulário que tenha um input e um botão para enviar os dados
+        // ao clicar no botão, uma função deve mostrar o tipo de dados inserido no input
+        const btn = document.getElementById('btn');
+
+        const func = (info) => {
+            let dados = document.getElementById('dados').value;
+
+            alert(typeof dados);
+            console.log(document.cookie);
+        }
+
+        document.getElementById('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+
+        btn.addEventListener('click', func)
+
+    </script>
+</body>
+</html>
