@@ -1,0 +1,95 @@
+@import url("./root.css");
+
+#menu-header {
+    display: flex;
+    max-height: 100px;
+    align-items: center;
+    background-color: #135944;  
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+#menu-header > nav > button {
+    display: none;
+}
+
+#menu-header > .img-header > img {
+    height: 100px;
+}
+
+ul {
+    display: flex;
+    margin: auto;
+    gap: 1em
+}
+
+.item-list > a {
+    color: #f3be8a;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    padding: 20px;
+}
+
+.item-list > a:hover {
+    background-color: #2d4b42;
+}
+
+@media (max-width: 768px) {
+    #menu-header {
+        position: relative;
+    }
+
+    #menu-header> nav > button {
+        display: block;
+        background-color: transparent;
+        border: 0;
+    }
+
+    .menu {
+        top: 0;
+        right: 0;
+        position: absolute;
+        width: 50px;
+        margin: 10px 1.5em;
+        background-color: transparent;
+    }
+      
+    .menu:before,
+    .menu:after,
+    .menu div {
+        background: #f3be8a;
+        content: "";
+        display: block;
+        height: 6px;
+        border-radius: 3px;
+        margin: 7px 0;
+        transition: 0.5s;
+    }
+    .menu:hover:before {
+        transform: translateY(12px) rotate(135deg);
+    }
+    .menu:hover:after {
+        transform: translateY(-12px) rotate(-135deg);
+    }
+    .menu:hover div {
+        transform: scale(0);
+    }
+
+    #menu-header > nav > ul {
+        display: none;
+    }
+
+    #menu-header > nav > ul.ativo {
+        display: block;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        flex-direction: column;
+        background-color: #135944;
+        line-height: 2rem;
+        z-index: 9999;
+        width: 100%;
+        margin-top: 1em;
+        text-align: center;
+    }
+}
