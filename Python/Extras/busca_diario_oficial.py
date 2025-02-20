@@ -3,6 +3,7 @@ import requests
 data_inicial = "01/09/2024"
 texto_busca = "Felipe Gustavo Braiani Santos"
 url = "https://www.spdo.ms.gov.br/DiarioDOE/Index/Index/1"
+path = "/mnt/g/Documentos/doe_dpe/"
 
 print(f"Iremos buscar no Diário Oficial do Estado de Mato Grosso do Sul os diários publicados a partir de {data_inicial} que contenham o texto '{texto_busca}'")
 
@@ -45,7 +46,7 @@ try:
         if input("Deseja baixar o diário? (s para sim): ").lower() == "s":
             print("Baixando...")
             download = requests.get(link_diario)
-            with open(f"{item['Source']['Numero']} - {item['Source']['Descricao']}.pdf", "wb") as file:
+            with open(f"{path}{item['Source']['Numero']} - {item['Source']['Descricao']}.pdf", "wb") as file:
                 file.write(download.content)
             print("Download concluído")
         print("\n")
